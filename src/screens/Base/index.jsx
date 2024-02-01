@@ -21,6 +21,7 @@ import styles from '../../styles';
 import MessageScreen from '../client/MessageScreen';
 import ProfileScreen from '../client/ProfileScreen';
 import SignupClient from '../AuthFlow/SignupClient';
+import SignupCilentScreen from '../AuthFlow/SignupClientScreen';
 import SignupUser from '../AuthFlow/SignupUser';
 import LoginUser from '../AuthFlow/LoginUser';
 import LoginClient from '../AuthFlow/LoginClient';
@@ -29,6 +30,7 @@ import CallLogScreen from '../user/CallLog';
 import ContactList from '../client/Onboarding/ContactList';
 import ClientGigsScreen from '../user/ClientGigsScreen';
 import ExpandedNewsScreen from '../ExpandedNewsScreen';
+import OTPScreen from '../AuthFlow/OTPScreen';
 
 
 const UserCall = createNativeStackNavigator();
@@ -364,7 +366,9 @@ function AppFlow(){
   return(
     <AppStack.Navigator initialRouteName='Auth' screenOptions={{headerShown: false}}>
       <AppStack.Screen component={AuthFlow} name="Auth" />
-      <AppStack.Screen component={SignupClient} name="SignupUser" />
+      {/* <AppStack.Screen component={SignupClient} name="SignupUser" /> */}
+      <AppStack.Screen component={SignupCilentScreen} name="SignupUser"/>
+      <AppStack.Screen component={OTPScreen} name='OTPScreen'/>
       <AppStack.Screen component={LoginUser} name = "LoginUser" />
       <AppStack.Screen component={ClientFlow} name= "ClientFlow" />
       <AppStack.Screen component={UserFlow} name= "UserFlow" />
@@ -376,6 +380,7 @@ function Base() {
     return (
        <NavigationContainer>
          <Root.Navigator screenOptions={{ headerShown: false }}>
+          <Root.Screen component={AppFlow} name="AppFlow" />
            {/* <Root.Screen component={ClientFlow} name="UserFlow" /> */}
            {/* <Root.Screen component={Onboarding} name="Onboarding" />/ */}
            {/* <Root.Screen component={AuthFlow} name="AuthFlow" /> */}

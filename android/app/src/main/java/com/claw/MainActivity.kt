@@ -1,4 +1,4 @@
-package com.claw
+package com.clawApp
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

@@ -25,7 +25,7 @@ const AuthFlow = () => {
                 Welcome to CLAW!
             </Text>
             <Text style={[styles.textBlack,styles.font_20]}>
-            find your financial and legal partners
+            Find your financial and legal partners
             </Text>
             <Text style={[styles.textBlack,styles.font_20]}>
             effortlessly.
@@ -33,18 +33,19 @@ const AuthFlow = () => {
         </View>
         {/* login signup button */}
         <View style={[styles.alignItemsCenter, styles.alignViewCenter]}>
-            <TouchableOpacity style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter]}>
+            <TouchableOpacity onPress={()=>navigation.navigate('AppFlow',{screen:'SignupUser'})} style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter]}>
                 <Text style={[styles.font_25, styles.textWhite, styles.font_600]}>
                     Hire a CA/ Lawyer
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity 
-                onPress={e=>navigation.navigate('SignupClient')}
+                onPress={()=>navigation.navigate('AppFlow',{screen:'SignupUser'})}
                 style={[styles.signupButton, styles.alignViewCenter, styles.alignItemsCenter]}>
                 <Text style={[styles.font_25, styles.textPrimary, styles.font_600]}>
                     Register as a CA/Lawyer
                 </Text>
             </TouchableOpacity>
+            
         </View>
         
     </View>

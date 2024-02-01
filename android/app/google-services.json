@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1045113378786",
+    "project_id": "clawapp-2b213",
+    "storage_bucket": "clawapp-2b213.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045113378786:android:5e44b1a7c50206f7f3cbbb",
+        "android_client_info": {
+          "package_name": "com.clawApp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArYIW43QB93elimrbauHa12xkf3k6-Rgw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
