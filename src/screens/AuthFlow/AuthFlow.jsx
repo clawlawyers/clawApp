@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native'
 const AuthFlow = () => {
     const navigation = useNavigation();
   return (
-    <View style={[styles.alignViewCenter, styles.alignItemsCenter]}>
+    <View style={[styles.alignViewCenter, styles.alignItemsCenter,{backgroundColor:'#FFFFFF',flex:1}]}>
         <View style={[styles.alignViewCenter, styles.alignItemsCenter]}>
           <Image  
             source={CLAW}
@@ -33,7 +33,7 @@ const AuthFlow = () => {
         </View>
         {/* login signup button */}
         <View style={[styles.alignItemsCenter, styles.alignViewCenter]}>
-            <TouchableOpacity onPress={()=>navigation.navigate('AppFlow',{screen:'SignupUser'})} style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter]}>
+            {/* <TouchableOpacity onPress={()=>navigation.navigate('AppFlow',{screen:'SignupUser'})} style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter]}>
                 <Text style={[styles.font_25, styles.textWhite, styles.font_600]}>
                     Hire a CA/ Lawyer
                 </Text>
@@ -43,6 +43,11 @@ const AuthFlow = () => {
                 style={[styles.signupButton, styles.alignViewCenter, styles.alignItemsCenter]}>
                 <Text style={[styles.font_25, styles.textPrimary, styles.font_600]}>
                     Register as a CA/Lawyer
+                </Text>
+            </TouchableOpacity> */}
+           <TouchableOpacity onPress={()=>navigation.navigate('AppFlow',{screen:'SignupUser'})} style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter]}>
+                <Text style={[styles.font_25, styles.textWhite, styles.font_600]}>
+                    Get Started
                 </Text>
             </TouchableOpacity>
             

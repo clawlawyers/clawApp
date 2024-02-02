@@ -88,13 +88,17 @@ const OTPScreen = (props) => {
             </View> */}
             <View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '80%',flexDirection:'row',marginTop: verticalScale(65),justifyContent:'space-between'}]}>
 
-                <TextInput value='' style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:63,height:63,textAlign:'center',fontSize:15}}/>
+                <TextInput value='' style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:53,height:53,textAlign:'center',fontSize:15}}/>
 
-                <TextInput value='' style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:63,height:63,textAlign:'center',fontSize:15}}/>
+                <TextInput value='' style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:53,height:53,textAlign:'center',fontSize:15}}/>
 
-                <TextInput value='' style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:63,height:63,textAlign:'center',fontSize:15}}/>
+                <TextInput value='' style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:53,height:53,textAlign:'center',fontSize:15}}/>
                 
-                <TextInput value='' style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:63,height:63,textAlign:'center',fontSize:15}}/>
+                <TextInput value='' style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:53,height:53,textAlign:'center',fontSize:15}}/>
+
+                <TextInput value='' style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:53,height:53,textAlign:'center',fontSize:15}}/>
+
+                <TextInput value='' style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:53,height:53,textAlign:'center',fontSize:15}}/>
               
 
             </View>
