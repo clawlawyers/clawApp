@@ -221,6 +221,79 @@ socialIcon:{
   marginHorizontal: horizontalScale(23.5),
   marginTop: verticalScale(35)
 },
+
+pinInput:{
+  borderColor:'rgba(137, 64, 255, 0.3)',
+  borderWidth:1,
+  borderRadius:10,
+  width:moderateScale(53),
+  height:moderateScale(53),
+  textAlign:'center',
+  fontSize:15
+},
+//************Registration Page***************** */
+radioGroup: { 
+  flexDirection: 'row', 
+  alignItems: 'center', 
+  justifyContent: 'space-around', 
+  marginTop: 20, 
+  borderRadius: 8, 
+  backgroundColor: 'white', 
+  padding: 16, 
+  elevation: 4, 
+  shadowColor: '#000', 
+  shadowOffset: { 
+      width: 0, 
+      height: 2, 
+  }, 
+  shadowOpacity: 0.25, 
+  shadowRadius: 3.84, 
+}, 
+radioButton: { 
+  flexDirection: 'row', 
+  alignItems: 'center', 
+}, 
+radioLabel: { 
+  marginLeft: 8, 
+  fontSize: 16, 
+  color: '#333', 
+}, 
+dropdown: {
+  height: 50,
+  borderColor: 'gray',
+  borderWidth: 0.5,
+  borderRadius: 8,
+  paddingHorizontal: 8,
+  color:'black'
+},
+icon: {
+  marginRight: 5,
+  color:'black'
+},
+label: {
+  position: 'absolute',
+  backgroundColor: 'white',
+  left: 22,
+  top: 8,
+  zIndex: 999,
+  paddingHorizontal: 8,
+  fontSize: 14,
+  color:'black'
+},
+placeholderStyle: {
+  fontSize: 16,
+  color:'black'
+},
+selectedTextStyle: {
+  fontSize: 16,
+  color:'black'
+},
+
+inputSearchStyle: {
+  height: 40,
+  fontSize: 16,
+  color:'black'
+},
 //************Client Screens**********************
 //Onboarding
 logoStyle:{

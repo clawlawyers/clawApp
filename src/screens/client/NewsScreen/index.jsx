@@ -3,9 +3,7 @@ import React, {useState, useEffect} from 'react'
 import NewsItem from '../../../components/NewsItem';
 import data from '../../../data/dummy'
 import styles from '../../../styles';
-import Back from '../../../assets/back-icon.png'
 import { useNavigation } from '@react-navigation/native';
-import CLAW from '../../../assets/app-icon.png'
 import { verticalScale } from '../../../styles/mixins';
 
 const NewsScreen = ({isUser}) => {
@@ -29,7 +27,7 @@ const NewsScreen = ({isUser}) => {
    
 
   return (
-    <View style={[styles.alignItemsCenter, styles.alignViewCenter]}>
+    <View style={[styles.alignItemsCenter, styles.alignViewCenter,{backgroundColor:'white'}]}>
         <View style={[styles.alignViewCenter, styles.alignItemsCenter]}>
           <Image  
             source={require('../../../assets/app-icon.png')}

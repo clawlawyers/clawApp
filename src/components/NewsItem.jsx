@@ -11,7 +11,7 @@ const NewsItem = ({news, isOnboarding}) => {
   
   }
  return (
-    <TouchableOpacity style={[styles.newsContainer]} onPress={NewsRedirect}>
+    <TouchableOpacity style={[styles.newsContainer,{width:'100%'}]} onPress={NewsRedirect}>
       <Image
         style={styles.newsImage}
         source={{uri: news.imageUrl}}

@@ -1,41 +1,56 @@
-import { View, Text, Image, Button,TextInput, TouchableOpacity, ToastAndroid } from 'react-native'
-import React, { useState,useEffect } from 'react'
+import { View, Text, Image,TextInput, TouchableOpacity, ToastAndroid } from 'react-native'
+import React, { useState,useEffect, useRef } from 'react'
 import styles from '../../styles'
 import BackIcon from '../../assets/back-button.png'
-import { horizontalScale, moderateScale, verticalScale } from '../../styles/mixins'
-// import Google from '../../assets/google.png'
-// import Facebook from '../../assets/facebook.png'
-// import Apple from '../../assets/apple.png'
-// import Dropdown from '../../components/DropDown'
+import { verticalScale } from '../../styles/mixins'
 
-import { registerUser } from '../../actions/authentication'
+import { registerUser, validatePhoneNumber} from '../../actions/authentication'
 import { changeVariable } from '../../actions/variables'
 
 import { connect } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import auth from '@react-native-firebase/auth';
-import OTPScreen from './OTPScreen'
+
 
 const SignupClientScreen = (props) => {
+
+    //console.log(props);
     const [_phoneNumber, _setphoneNumber] = useState('');
     const [confirm, setConfirm] = useState('');
-    const [code, setCode] = useState('');
-    const navigation = useNavigation()
-    const [no, setno] = useState('');
-    const [otp,setotp] = useState('');
+    const navigation = useNavigation()   
+    const [_otp,_setotp] = useState('');
+    //const [isDisabled, setIsDisabled] = (true);
     
-    //const [confirm, setConfirm] = useState('');
+    const pin1 = useRef();
+    const pin2 = useRef();
+    const pin3 = useRef();
+    const pin4 = useRef();
+    const pin5 = useRef();
+    const pin6 = useRef();
 
-    const handlepno = async() =>{
+    const [pinTxt1, setPintTxt1] = useState('');
+    const [pinTxt2, setPintTxt2] = useState('');
+    const [pinTxt3, setPintTxt3] = useState('');
+    const [pinTxt4, setPintTxt4] = useState('');
+    const [pinTxt5, setPintTxt5] = useState('');
+    const [pinTxt6, setPintTxt6] = useState('');
+
+    const validatePhone = async() =>{
+
+        if(_phoneNumber.length!==10){
+            //alert('Invalid number');
+            ToastAndroid.show('Enter a valid phone number',ToastAndroid.CENTER);
+            return;
+        }
 
         try{
 
-            const pno = '+91'+no;
+            const pno = '+91'+_phoneNumber;
             console.log(pno);
             const res = await auth().signInWithPhoneNumber(pno);
             setConfirm(res);
             console.log(res)
-            alert('otp sent');
+            //alert('otp sent');
             //navigation.navigate('AppFlow',{screen:'OTPScreen'})
 
         }catch(err){
@@ -45,17 +60,27 @@ const SignupClientScreen = (props) => {
         }
     }
 
-    const handleiotp = async() =>{
+    const handleOTP = async() =>{
 
+       
+        const OTP = pinTxt1+pinTxt2+pinTxt3+pinTxt4+pinTxt5+pinTxt6;
+        
         try{
             
-            console.log(otp);
-            const res = await confirm.confirm(otp);
+          
+            const res = await confirm.confirm(OTP);
             console.log(res);
-            alert('sign in successful!');
-            navigation.navigate('ClientFlow',{screen:'NewFlow'})
+           // alert('sign in successful!');
+            // navigation.navigate('ClientFlow',{screen:'NewsFlow'})
+            const data = {
+                phoneNumber: _phoneNumber,
+                verified: true
+            }
+            props.validatePhoneNumber(data,navigation)
 
         }catch(err){
+
+            ToastAndroid.show('Invalid OTP',ToastAndroid.SHORT);
             console.log(err.message)
         }
     }
@@ -101,24 +126,20 @@ const SignupClientScreen = (props) => {
             <View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '80%',flexDirection:'row',justifyContent:'space-between'}]}>
                 <TextInput value='+91' style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:'20%',height:45,textAlign:'center',fontSize:15}}/>
         
-                <TextInput style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,height:45,width:'70%',textAlign:'center',fontSize:15,textAlign:'left',paddingLeft:15}} placeholder='Type in your phone number' value={no} onChangeText={(no) => setno(no)}/>
+                <TextInput 
+                    style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,height:45,width:'75%',textAlign:'center',fontSize:15,textAlign:'left',paddingLeft:15}} placeholder='Type in your phone number' 
+                    value={_phoneNumber} onChangeText={(_phoneNumber) => _setphoneNumber(_phoneNumber)}
+                    keyboardType='number-pad'
+                    maxLength={10}
+                />
             </View>
            
             <TouchableOpacity 
                 style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter]}
-                onPress={()=>handlepno()}
+                onPress={validatePhone}
             >
                 <Text style={[styles.font_25, styles.textWhite, styles.font_600]}>
                     SIGN UP
-                </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity 
-                style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter]}
-                onPress={()=>navigation.navigate('AppFlow',{screen:'OTPScreen'})}
-            >
-                <Text style={[styles.font_25, styles.textWhite, styles.font_600]}>
-                    OTP
                 </Text>
             </TouchableOpacity>
             </View>
@@ -130,7 +151,7 @@ const SignupClientScreen = (props) => {
         <View style={[styles.container, styles.alignItemsCenter,{paddingTop:50}]}>
         <View style={[ {width: '80%'}]}>
             <TouchableOpacity style={[styles.alignItemsLeft, styles.alignViewCenter, {width: '80%'}]}
-                onPress={() => navigation.navigate('AppFlow',{screen:'SignupUser'})}
+                onPress={() => navigation.navigate('AppFlow',{screen:'Auth'})}
             >
                 <Image 
                 source={BackIcon}
@@ -146,45 +167,125 @@ const SignupClientScreen = (props) => {
             Enter OTP
             </Text>
             <Text style={[styles.font_22, styles.font_med, {color: '#5E5C5C'}]}>
-            4 digit code has been send to +91 {no}
+            6 digit code has been send to +91 {_phoneNumber}
             </Text>
             
         </View>
 
-    
-    <View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '80%', marginTop: verticalScale(65)}]}>
-        <TextInput 
-            value={otp}
-            onChangeText={(otp) => setotp(otp)}
-            style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,height:53,width:'100%',textAlign:'center',fontSize:15}}
-        />
-
-    </View>
-
-    <View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '80%',flexDirection:'row',marginTop: verticalScale(65),justifyContent:'space-between'}]}>
+    <View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '80%',flexDirection:'row',marginTop: verticalScale(20),justifyContent:'space-between'}]}>
 
         <TextInput 
-            value='' 
-            style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:53,height:53,textAlign:'center',fontSize:15}}
-            inputMode='number'
+            value={pinTxt1}
+            ref={pin1} 
+            style={styles.pinInput}
+            keyboardType='number-pad'
+            maxLength={1}
+            onChangeText={(pinTxt1) => 
+            {  
+                setPintTxt1(pinTxt1);
+                // _setotp(_otp+pinTxt1);
+                if(pinTxt1.length >=1){
+                pin2.current.focus();
+                }
+            }}
         />
 
-        <TextInput value='' style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:53,height:53,textAlign:'center',fontSize:15}}/>
+        <TextInput 
+            value={pinTxt2} 
+            ref={pin2}
+            style={styles.pinInput}
+            keyboardType='number-pad'
+            maxLength={1}
+            onChangeText={(pinTxt2) => 
+                {  
+                    setPintTxt2(pinTxt2);
+                    // _setotp(_otp+pinTxt2);
+                    if(pinTxt2.length >=1){
+                    pin3.current.focus();
+                    }else if(pinTxt2<1){
+                        pin1.current.focus();
+                    }
+                }}
+        />
 
-        <TextInput value='' style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:53,height:53,textAlign:'center',fontSize:15}}/>
+        <TextInput 
+            value={pinTxt3} 
+            ref={pin3}
+            style={styles.pinInput}
+            keyboardType='number-pad'
+            maxLength={1}
+            onChangeText={(pinTxt3) => 
+                {  
+                    setPintTxt3(pinTxt3);
+                    // _setotp(_otp+pinTxt3);
+                    if(pinTxt3.length >=1){
+                    pin4.current.focus();
+                    }else if(pinTxt3<1){
+                        pin2.current.focus();
+                    }
+                }}
+        />
         
-        <TextInput value='' style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:53,height:53,textAlign:'center',fontSize:15}}/>
+        <TextInput 
+            value={pinTxt4} 
+            ref={pin4}
+            style={styles.pinInput}
+            keyboardType='number-pad'
+            maxLength={1}
+            onChangeText={(pinTxt4) => 
+                {  
+                    setPintTxt4(pinTxt4);
+                    // _setotp(_otp+pinTxt4);
+                    if(pinTxt4.length >=1){
+                    pin5.current.focus();
+                    }else if(pinTxt4<1){
+                        pin3.current.focus();
+                    }
+                }}
+        />
 
-        <TextInput value='' style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:53,height:53,textAlign:'center',fontSize:15}}/>
+        <TextInput 
+            value={pinTxt5}
+            ref={pin5}
+            style={styles.pinInput}
+            keyboardType='number-pad'
+            maxLength={1}
+            onChangeText={(pinTxt5) => 
+                {  
+                    setPintTxt5(pinTxt5);
+                    // _setotp(_otp+pinTxt5);
+                    if(pinTxt5.length >=1){
+                    pin6.current.focus();
+                    }else if(pinTxt5<1){
+                        pin4.current.focus();
+                    }
+                }}
+        />
 
-        <TextInput value='' style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:53,height:53,textAlign:'center',fontSize:15}}/>
+        <TextInput 
+            value={pinTxt6} 
+            ref={pin6}
+            style={styles.pinInput}
+            keyboardType='number-pad'
+            maxLength={1}
+            onChangeText={(pinTxt6) => 
+                {  
+                    setPintTxt6(pinTxt6);
+                    // _setotp(_otp+pinTxt6);
+                    if(pinTxt6.length >=1){
+                        pin6.current.focus();
+                    }else if(pinTxt6<1){
+                        pin5.current.focus();
+                    }
+                }}
+        />
       
 
     </View>
    
     <TouchableOpacity 
         style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter]}
-        onPress={handleiotp}
+        onPress={handleOTP}
     >
         <Text style={[styles.font_25, styles.textWhite, styles.font_600]}>
             Next
@@ -198,5 +299,5 @@ const SignupClientScreen = (props) => {
 
 export default connect(null, {
     changeVariable,
-    registerUser
+    validatePhoneNumber
   })(SignupClientScreen);
