@@ -1,12 +1,12 @@
 import { View, Text, Image, ImageBackground, TouchableOpacity, ScrollView } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styles from '../../../styles'
 import { cases } from '../../../data/cases'
 import { services } from '../../../data/services'
 import StockWP from '../../../assets/stock-wp.jpg'
 import YellowStar from '../../../assets/YellowStar.png';
 import PieChart from 'react-native-pie-chart'
-import Back from '../../../assets/back-icon.png'
+// import Back from '../../../assets/back-icon.png'
 import NameEditIcon from '../../../assets/NameEditIcon.png';
 import SampleProfileImage from '../../../assets/SampleProfileImage.png';
 import ProfileMesssageIcon from '../../../assets/ProfileMesssageIcon.png';
