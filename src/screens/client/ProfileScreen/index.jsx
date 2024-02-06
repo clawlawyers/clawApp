@@ -4,15 +4,18 @@ import styles from '../../../styles'
 import { cases } from '../../../data/cases'
 import { services } from '../../../data/services'
 import StockWP from '../../../assets/stock-wp.jpg'
-import Photo from '../../../assets/photo.jpg'
+import YellowStar from '../../../assets/YellowStar.png';
 import PieChart from 'react-native-pie-chart'
 import Back from '../../../assets/back-icon.png'
 import NameEditIcon from '../../../assets/NameEditIcon.png';
 import SampleProfileImage from '../../../assets/SampleProfileImage.png';
+import ProfileMesssageIcon from '../../../assets/ProfileMesssageIcon.png';
+import ProfileCallIcon from '../../../assets/ProfileCallIcon.png';
 import CaseDetailComponent from '../../../components/CaseDetailComponent'
 import ServiceDetailComponent from '../../../components/ServiceDetailComponent'
 import RatingDetailComponent from '../../../components/RatingDetailComponent'
 import { ratings } from '../../../data/ratings'
+import { moderateScale } from '../../../styles/mixins'
 const ProfileScreen = () => {
   
     const widthAndHeight = 200
@@ -115,6 +118,53 @@ const ProfileScreen = () => {
               </Text>
                 <RatingDetailComponent ratings = {ratings}/>
               </View>
+
+              <View style={{height:1,width:moderateScale(400),alignSelf:'center',backgroundColor:'#f0f0f0',marginVertical:12}}></View>
+
+              {/* Review */}
+              <View style={{width:'100%'}}>
+                <View style={{flexDirection:'row',justifyContent:'space-between',width:'100%',marginTop:10}}>
+                  <View>
+                    <Text style={{color:'black'}}>Kristin Watson</Text>
+                  </View>
+                  <View style={{flexDirection:'row'}}>
+                    <Image source={YellowStar}></Image>
+                    <Image source={YellowStar}></Image>
+                    <Image source={YellowStar}></Image>
+                    <Image source={YellowStar}></Image>
+                    <Image source={YellowStar}></Image>
+                  </View>
+                  
+                </View>
+                <View style={{marginTop:10}}>
+                  <Text style={{color:'#00000099',fontSize:12,lineHeight:18,}}>
+                  Exceptional legal prowess! This lawyer navigated my case with precision, delivering results beyond my expectations. A true legal maestro, I highly recommend their services.
+                  </Text>
+                </View>
+                <View style={{flexDirection:'row',width:'100%',marginTop:10,flex:1,justifyContent:'space-between'}}>
+                  <Text style={{color:'#00000061',fontSize:12}}>Helpul ?</Text>
+                  <Text style={{color:'#00000061',fontSize:12}}>Yes (2) | No (2)</Text>
+                  <Text style={{color:'#00000061',fontSize:12,}}>Nov 09, 2022</Text>
+                </View>
+
+                <View style={{height:1,width:moderateScale(400),alignSelf:'center',backgroundColor:'#f0f0f0',marginVertical:12}}></View>
+
+
+              </View>
+
+              {/* Contact Button */}
+              <View style={{flexDirection:'row',justifyContent:'space-between',width:'100%',marginBottom:20,marginTop:80}}>
+                <TouchableOpacity style={{backgroundColor:'#8940FF',borderRadius:15,paddingVertical:12,paddingHorizontal:22,flexDirection:'row',justifyContent:'center'}}>
+                  <Image source={ProfileMesssageIcon} style={{marginRight:5,marginVertical:2}}/>
+                  <Text style={{color:'white',fontSize:17,fontWeight:'400'}}>Message</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={{backgroundColor:'#8940FF',borderRadius:15,paddingVertical:12,paddingHorizontal:22,flexDirection:'row',justifyContent:'center'}}>
+                  <Image source={ProfileCallIcon} style={{marginRight:5,marginVertical:2}}/>
+                  <Text style={{color:'white',fontSize:17,fontWeight:'400'}}>Call lawyer</Text>
+                </TouchableOpacity>
+              </View>
+              
               
             </View>
           

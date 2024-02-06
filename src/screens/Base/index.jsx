@@ -400,11 +400,11 @@ function NewsFlow(){
 function AppFlow(){
   return(
     <AppStack.Navigator initialRouteName='Auth' screenOptions={{headerShown: false}}>
-      <AppStack.Screen component={AuthFlow} name="Auth" />
+      {/* <AppStack.Screen component={AuthFlow} name="Auth" /> */}
       {/* <AppStack.Screen component={SignupClient} name="SignupUser" /> */}
       
-      <AppStack.Screen component={SignupCilentScreen} name="SignupUser"/>
-      <AppStack.Screen component={SignupLawyer} name="SignupLawyer"/>
+      {/* <AppStack.Screen component={SignupCilentScreen} name="SignupUser"/>
+      <AppStack.Screen component={SignupLawyer} name="SignupLawyer"/> */}
       {/* <AppStack.Screen component={LoginUser} name = "LoginUser" /> */}
       <AppStack.Screen component={ClientFlow} name= "ClientFlow" />
       <AppStack.Screen component={UserFlow} name= "UserFlow" />

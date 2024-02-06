@@ -11,8 +11,8 @@ export default function CaseDetailComponent({cases}) {
         
         <View key={item.id} style={{flexDirection:'row',marginVertical:5}}>
             <View style={{backgroundColor:`${item.color}`,width:20,height:20,borderRadius:4}}></View>
-            <Text style={{fontWeight:'bold',marginHorizontal:8}}>{item.percent}%</Text>
-            <Text>{item.title}</Text>
+            <Text style={{fontWeight:'bold',marginHorizontal:8,color:'black'}}>{item.percent}%</Text>
+            <Text style={{color:'black'}}>{item.title}</Text>
         </View>
         
         )

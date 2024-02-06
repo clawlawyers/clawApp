@@ -124,10 +124,10 @@ const SignupClientScreen = (props) => {
                 </Text>
             </View>
             <View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '80%',flexDirection:'row',justifyContent:'space-between'}]}>
-                <TextInput value='+91' style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:'20%',height:45,textAlign:'center',fontSize:15}}/>
+                <TextInput value='+91' style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:'20%',height:45,textAlign:'center',fontSize:15,color:'black'}}/>
         
                 <TextInput 
-                    style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,height:45,width:'75%',textAlign:'center',fontSize:15,textAlign:'left',paddingLeft:15}} placeholder='Type in your phone number' 
+                    style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,height:45,width:'75%',textAlign:'center',fontSize:15,textAlign:'left',paddingLeft:15,color:'black'}} placeholder='Type in your phone number' 
                     value={_phoneNumber} onChangeText={(_phoneNumber) => _setphoneNumber(_phoneNumber)}
                     keyboardType='number-pad'
                     maxLength={10}

@@ -229,7 +229,8 @@ pinInput:{
   width:moderateScale(53),
   height:moderateScale(53),
   textAlign:'center',
-  fontSize:15
+  fontSize:15,
+  color:'black'
 },
 //************Registration Page***************** */
 radioGroup: { 
