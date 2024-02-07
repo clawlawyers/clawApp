@@ -7,8 +7,11 @@ const NewsItem = ({news, isOnboarding}) => {
   
   const navigation = useNavigation();
   function NewsRedirect(){
-    (isOnboarding)
+    if(isOnboarding)
       navigation.navigate('NewsScreen')
+    if(!isOnboarding){
+      navigation.navigate('NewsDetail',{news:news});
+    }
   
   }
  return (
@@ -20,7 +23,7 @@ const NewsItem = ({news, isOnboarding}) => {
       />
       <View style={[styles.alignViewCenter, styles.alignItemsLeft]}>
         <Text style={[styles.font_20, styles.font_bold, styles.textBlack]}>{news.title}</Text>
-        <Text style={[styles.font_14, styles.marginB_5, styles.textBlack]}>{news.date}, {news.time}</Text>
+        <Text style={[styles.font_14, styles.marginB_5, styles.textBlack]}>{news.publishedAt.slice(0, news.publishedAt.indexOf('T'))}, {news.publishedAt.slice(news.publishedAt.indexOf('T')+1, news.publishedAt.indexOf('.'))} hours</Text>
       </View>
     </TouchableOpacity>
  );

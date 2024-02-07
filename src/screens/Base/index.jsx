@@ -35,6 +35,7 @@ import ClientGigsScreen from '../user/ClientGigsScreen';
 import ExpandedNewsScreen from '../ExpandedNewsScreen';
 import SignupLawyer from '../AuthFlow/SignupLawyer';
 import CustomDrawer from '../../components/CustonDrawer';
+import NewsDetail from '../client/NewsScreen/NewsDetail';
 
 
 const UserCall = createNativeStackNavigator();
@@ -43,6 +44,7 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const Tab2 = createBottomTabNavigator();
 const News = createNativeStackNavigator();
+const NewsStack = createNativeStackNavigator();
 const UserNews = createNativeStackNavigator();
 const AppStack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -273,7 +275,7 @@ function ClientTabNavigator  () {
         
       />
       <Tab.Screen 
-        component={NewsScreen} 
+        component={newsNavigator} 
         name="NewsScreen" 
         options={
           {
@@ -358,6 +360,17 @@ function ClientTabNavigator  () {
 
 }
 
+
+function newsNavigator () {
+  return (
+
+    <NewsStack.Navigator screenOptions={{headerShown:false}}>
+      <NewsStack.Screen component={NewsScreen} name='NewsScreen'/>
+      <NewsStack.Screen component={NewsDetail} name='NewsDetail'/>
+    </NewsStack.Navigator>
+
+  )
+}
 // function ClientDrawerNavigator () {
 
 //   return (
@@ -394,6 +407,7 @@ function NewsFlow(){
       <News.Screen component={ContactList} name="ContactList" />
       <News.Screen component={MessageScreen}
       name='MessageScreen' />
+      <News.Screen component={NewsDetail} name='NewsDetail' />
     </News.Navigator>
 )}
 
