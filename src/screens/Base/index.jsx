@@ -36,6 +36,7 @@ import ExpandedNewsScreen from '../ExpandedNewsScreen';
 import SignupLawyer from '../AuthFlow/SignupLawyer';
 import CustomDrawer from '../../components/CustonDrawer';
 import NewsDetail from '../client/NewsScreen/NewsDetail';
+import EditProfile from '../client/ProfileScreen/EditProfile';
 
 
 const UserCall = createNativeStackNavigator();
@@ -45,6 +46,7 @@ const Tab = createBottomTabNavigator();
 const Tab2 = createBottomTabNavigator();
 const News = createNativeStackNavigator();
 const NewsStack = createNativeStackNavigator();
+const ProflieStack = createNativeStackNavigator();
 const UserNews = createNativeStackNavigator();
 const AppStack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -275,7 +277,7 @@ function ClientTabNavigator  () {
         
       />
       <Tab.Screen 
-        component={newsNavigator} 
+        component={NewsNavigator} 
         name="NewsScreen" 
         options={
           {
@@ -329,7 +331,7 @@ function ClientTabNavigator  () {
         }
       />
       <Tab.Screen 
-        component={ProfileScreen} 
+        component={ProfileNavigator} 
         name="ProfileScreen" 
         options={
           {
@@ -361,7 +363,7 @@ function ClientTabNavigator  () {
 }
 
 
-function newsNavigator () {
+function NewsNavigator () {
   return (
 
     <NewsStack.Navigator screenOptions={{headerShown:false}}>
@@ -371,18 +373,17 @@ function newsNavigator () {
 
   )
 }
-// function ClientDrawerNavigator () {
 
-//   return (
-//     <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props}/>}>
-//      <Drawer.Screen 
-//         component={ClientTabNavigator} name="Home" options={{headerShown:false}}/>
-//         <Drawer.Screen component={LegalGPTScreen} name='Legal GPT' options={{headerShown:false}}/>
-//         <Drawer.Screen component={NewsScreen} name="News" options={{headerShown:false}}/>
-//     </Drawer.Navigator>
-//   )
-// }
+function ProfileNavigator () {
 
+  return(
+  <ProflieStack.Navigator screenOptions={{headerShown:false}}>
+    <ProflieStack.Screen component={ProfileScreen} name='ProfileScreen' />
+    <ProflieStack.Screen component={EditProfile} name='EditProfile' />
+  </ProflieStack.Navigator>
+  )
+  
+}
 
 function ClientFlow(){
   
@@ -392,6 +393,7 @@ function ClientFlow(){
         component={ClientTabNavigator} name="Home" options={{headerShown:false}}/>
         <Drawer.Screen component={LegalGPTScreen} name='Legal GPT' options={{headerShown:false}}/>
         <Drawer.Screen component={NewsScreen} name="News" options={{headerShown:false}}/>
+        <Drawer.Screen component={EditProfile} name='Account' options={{headerShown:false}} />
     </Drawer.Navigator>
     
   )

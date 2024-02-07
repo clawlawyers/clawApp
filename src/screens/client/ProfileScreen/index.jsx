@@ -16,11 +16,14 @@ import ServiceDetailComponent from '../../../components/ServiceDetailComponent'
 import RatingDetailComponent from '../../../components/RatingDetailComponent'
 import { ratings } from '../../../data/ratings'
 import { moderateScale } from '../../../styles/mixins'
+import {useNavigation} from '@react-navigation/native';
+
 const ProfileScreen = () => {
   
     const widthAndHeight = 200
   const series = [10,13,23,35,13,20];
-   const sliceColor = [ '#497AF9', '#789DFB', '#E5E5E5','#497AF9','#789DFB','#E5E5E5']
+   const sliceColor = [ '#497AF9', '#789DFB', '#E5E5E5','#497AF9','#789DFB','#E5E5E5'];
+   const navigation = useNavigation();
 
   // const setPieChart = () => {
 
@@ -62,7 +65,7 @@ const ProfileScreen = () => {
       <View style={{paddingHorizontal:20,marginTop:10}}>
         <View style={[styles.alignViewCenter, styles.alignItemsCenter, {marginTop: 50, width: '100%', flexDirection:'row',marginLeft:10}]}>
           <Text style={{fontSize:20,fontWeight:'400',color:'black'}}>Emily Smith</Text>
-          <TouchableOpacity style={{marginLeft:6}}>
+          <TouchableOpacity style={{marginLeft:6}} onPress={() => navigation.navigate('EditProfile')}>
             <Image source={NameEditIcon} style={{height:20,width:20}} />
           </TouchableOpacity>
           
