@@ -1,13 +1,10 @@
 import { View, Text, Image, TouchableOpacity, TextInput,KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native'
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 import styles from '../../../styles'
 import Robot from '../../../assets/Robot.png';
-import searchIcon from '../../../assets/search-icon.png'
 import NewsItem from '../../../components/NewsItem'
 import data from '../../../data/dummy'
-import { useNavigation } from '@react-navigation/native'
-import CALogo from '../../../assets/ca-logo.png'
-import LawyerLogo from '../../../assets/lawyer-logo.png'
+import { useNavigation, useIsFocused } from '@react-navigation/native'
 import Search from '../../../assets/search-icon.png'
 import MenuIcon from '../../../assets/MenuIcon.png'
 import MessageIcon from '../../../assets/MessageIcon.png'
@@ -15,7 +12,48 @@ import CustomerServiceIcon from '../../../assets/CustomerServiceIcon.png'
 const Onboarding = () => {
 
   const navigation = useNavigation();
-  // console.log(navigation);
+  const isFocused = useIsFocused();
+  const [news, setNews] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  const getNews = async() => {
+
+      var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "type": 0
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    const res = await fetch("https://claw-backend.onrender.com/api/v1/news", requestOptions);
+
+    const response = await res.json();
+    const response2 = response.data;
+
+    let newsData = [];
+
+      response2.map((item) =>{
+        newsData.push(item);
+      })
+
+      console.log('News data @@', newsData[0]);
+      setNews(newsData[0]);
+      console.log(news);
+      setIsLoading(false);
+    
+  }
+
+  useEffect(() => {
+
+    getNews();
+  },[isFocused]);
+ 
   return (
     // <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{flex:1, }}>
       <TouchableWithoutFeedback onPress={e=> Keyboard.dismiss()}>
@@ -70,9 +108,7 @@ const Onboarding = () => {
                 <View style={[styles.alignViewCenter,styles.alignItemsCenter]}>
                     
                 </View>
-                {/* <View style={[styles.alignViewCenter,styles.alignItemsCenter]}>
-                    <Text style={[styles.font_23, styles.font_med,styles.textWhite]}>{'Accountant)'}</Text>
-                </View> */}
+               
             
               <Image 
                 source={CustomerServiceIcon}
@@ -94,7 +130,7 @@ const Onboarding = () => {
             onPress={(e)=> navigation.navigate('News')}
             style={[styles.newsBox, styles.alignViewCenter, styles.alignItemsCenter,{width:'100%'}]} 
           >
-                <NewsItem news={data['data'][0]} isOnboarding={true} />
+                {isLoading?null:<NewsItem news={news} isOnboarding={true} />}
           </TouchableOpacity>
 
           <TouchableOpacity

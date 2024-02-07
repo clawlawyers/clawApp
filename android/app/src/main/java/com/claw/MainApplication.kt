@@ -1,4 +1,4 @@
-package com.clawApp
+package com.clawlawyers
 
 import android.app.Application
 import com.facebook.react.PackageList

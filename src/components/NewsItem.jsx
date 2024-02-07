@@ -4,6 +4,7 @@ import styles from '../styles';
 import { useNavigation } from '@react-navigation/native';
 
 const NewsItem = ({news, isOnboarding}) => {
+  
   const navigation = useNavigation();
   function NewsRedirect(){
     (isOnboarding)
