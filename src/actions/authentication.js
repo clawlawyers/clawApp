@@ -1,6 +1,6 @@
 import { baseUrl,verifyUrl } from './variables';
 import { CHANGEVARIABLE } from './type';
-import { storeData } from './async-storage';
+import { fetchData, storeData } from './async-storage';
 import { Alert } from 'react-native';
 // import { useNavigation } from '@react-navigation/native';
 // import auth from '@react-native-firebase/auth';
@@ -46,9 +46,11 @@ import { Alert } from 'react-native';
     console.log('res',response);
     if(response.success){
 
+      //storeData()
+      storeData('userId',response.data.jwt);
       navigation.navigate('ClientFlow');
     }else{
-      Alert.alert('error');
+      Alert.alert('Something went wrong!');
     }
     }catch(err){
       console.log('err',err);
@@ -74,6 +76,8 @@ import { Alert } from 'react-native';
         .then(responseJson => {
           if (responseJson.success) {
             // storeData('userStatus', 'details_complete');
+            storeData('userId',responseJson.data.jwt);
+            
             console.log('api res', responseJson);
             console.log("Registration successful");
             if(responseJson.data.registered){
@@ -96,6 +100,21 @@ import { Alert } from 'react-native';
     
 }
 
+const localSigninHelper = async({navigation}) =>{
+
+  console.log('first')
+  const userId = fetchData('userId');
+
+  if(userId){
+
+    navigation.navigate('ClientFlow');
+  }else{
+
+    navigation.navigate('SignupFlow');
+  }
+
+}
+
   export const registerUser = (data, navigation) => dispatch => {
     registerUserHelper({ data,navigation, dispatch });
   };
@@ -103,4 +122,9 @@ import { Alert } from 'react-native';
   export const validatePhoneNumber = (data, navigation) => dispatch=> {
 
     phoneVerificationHelper({data,navigation,dispatch});
+  }
+
+  export const localSignIn = (navigation) => dispatch => {
+
+    localSigninHelper({ navigation, dispatch});
   }

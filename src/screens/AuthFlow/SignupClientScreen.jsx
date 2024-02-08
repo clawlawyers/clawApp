@@ -4,9 +4,8 @@ import styles from '../../styles'
 import BackIcon from '../../assets/back-button.png'
 import { verticalScale } from '../../styles/mixins'
 
-import { registerUser, validatePhoneNumber} from '../../actions/authentication'
+import { validatePhoneNumber} from '../../actions/authentication'
 import { changeVariable } from '../../actions/variables'
-
 import { connect } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import auth from '@react-native-firebase/auth';
@@ -14,7 +13,7 @@ import auth from '@react-native-firebase/auth';
 
 const SignupClientScreen = (props) => {
 
-    //console.log(props);
+    console.log(props);
     const [_phoneNumber, _setphoneNumber] = useState('');
     const [confirm, setConfirm] = useState('');
     const navigation = useNavigation()   

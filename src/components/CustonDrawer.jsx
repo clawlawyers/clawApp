@@ -14,10 +14,20 @@ import {
   } from '@react-navigation/drawer';
 import { Image,View,Text } from 'react-native';
 import { StyleSheet } from 'react-native';
+import { fetchData, removeData } from '../actions/async-storage';
   
   function CustomDrawer(props) {
 
     const navigation = useNavigation();
+    const logout = () => {
+
+      console.log(fetchData('userId'));
+      removeData('userId');
+      navigation.navigate('InitialLandingScreen');
+      console.log('logged out');
+      console.log(fetchData('userId'));
+    }
+
     return (
       <DrawerContentScrollView {...props} 
         style={{backgroundColor:'#bb91ff'}}
@@ -58,7 +68,7 @@ import { StyleSheet } from 'react-native';
         />
         <DrawerItem 
             label='Log out' 
-            onPress={() => navigation.navigate('AppFlow')}
+            onPress={logout}
             icon={() => <Image source={MenuLogoutIcon}/>}
             labelStyle={styles.labelStyle}
             style={styles.drawerItemStyle}
