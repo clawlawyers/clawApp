@@ -53,9 +53,12 @@ const SignupClientScreen = (props) => {
             //navigation.navigate('AppFlow',{screen:'OTPScreen'})
 
         }catch(err){
-            
+            console.log(err)
+            if( (err.message)=='[auth/too-many-requests] We have blocked all requests from this device due to unusual activity. Try again later.')
+            ToastAndroid.show("Too many requests, try again later!",ToastAndroid.SHORT);
+            else
             ToastAndroid.show("Couldn't complete request, try again later!",ToastAndroid.SHORT);
-            console.log(err.message);
+           ;
         }
     }
 
@@ -93,7 +96,7 @@ const SignupClientScreen = (props) => {
             <View style={[styles.container, styles.alignItemsCenter,{paddingTop:50}]}>
                 <View style={[ {width: '80%'}]}>
                     <TouchableOpacity style={[styles.alignItemsLeft, styles.alignViewCenter, {width: '80%'}]}
-                        onPress={() => navigation.navigate('AppFlow',{screen:'Auth'})}
+                        onPress={() => navigation.navigate('Auth')}
                     >
                         <Image 
                         source={BackIcon}
@@ -150,7 +153,7 @@ const SignupClientScreen = (props) => {
         <View style={[styles.container, styles.alignItemsCenter,{paddingTop:50}]}>
         <View style={[ {width: '80%'}]}>
             <TouchableOpacity style={[styles.alignItemsLeft, styles.alignViewCenter, {width: '80%'}]}
-                onPress={() => navigation.navigate('AppFlow',{screen:'Auth'})}
+                onPress={() => navigation.navigate('Auth')}
             >
                 <Image 
                 source={BackIcon}

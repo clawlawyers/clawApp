@@ -14,24 +14,24 @@ import { registerUser } from '../../actions/authentication';
 const  SignupLawyer = (props) => {
     
     const data = states;
-    const {phoneNumber} = route.params;
-    //const phoneNumber='7880982076'
+    //const {phoneNumber} = props.route.params;
+    const phoneNumber='7880982076'
     console.log(phoneNumber);
     const [cityData, setCityData] = useState([]);
     const navigation = useNavigation()   
     const radioButtons = useMemo(() => ([
         {
-            id: 1, 
+            id: 'male', 
             label: 'Male',
             value: 'option1'
         },
         {
-            id: 2,
+            id: 'female',
             label: 'Female',
             value: 'option2'
         },
         {
-            id :3,
+            id :'others',
             label:'Others',
             value:'Others'
         }
@@ -101,18 +101,18 @@ const  SignupLawyer = (props) => {
     const submitDetails = () =>{
 
 
-        console.log('selectedid',selectedId);
-        if(selectedId==1){
-            _setGender('male');
-        }else if(selectedId==2){
-            _setGender('female');
-        }else{
-            _setGender('others');
-        }
+        // console.log('selectedid',selectedId);
+        // if(selectedId==1){
+        //     _setGender('male');
+        // }else if(selectedId==2){
+        //     _setGender('female');
+        // }else{
+        //     _setGender('others');
+        // }
 
         if (_fname=='' || _lname =='' || _gender=='' || _email=='' || _idState=='' || _idnum=='' || _year=='' || _state=='' || _city=='' || _pincode=='' || _photo=='' || phoneNumber=='')
         {
-            //console.log(data);
+            // console.log(_fname, _lname , _gender, _email, _idState, _idnum, _year,_state,_city, _pincode, _photo, phoneNumber);
             ToastAndroid.show('One or more fields are empty!',ToastAndroid.CENTER);
             return;
         }
@@ -163,7 +163,7 @@ const  SignupLawyer = (props) => {
                             First Name <Text style={{color:'red'}}>*</Text>
                     </Text>
                     <TextInput 
-                        style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,height:45,textAlign:'center',fontSize:15,textAlign:'left',paddingLeft:15,marginTop:5}} 
+                        style={styles2.textInput} 
                         placeholder='Type your first name'
                         value={_fname}
                         onChangeText={(_fname) => _setFname(_fname)} 
@@ -177,7 +177,7 @@ const  SignupLawyer = (props) => {
                             Last Name <Text style={{color:'red'}}>*</Text>
                     </Text>
                     <TextInput 
-                    style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,height:45,textAlign:'center',fontSize:15,textAlign:'left',paddingLeft:15,marginTop:5}} 
+                    style={styles2.textInput} 
                     placeholder='Type your last name' 
                     value={_lname}
                         onChangeText={(_lname) => _setLname(_lname)}                    
@@ -192,9 +192,10 @@ const  SignupLawyer = (props) => {
                     
                     <RadioGroup 
                         radioButtons={radioButtons} 
-                        onPress={setSelectedId}
-                        selectedId={selectedId}
+                        onPress={_setGender}
+                        selectedId={_gender}
                         layout='row'
+                        labelStyle={{color:'black'}}
                     />
                
                 </View>
@@ -204,7 +205,7 @@ const  SignupLawyer = (props) => {
                             E-mail <Text style={{color:'red'}}>*</Text>
                     </Text>
                     <TextInput 
-                        style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,height:45,textAlign:'center',fontSize:15,textAlign:'left',paddingLeft:15,marginTop:5}} 
+                        style={styles2.textInput} 
                         placeholder='Type your e-mail id'
                         value={_email}
                         onChangeText={(_email) => _setEmail(_email)}     
@@ -220,7 +221,7 @@ const  SignupLawyer = (props) => {
                         <View style={{width:'28%'}}>
                             <Text style={[styles.font_15,{color:'black'} ]}>State</Text>
                             <TextInput 
-                                style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,height:45,textAlign:'center',fontSize:15,textAlign:'left',paddingLeft:15,marginTop:5}} 
+                                style={styles2.textInput} 
                                 placeholder='State'
                                 value={_idState}
                                 onChangeText={(_idState) => _setidState(_idState)}
@@ -230,7 +231,7 @@ const  SignupLawyer = (props) => {
                         <View  style={{width:'34%'}}>
                             <Text style={[styles.font_15,{color:'black'} ]}>ID No.</Text>
                             <TextInput 
-                                style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,height:45,textAlign:'center',fontSize:15,textAlign:'left',paddingLeft:15,marginTop:5}} placeholder='928172'
+                                style={styles2.textInput} placeholder='928172'
                                 value={_idnum}
                                 onChangeText={(_idnum) => _setIdnum(_idnum)}
                                 keyboardType='number-pad'                   
@@ -239,7 +240,7 @@ const  SignupLawyer = (props) => {
                         <View  style={{width:'28%'}}>
                             <Text style={[styles.font_15,{color:'black'} ]}>Year</Text>
                             <TextInput 
-                                style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,height:45,textAlign:'center',fontSize:15,textAlign:'left',paddingLeft:15,marginTop:5}} 
+                                style={styles2.textInput} 
                                 placeholder='2005' 
                                 value={_year}
                                 onChangeText={(_year) => _setYear(_year)}
@@ -261,7 +262,7 @@ const  SignupLawyer = (props) => {
                     
                         <TouchableOpacity onPress={handleChoosePhoto} style={{zIndex:2,position:'absolute',alignItems:'center'}}>
                             <Image source={require('../../assets/CameraIcon.png')} height={60} width={60}/>
-                            <Text>Upload your image</Text>
+                            <Text style={{color:'black'}}>Upload your image</Text>
                         </TouchableOpacity>
                     </View>
                                        
@@ -278,6 +279,8 @@ const  SignupLawyer = (props) => {
                     placeholderStyle={styles2.placeholderStyle}
                     selectedTextStyle={styles2.selectedTextStyle}
                     inputSearchStyle={styles2.inputSearchStyle}
+                    labelStyle={{color:'black'}}
+                    itemTextStyle={{color:'black'}}
                     data={data}
                     maxHeight={300}
                     labelField="stateName"
@@ -304,6 +307,8 @@ const  SignupLawyer = (props) => {
                     placeholderStyle={styles2.placeholderStyle}
                     selectedTextStyle={styles2.selectedTextStyle}
                     inputSearchStyle={styles2.inputSearchStyle}
+                    labelStyle={{color:'black'}}
+                    itemTextStyle={{color:'black'}}
                     data={cityData}
                     maxHeight={300}
                     labelField="cityName"
@@ -326,7 +331,7 @@ const  SignupLawyer = (props) => {
                     Pincode <Text style={{color:'red'}}>*</Text>
                     </Text>
                     <TextInput 
-                    style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,height:45,textAlign:'center',fontSize:15,textAlign:'left',paddingLeft:15,marginTop:5}} 
+                    style={styles2.textInput} 
                     placeholder='Enter your pincode'
                     keyboardType='number-pad'
                     maxLength={6}
@@ -356,12 +361,14 @@ const styles2 = StyleSheet.create({
     inputLabel:{
 
         fontSize: 15,
-        color:'white'
+        color:'white',
+        color:'black'
     },
     input : {
         borderColor: 'grey',
         marginTop:10,
-        color:'white'    
+        color:'white',
+        color:'black'    
     },
    
     signupLink:{
@@ -374,6 +381,7 @@ const styles2 = StyleSheet.create({
         flex:1,
         justifyContent: 'center',
         backgroundColor: 'black',
+        color:'black'
     },
     dropdown: {
         height: 50,
@@ -381,10 +389,12 @@ const styles2 = StyleSheet.create({
         borderWidth: 0.5,
         borderRadius: 8,
         paddingHorizontal: 8,
-        marginTop:20
+        marginTop:20,
+        color:'black'
       },
       icon: {
         marginRight: 5,
+        color:'black'
       },
       label: {
         position: 'absolute',
@@ -394,20 +404,25 @@ const styles2 = StyleSheet.create({
         zIndex: 999,
         paddingHorizontal: 8,
         fontSize: 14,
+        color:'black'
       },
       placeholderStyle: {
         fontSize: 16,
+        color:'black'
       },
       selectedTextStyle: {
         fontSize: 16,
+        color:'black'
       },
       iconStyle: {
         width: 20,
         height: 20,
+        color:'black'
       },
       inputSearchStyle: {
         height: 40,
         fontSize: 16,
+        color:'black'
       },
     heading : {
 
@@ -415,7 +430,8 @@ const styles2 = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         marginBottom:30,
-        marginTop:60
+        marginTop:60,
+        color:'black'
 
     },
     errorMessage : {
@@ -424,6 +440,18 @@ const styles2 = StyleSheet.create({
         color:'red',
         textAlign:'center'
     },
+    textInput:{
+        borderColor:'rgba(137, 64, 255, 0.3)',
+        borderWidth:1,
+        borderRadius:10,
+        height:45,
+        textAlign:'center',
+        fontSize:15,
+        textAlign:'left',
+        paddingLeft:15,
+        marginTop:5,
+        color:'black'
+    }
 
 })
 

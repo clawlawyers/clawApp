@@ -16,45 +16,45 @@ import { Alert } from 'react-native';
     //   password: data.password
     // };
     // console.log(body)
-    // console.log('data'  , data);
+    // // console.log('data'  , data);
 
-    //console.log('data.cno',typeofdata.barCouncilNo);
-    console.log('helper data',data);
-    var formdata = new FormData();
-    formdata.append("firstName", data.firstName); 
-    formdata.append("lastName", data.lastName); 
-    formdata.append("gender", data.gender); 
-    formdata.append("email", data.email); 
-    formdata.append("barCouncilState", data.barCouncilState);
-    formdata.append("barCouncilNo", Number(data.barCouncilNo)); 
-    formdata.append("barCouncilYear", data.barCouncilYear); 
-    formdata.append("state", data.state); 
-    formdata.append("city", data.city); 
-    formdata.append("pincode", data.pincode); 
-    formdata.append("uploaded_id", data.photo); 
-    formdata.append("phoneNumber", data.phoneNumber);
-    console.log('form data', formdata);
-    var requestOptions = {
-      method: 'POST',
-      body: formdata,
-      redirect : 'follow'
+    // //console.log('data.cno',typeofdata.barCouncilNo);
+    // console.log('helper data',data);
+    // var formdata = new FormData();
+    // formdata.append("firstName", data.firstName); 
+    // formdata.append("lastName", data.lastName); 
+    // formdata.append("gender", data.gender); 
+    // formdata.append("email", data.email); 
+    // formdata.append("barCouncilState", data.barCouncilState);
+    // formdata.append("barCouncilNo", Number(data.barCouncilNo)); 
+    // formdata.append("barCouncilYear", data.barCouncilYear); 
+    // formdata.append("state", data.state); 
+    // formdata.append("city", data.city); 
+    // formdata.append("pincode", data.pincode); 
+    // formdata.append("uploaded_id", data.photo); 
+    // formdata.append("phoneNumber", data.phoneNumber);
+    // console.log('form data', formdata);
+    // var requestOptions = {
+    //   method: 'POST',
+    //   body: formdata,
+    //   redirect : 'follow'
      
-    };
+    // };
     
-    try{const res = await fetch("https://claw-backend.onrender.com/api/v1/user/signup", requestOptions);
-    const response = await res.json();
-    console.log('res',response);
-    if(response.success){
+    // try{const res = await fetch("https://claw-backend.onrender.com/api/v1/user/signup", requestOptions);
+    // const response = await res.json();
+    // console.log('res',response);
+    // if(response.success){
 
-      //storeData()
-      storeData('userId',response.data.jwt);
-      navigation.navigate('ClientFlow');
-    }else{
-      Alert.alert('Something went wrong!');
-    }
-    }catch(err){
-      console.log('err',err);
-    }
+    //   //storeData()
+    //   storeData('userId',response.data.jwt);
+    //   navigation.navigate('ClientFlow');
+    // }else{
+    //   Alert.alert('Something went wrong!');
+    // }
+    // }catch(err){
+    //   console.log('err',err);
+    // }
      
   };
   
@@ -83,7 +83,7 @@ import { Alert } from 'react-native';
             if(responseJson.data.registered){
               navigation.navigate('ClientFlow')
             }else{
-              navigation.navigate('AppFlow',{screen:'SignupLawyer',params:{phoneNumber:data.phoneNumber}})
+              navigation.navigate('SignupLawyer',{phoneNumber:data.phoneNumber})
             }
           }
           else{
