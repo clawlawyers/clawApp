@@ -3,7 +3,6 @@ import React,{useEffect, useState} from 'react'
 import styles from '../../../styles'
 import Robot from '../../../assets/Robot.png';
 import NewsItem from '../../../components/NewsItem'
-import data from '../../../data/dummy'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import Search from '../../../assets/search-icon.png'
 import MenuIcon from '../../../assets/MenuIcon.png'

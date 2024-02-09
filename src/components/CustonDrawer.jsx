@@ -9,7 +9,6 @@ import SampleProfileImage from '../assets/SampleProfileImage.png'
 import MenuArrow from '../assets/MenuArrow.png';
 import {
     DrawerContentScrollView,
-    DrawerItemList,
     DrawerItem
   } from '@react-navigation/drawer';
 import { Image,View,Text } from 'react-native';

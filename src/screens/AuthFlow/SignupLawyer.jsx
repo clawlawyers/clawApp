@@ -14,8 +14,8 @@ import { registerUser } from '../../actions/authentication';
 const  SignupLawyer = (props) => {
     
     const data = states;
-    //const {phoneNumber} = props.route.params;
-    const phoneNumber='7880982076'
+    const {phoneNumber} = props.route.params;
+   // const phoneNumber='7880982076'
     console.log(phoneNumber);
     const [cityData, setCityData] = useState([]);
     const navigation = useNavigation()   

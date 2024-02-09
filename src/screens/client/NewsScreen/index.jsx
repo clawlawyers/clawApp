@@ -1,14 +1,14 @@
-import { View, Text, ScrollView, Touchable, TouchableOpacity,Image } from 'react-native'
+import { View, Text, ScrollView, Image, Touchable, TouchableOpacity, StyleSheet } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import NewsItem from '../../../components/NewsItem';
-import data from '../../../data/dummy'
+
 import styles from '../../../styles';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { verticalScale } from '../../../styles/mixins';
 
 const NewsScreen = ({isUser}) => {
     const [newsData,setNewsData] = useState([]);
-    const navigation = useNavigation();
+    const [newsType, setNewType] = useState(0);
     const isFocused = useIsFocused();  
   const getNews = async() => {
 
@@ -16,7 +16,7 @@ const NewsScreen = ({isUser}) => {
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      "type": 0
+      "type": newsType
     });
 
     var requestOptions = {
@@ -44,7 +44,7 @@ const NewsScreen = ({isUser}) => {
   useEffect(() => {
 
     getNews();
-  },[isFocused]);
+  },[isFocused,newsType]);
 
   return (
     <View style={[styles.alignItemsCenter, styles.alignViewCenter,{backgroundColor:'white'}]}>
@@ -57,8 +57,18 @@ const NewsScreen = ({isUser}) => {
         <View style={[styles.alignViewCenter, styles.alignItemsLeft]}>
           <Text style={[styles.textBlack, styles.font_700, styles.font_25,]}> Latest News </Text>
         </View>
+        <View style={{flexDirection:'row',borderBottomWidth:1,borderColor:'#D9D9D9'}}>
+           <TouchableOpacity style={newsType==0 ? styles2.activeNewsTab: styles2.inactiveNewsTab} onPress={()=>setNewType(0)}>
+             <Text style={newsType==0 ? {color:'white'}: {color:'black'}}>Financial</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={newsType==1 ? styles2.activeNewsTab: styles2.inactiveNewsTab} onPress={()=>setNewType(1)}>
+              <Text style={newsType==1 ? {color:'white'}: {color:'black'}}>Legal</Text>
+            </TouchableOpacity>
+        </View>
+       
         <ScrollView 
           showsVerticalScrollIndicator={false}
+          style={{marginBottom:70}}
         >
       {newsData.map((item) => {
         //console.log(news)
@@ -69,5 +79,25 @@ const NewsScreen = ({isUser}) => {
     </View>
   )
 }
+
+const styles2 = StyleSheet.create({
+
+  activeNewsTab :{
+    alignItems:'center',
+    width:'50%',
+    backgroundColor:'#8940FF',
+     borderRightWidth:1,
+     borderColor:'#D9D9D9', 
+     padding:10},
+
+  inactiveNewsTab :{
+    alignItems:'center',
+    width:'50%', 
+    borderRightWidth:1, 
+    padding:10,
+    borderColor:'#D9D9D9'
+  }
+
+})
 
 export default NewsScreen

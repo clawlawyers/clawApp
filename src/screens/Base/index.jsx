@@ -16,20 +16,19 @@ import CallUnselected from '../../assets/CallUnselected.png'
 import CallSelected from '../../assets/CallSelected.png'
 import ProfileUnSelected from '../../assets/profile-icon-unselected.png'
 import ProfileSelected from '../../assets/profile-icon-selected.png'
-import UserOnboarding from '../user/Onboarding';
+import RegisterSplashScreen from '../AuthFlow/RegisterSplashScreen';
 import AuthFlow from '../AuthFlow/AuthFlow';
 import styles from '../../styles';
 import MessageScreen from '../client/MessageScreen';
 import ProfileScreen from '../client/ProfileScreen';
 import SignupCilentScreen from '../AuthFlow/SignupClientScreen';
-import CallLogScreen from '../user/CallLog';
+
 import ContactList from '../client/Onboarding/ContactList';
 import ExpandedNewsScreen from '../ExpandedNewsScreen';
 import SignupLawyer from '../AuthFlow/SignupLawyer';
 import CustomDrawer from '../../components/CustonDrawer';
 import NewsDetail from '../client/NewsScreen/NewsDetail';
 import EditProfile from '../client/ProfileScreen/EditProfile';
-import { fetchData } from '../../actions/async-storage';
 import InitialLandingScreen from './InitialLandingScreen';
 
 
@@ -418,49 +417,14 @@ function SignupFlow  ()  {
       <Stack.Screen component={AuthFlow} name="Auth" />      
       <Stack.Screen component={SignupCilentScreen} name="SignupUser"/>
       <Stack.Screen component={SignupLawyer} name="SignupLawyer"/>
-      <AppStack.Screen component={ClientFlow} name= "ClientFlow" />
+      {/* <Stack.Screen component={RegisterSplashScreen} name='RegisterSpashScreen' /> */}
+      <Stack.Screen component={ClientFlow} name= "ClientFlow" />
       
     </Stack.Navigator>
   )
 
  
 }
-
-// function AppFlow(){
-
-//   const [Activeuser, setUser] = useState(null);
-
-//   const getActiveUser = async() => {
-
-//     const user = await fetchData('userId');
-//     if(user){
-//       console.log('user',user);
-//       setUser(user);
-//       console.log('active',Activeuser)
-//     }
-   
-//   }
-
-//   useEffect(() => {
-//    console.log('useff',fetchData('userId'))
-//    getActiveUser();
-//    console.log(Activeuser)
-//   },[]);
-
-//   return(
-
-    
-//     <AppStack.Navigator initialRouteName='Auth' screenOptions={{headerShown: false}} >
-//      {Activeuser? 
-//       <AppStack.Screen component={ClientFlow} name= "ClientFlow" />:<AppStack.Screen component={SignupFlow} name="Auth" />      
-//      }
-//       {/* <AppStack.Screen component={UserFlow} name= "UserFlow" /> */}
-//        {/* <AppStack.Screen component={SignupCilentScreen} name="SignupUser"/>
-//       <AppStack.Screen component={SignupLawyer} name="SignupLawyer"/> */}
-//       {/* <AppStack.Screen component={LoginUser} name = "LoginUser" /> */}
-//     </AppStack.Navigator>
-//   )
-// }
 
 function AppFlow () {
 
@@ -481,18 +445,8 @@ function Base() {
        <NavigationContainer>
          <Root.Navigator screenOptions={{ headerShown: false }}>
          <Root.Screen component={AppFlow} name="AppFlow" />
-        <Root.Screen component={ExpandedNewsScreen} name="ExpandedNewsScreen" />
-        
-          
-           
-        
-           {/* <Root.Screen component={ClientFlow} name="UserFlow" /> */}
-           {/* <Root.Screen component={Onboarding} name="Onboarding" />/ */}
-           {/* <Root.Screen component={AuthFlow} name="AuthFlow" /> */}
-           {/* <Root.Screen component={UserFlow} name="UserFlow" /> */}
-           {/* <Root.Screen component={ClientFlow} name="ClientFlow" /> */}
-           {/* <Root.Screen component={SignupClient} name="SignupClient" /> */}
-          
+        {/* <Root.Screen component={ExpandedNewsScreen} name="ExpandedNewsScreen" /> */}       
+                 
          </Root.Navigator>
        </NavigationContainer>
     );

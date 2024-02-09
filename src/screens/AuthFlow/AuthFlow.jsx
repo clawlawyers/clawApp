@@ -5,7 +5,7 @@ import CLAW from '../../assets/app-icon.png'
 import { verticalScale } from '../../styles/mixins'
 import Graphic from '../../assets/start-screen-img.png'
 import { useNavigation } from '@react-navigation/native'
-import { localSignIn } from '../../actions/authentication'
+
 const AuthFlow = () => {
  
     const navigation = useNavigation();
@@ -34,18 +34,7 @@ const AuthFlow = () => {
         </View>
         {/* login signup button */}
         <View style={[styles.alignItemsCenter, styles.alignViewCenter]}>
-            {/* <TouchableOpacity onPress={()=>navigation.navigate('AppFlow',{screen:'SignupUser'})} style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter]}>
-                <Text style={[styles.font_25, styles.textWhite, styles.font_600]}>
-                    Hire a CA/ Lawyer
-                </Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-                onPress={()=>navigation.navigate('AppFlow',{screen:'SignupUser'})}
-                style={[styles.signupButton, styles.alignViewCenter, styles.alignItemsCenter]}>
-                <Text style={[styles.font_25, styles.textPrimary, styles.font_600]}>
-                    Register as a CA/Lawyer
-                </Text>
-            </TouchableOpacity> */}
+           
            <TouchableOpacity onPress={()=>navigation.navigate('SignupUser')} style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter]}>
                 <Text style={[styles.font_25, styles.textWhite, styles.font_600]}>
                     Get Started
