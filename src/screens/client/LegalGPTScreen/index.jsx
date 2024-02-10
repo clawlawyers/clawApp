@@ -54,7 +54,7 @@ const LegalGPTScreen = ({isUser}) => {
         <View style={{borderWidth:1,borderColor:'#8940FF60',borderRadius:10,width:'100%',flexDirection:'row',padding:5,height:52}}>
           <TextInput placeholder='Message GPT...' style={{width:'85%'}} />
           <TouchableOpacity style={{backgroundColor:'#8940FF',width:'15%',justifyContent:'center',alignItems:'center',borderRadius:10}}>
-            <Image source={GPTSendIcon} />
+            <Image source={GPTSendIcon} width={10} height={10}/>
           </TouchableOpacity>
         </View>
         

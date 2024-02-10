@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, Image, Touchable, TouchableOpacity, StyleSheet } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import NewsItem from '../../../components/NewsItem';
-
+import { BarIndicator} from 'react-native-indicators';
 import styles from '../../../styles';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { verticalScale } from '../../../styles/mixins';
@@ -47,7 +47,7 @@ const NewsScreen = ({isUser}) => {
   },[isFocused,newsType]);
 
   return (
-    <View style={[styles.alignItemsCenter, styles.alignViewCenter,{backgroundColor:'white'}]}>
+    <View style={[styles.alignItemsCenter, styles.alignViewCenter,{backgroundColor:'white',flex:1}]}>
         <View style={[styles.alignViewCenter, styles.alignItemsCenter]}>
           <Image  
             source={require('../../../assets/app-icon.png')}
@@ -66,16 +66,19 @@ const NewsScreen = ({isUser}) => {
             </TouchableOpacity>
         </View>
        
-        <ScrollView 
+       {newsData.length>0? <ScrollView 
           showsVerticalScrollIndicator={false}
-          style={{marginBottom:70}}
+          // style={{marginBottom:70}}
         >
       {newsData.map((item) => {
         //console.log(news)
         return(
         <NewsItem key={item._id} news={item} isOnboarding={false}/>
       )})}
-      </ScrollView>
+      </ScrollView> : 
+      <View><BarIndicator color='#D9D9D9' size='50'/></View>
+       
+      }
     </View>
   )
 }

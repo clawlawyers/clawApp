@@ -8,6 +8,7 @@ import Search from '../../../assets/search-icon.png'
 import MenuIcon from '../../../assets/MenuIcon.png'
 import MessageIcon from '../../../assets/MessageIcon.png'
 import CustomerServiceIcon from '../../../assets/CustomerServiceIcon.png'
+import { BarIndicator } from 'react-native-indicators';
 const Onboarding = () => {
 
   const navigation = useNavigation();
@@ -129,7 +130,7 @@ const Onboarding = () => {
             onPress={(e)=> navigation.navigate('News')}
             style={[styles.newsBox, styles.alignViewCenter, styles.alignItemsCenter,{width:'100%'}]} 
           >
-                {isLoading?null:<NewsItem news={news} isOnboarding={true} />}
+                {isLoading?<View><BarIndicator color='#D9D9D9' size='40'/></View>:<NewsItem news={news} isOnboarding={true} />}
           </TouchableOpacity>
 
           <TouchableOpacity

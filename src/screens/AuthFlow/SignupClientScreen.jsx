@@ -3,7 +3,7 @@ import React, { useState,useEffect, useRef } from 'react'
 import styles from '../../styles'
 import BackIcon from '../../assets/back-button.png'
 import { verticalScale } from '../../styles/mixins'
-
+import { BarIndicator} from 'react-native-indicators';
 import { validatePhoneNumber} from '../../actions/authentication'
 import { changeVariable } from '../../actions/variables'
 import { connect } from 'react-redux'
@@ -19,7 +19,7 @@ const SignupClientScreen = (props) => {
     const navigation = useNavigation()   
     const [_otp,_setotp] = useState('');
     //const [isDisabled, setIsDisabled] = (true);
-    
+    const [ isLoading, setIsLoading] = useState(false);
     const pin1 = useRef();
     const pin2 = useRef();
     const pin3 = useRef();
@@ -44,11 +44,14 @@ const SignupClientScreen = (props) => {
 
         try{
 
+            setIsLoading(true);
             const pno = '+91'+_phoneNumber;
             console.log(pno);
             const res = await auth().signInWithPhoneNumber(pno);
             setConfirm(res);
+            
             console.log(res)
+            setIsLoading(false);
             //alert('otp sent');
             //navigation.navigate('AppFlow',{screen:'OTPScreen'})
 
@@ -58,7 +61,7 @@ const SignupClientScreen = (props) => {
             ToastAndroid.show("Too many requests, try again later!",ToastAndroid.SHORT);
             else
             ToastAndroid.show("Couldn't complete request, try again later!",ToastAndroid.SHORT);
-           ;
+            setIsLoading(false);
         }
     }
 
@@ -69,7 +72,7 @@ const SignupClientScreen = (props) => {
         
         try{
             
-          
+            setIsLoading(true);
             const res = await confirm.confirm(OTP);
             console.log(res);
            // alert('sign in successful!');
@@ -79,11 +82,12 @@ const SignupClientScreen = (props) => {
                 verified: true
             }
             props.validatePhoneNumber(data,navigation)
-
+            setIsLoading(false);
         }catch(err){
 
             ToastAndroid.show('Invalid OTP',ToastAndroid.SHORT);
             console.log(err.message)
+            setIsLoading(false);
         }
     }
 
@@ -140,10 +144,12 @@ const SignupClientScreen = (props) => {
                 style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter]}
                 onPress={validatePhone}
             >
-                <Text style={[styles.font_25, styles.textWhite, styles.font_600]}>
-                    SIGN UP
-                </Text>
+               { !isLoading ?<Text style={[styles.font_25, styles.textWhite, styles.font_600]}>
+                 SIGN UP
+                </Text>:
+                < BarIndicator color='white' size='20'/>}
             </TouchableOpacity>
+            {/* <MaterialIndicator color='#8940FF' /> */}
             </View>
           )
     }
@@ -289,9 +295,10 @@ const SignupClientScreen = (props) => {
         style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter]}
         onPress={handleOTP}
     >
-        <Text style={[styles.font_25, styles.textWhite, styles.font_600]}>
-            Next
-        </Text>
+         { !isLoading ?<Text style={[styles.font_25, styles.textWhite, styles.font_600]}>
+                 Next
+                </Text>:
+               < BarIndicator color='white' size='20'/>}
     </TouchableOpacity>
     </View>
   
