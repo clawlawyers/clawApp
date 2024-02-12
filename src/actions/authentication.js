@@ -84,12 +84,12 @@ import { Alert } from 'react-native';
               navigation.navigate('ClientFlow')
             }else{
               navigation.navigate('SignupLawyer',{phoneNumber:data.phoneNumber})
-            }
-          }
-          else{
-            Alert.alert("Invalid details or user already registered")
-            console.log(responseJson);
-          }
+            }}
+          // }
+          // else{
+          //   Alert.alert("Invalid details or user already registered")
+          //   console.log(responseJson);
+          // }
         })
         .catch(err => {
           console.log('ee', err);

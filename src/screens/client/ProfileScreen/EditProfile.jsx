@@ -9,11 +9,12 @@ import PieChart from 'react-native-pie-chart'
 // import Back from '../../../assets/back-icon.png'
 import NameEditIcon from '../../../assets/NameEditIcon.png';
 import SampleProfileImage from '../../../assets/SampleProfileImage.png';
-
+import {useNavigation} from '@react-navigation/native'
 import { moderateScale } from '../../../styles/mixins'
 
 const EditProfile = () => {
   
+    const navigation = useNavigation();
     const widthAndHeight = 200
   const series = [10,13,23,35,13,20];
    const sliceColor = [ '#497AF9', '#789DFB', '#E5E5E5','#497AF9','#789DFB','#E5E5E5']
@@ -66,14 +67,14 @@ const EditProfile = () => {
         <Text style={{color:'black'}}>
             Phone Number
         </Text>
-        <TextInput placeholder='Enter username...' style={styles2.profileTextInput} />
+        <TextInput placeholder='Enter phone number...' style={styles2.profileTextInput} />
 
     </View>
     <View style={{paddingHorizontal:20,marginTop:30}}>
         <Text style={{color:'black'}}>
             ICAI No.
         </Text>
-        <TextInput placeholder='Enter username...' style={styles2.profileTextInput} />
+        <TextInput placeholder='Enter ICAI No...' style={styles2.profileTextInput} />
 
     </View>
 
@@ -81,11 +82,14 @@ const EditProfile = () => {
         <Text style={{color:'black'}}>
             Articalship letter
         </Text>
-        <TextInput placeholder='Enter username...' style={styles2.profileTextInput} />
+        <TextInput placeholder='Enter Articalship letter...' style={styles2.profileTextInput} />
 
     </View>
 
-    <TouchableOpacity style={{backgroundColor:'#8940FF',borderRadius:10,alignItems:'center',paddingVertical:13,marginHorizontal:20,marginTop:15}}>
+    <TouchableOpacity 
+        style={{backgroundColor:'#8940FF',borderRadius:10,alignItems:'center',paddingVertical:13,marginHorizontal:20,marginTop:15}}
+        onPress={() => navigation.navigate('EditServices')}
+    >
         <Text style={{color:'white'}}>Edit your services</Text>
     </TouchableOpacity>
 
@@ -94,7 +98,7 @@ const EditProfile = () => {
         <Text style={{color:'black'}}>
             About me:
         </Text>
-        <TextInput placeholder='Enter username...' style={[styles2.profileTextInput,{height:150}]} />
+        <TextInput placeholder='...' style={[styles2.profileTextInput,{height:150}]} />
 
     </View>
 

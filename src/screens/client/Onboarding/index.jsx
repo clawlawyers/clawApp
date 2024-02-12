@@ -9,6 +9,7 @@ import MenuIcon from '../../../assets/MenuIcon.png'
 import MessageIcon from '../../../assets/MessageIcon.png'
 import CustomerServiceIcon from '../../../assets/CustomerServiceIcon.png'
 import { BarIndicator } from 'react-native-indicators';
+import { moderateScale } from '../../../styles/mixins';
 const Onboarding = () => {
 
   const navigation = useNavigation();
@@ -56,15 +57,15 @@ const Onboarding = () => {
  
   return (
     // <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{flex:1, }}>
-      <TouchableWithoutFeedback onPress={e=> Keyboard.dismiss()}>
-        <View style={[styles.container, styles.paddingH_20, styles.alignViewCenter, styles.alignItemsCenter,{justifyContent:'flex-start',paddingVertical:20}]}>
+      <TouchableWithoutFeedback onPress={()=> Keyboard.dismiss()}>
+        <View style={[styles.container, styles.paddingH_20, styles.alignViewCenter, styles.alignItemsCenter,{justifyContent:'flex-start',paddingVertical:15}]}>
           
           {/* connect with bar */}
           <View style={[{marginTop:20,flexDirection:'row',paddingBottom:0,justifyContent:'space-between',width:'100%',marginTop:20}]}>
             <TouchableOpacity onPress={() => navigation.openDrawer()}>
               <Image 
-                source={MenuIcon}
-                styles={[styles.backButtonIcon,]}
+                source={require('../../../assets/MenuIcon.png')}
+                style={{height:moderateScale(38),width:moderateScale(38),marginTop:5}}
                 
               />
             </TouchableOpacity>
@@ -77,7 +78,7 @@ const Onboarding = () => {
             style={{marginTop:4}}>
               <Image 
                 source={MessageIcon}
-                styles={[styles.backButtonIcon,]}
+                style={{height:moderateScale(42),width:moderateScale(42),}}
               />
             </TouchableOpacity>
           </View>
@@ -92,7 +93,7 @@ const Onboarding = () => {
             <TextInput
                   placeholder='Search'
                   placeholderTextColor='#999999'
-                  style={[ styles.font_20,styles.marginL_10, styles.textBlack, { width: '90%'}]}
+                  style={[ styles.font_19, styles.textBlack, { width: '90%',marginLeft:4}]}
             />
                 
           </View>
@@ -103,13 +104,11 @@ const Onboarding = () => {
             style={[styles.alignViewCenter, styles.alignViewSplit, styles.adviceBox,{backgroundColor:'#8940FF',width:'100%',}]}
             onPress={()=>navigation.navigate('ContactList')}
           >
-            <View style={[styles.alignItemsCenter, styles,{flexDirection:'row',justifyContent:'space-between',flex:1,paddingHorizontal:20}]}>
-                <Text style={[styles.font_23, styles.font_med,styles.textWhite]}>Calls</Text>
+            <View style={[styles.alignItemsCenter, styles,{flexDirection:'row',justifyContent:'space-between',flex:1,paddingHorizontal:5}]}>
+                <Text style={[styles.font_25, styles.font_med,styles.textWhite]}>Calls</Text>
                 <View style={[styles.alignViewCenter,styles.alignItemsCenter]}>
                     
                 </View>
-               
-            
               <Image 
                 source={CustomerServiceIcon}
                 style={styles.caOnboardingImage}
@@ -124,13 +123,12 @@ const Onboarding = () => {
             <Text style={[styles.textBlack, styles.font_700, styles.font_25,]}> Latest News </Text>
           </View>
 
-          <View style={{height:5}}></View>
           {/* News Button */}
           <TouchableOpacity
             onPress={(e)=> navigation.navigate('News')}
-            style={[styles.newsBox, styles.alignViewCenter, styles.alignItemsCenter,{width:'100%'}]} 
+            style={[{width:'100%',alignItems:'center'}]} 
           >
-                {isLoading?<View><BarIndicator color='#D9D9D9' size='40'/></View>:<NewsItem news={news} isOnboarding={true} />}
+                {isLoading?<View><BarIndicator color='#D9D9D9' size={40}/></View>:<NewsItem news={news} isOnboarding={true} />}
           </TouchableOpacity>
 
           <TouchableOpacity

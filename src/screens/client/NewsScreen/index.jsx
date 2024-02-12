@@ -55,7 +55,7 @@ const NewsScreen = ({isUser}) => {
           />
         </View>
         <View style={[styles.alignViewCenter, styles.alignItemsLeft]}>
-          <Text style={[styles.textBlack, styles.font_700, styles.font_25,]}> Latest News </Text>
+          <Text style={[styles.textBlack, styles.font_700, styles.font_25,{alignSelf:'flex-start'}]}> Latest News </Text>
         </View>
         <View style={{flexDirection:'row',borderBottomWidth:1,borderColor:'#D9D9D9'}}>
            <TouchableOpacity style={newsType==0 ? styles2.activeNewsTab: styles2.inactiveNewsTab} onPress={()=>setNewType(0)}>

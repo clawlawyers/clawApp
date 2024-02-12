@@ -27,7 +27,6 @@ export default StyleSheet.create({
       backgroundColor: colors.white,
   },
 
-
     //flex
   flex_1: {
     flex: 1,
@@ -307,7 +306,7 @@ searchIcon:{
   width: moderateScale(24)
 ,},
 adviceBox:{
-  height: moderateScale(130),
+  height: moderateScale(110),
   width: moderateScale(350),
   borderRadius: moderateScale(15),
   backgroundColor: colors.primaryColor,
@@ -323,7 +322,7 @@ newsBox:{
   marginTop: verticalScale(15)
 },
 caOnboardingImage:{
-  height: moderateScale(140),
+  height: moderateScale(115),
   width: moderateScale(140)
 },
 lawyerOnboardingImage:{
@@ -354,13 +353,14 @@ newsImage:{
 
 //Search Screen
 searchBar: {
-  padding: moderateScale(10),
+  paddingHorizontal:moderateScale(5),
+  //paddingVertical:moderateScale(5),
   flexDirection: 'row', 
   alignItems: 'center',
   width: moderateScale(380),
   backgroundColor: '#E4E3E3',
   borderRadius: moderateScale(10),
-  height: moderateScale(70),
+  height: moderateScale(45),
   marginBottom: moderateScale(10)
 },
 

@@ -1,17 +1,30 @@
 import { View, Text, Image ,StyleSheet} from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
+import FastImage from 'react-native-fast-image'
 import RegisterAnimation from '../../assets/RegisterAnimation.gif';
-import Video from 'react-native-video';
+import {useNavigation} from '@react-navigation/native'
 export default function RegisterSplashScreen() {
 
-  console.log(RegisterAnimation);
+  const navigation = useNavigation();
+
+  const redirect = () => {
+    
+    navigation.navigate('ClientFlow');
+  }
+
+  useEffect(() => {
+    setTimeout(()=>{
+      redirect();
+    },3000)
+  })
   return (
-    <View style={{backgroundColor:'white',flex:1}}>
-      {/* <Video source={{uri :'../../assets/Animation.mp4'}}   // Can be a URL or a local file.
-      
-       style={styles.backgroundVideo} /> */}
-      <Image source={{uri:'https://www.icegif.com/wp-content/uploads/2023/07/icegif-1260.gif'}} style={{height:300,width:300,borderWidth:2}}/>
-      <Text>Successfully Registered</Text>
+    <View style={{backgroundColor:'white',flex:1,flexDirection:'column',alignItems:'center',paddingTop:100}}>
+       <FastImage
+       style={{width:250,height:150}}
+        source={require('../../assets/Animation2.gif')}   
+    />
+      <Text style={{fontWeight:'bold',fontSize:20
+    }}>Successfully Registered</Text>
     </View>
   )
 }

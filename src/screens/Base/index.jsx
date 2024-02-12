@@ -17,6 +17,7 @@ import CallSelected from '../../assets/CallSelected.png'
 import ProfileUnSelected from '../../assets/profile-icon-unselected.png'
 import ProfileSelected from '../../assets/profile-icon-selected.png'
 import RegisterSplashScreen from '../AuthFlow/RegisterSplashScreen';
+import SignupLawyerScreen from '../AuthFlow/SignupLawyerScreen';
 import AuthFlow from '../AuthFlow/AuthFlow';
 import styles from '../../styles';
 import MessageScreen from '../client/MessageScreen';
@@ -30,6 +31,7 @@ import CustomDrawer from '../../components/CustonDrawer';
 import NewsDetail from '../client/NewsScreen/NewsDetail';
 import EditProfile from '../client/ProfileScreen/EditProfile';
 import InitialLandingScreen from './InitialLandingScreen';
+import EditServices from '../client/ProfileScreen/EditServices';
 
 
 
@@ -40,174 +42,10 @@ const Tab = createBottomTabNavigator();
 const Tab2 = createBottomTabNavigator();
 const News = createNativeStackNavigator();
 const NewsStack = createNativeStackNavigator();
-const ProflieStack = createNativeStackNavigator();
+const ProfileStack = createNativeStackNavigator();
 const UserNews = createNativeStackNavigator();
 const AppStack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
-function UserFlow(){
-  return(
-    <Tab.Navigator 
-      initialRouteName='NewsFlow'
-      screenOptions={
-        {
-          headerShown: false,
-          tabBarLabel: "",
-          tabBarHideOnKeyboard: true,
-          tabBarStyle:{
-            backgroundColor: '#8940FF',
-            borderTopWidth: 0,
-          },
-          
-          tabBarIcon: ({focused}) =>{
-            return(
-              focused ? (<Image 
-                source={HomeSelected} 
-                style={[styles.iconFocus,{marginTop: 10}]}
-                />) : (
-                <Image 
-                  source={HomeUnSelected} 
-                  style={styles.iconUnFocus} 
-                />)
-              
-            )
-          }
-        }
-      }
-    >
-      <Tab.Screen
-        component={USerCallLog} 
-        name="USerCallLog"
-        options={
-          {
-            headerShown: false,
-            tabBarLabel: "",
-            tabBarStyle:{
-              backgroundColor: '#8940FF',
-              borderTopWidth: 0,
-            },
-            tabBarIcon: ({focused}) =>{
-              return(
-                focused ? (<Image 
-                  source={HomeSelected} 
-                  style={[styles.iconFocus,{marginTop: 10}]}
-                  />) : (
-                  <Image 
-                    source={HomeUnSelected} 
-                    style={styles.iconUnFocus} 
-                  />)
-                
-              )
-            }
-          }
-        }
-        
-      />
-      <Tab.Screen 
-        component={NewsScreen} 
-        name="NewsScreen" 
-        options={
-          {
-            headerShown: false,
-            tabBarLabel: "",
-            tabBarStyle:{
-              backgroundColor: '#8940FF',
-              borderTopWidth: 0,
-            },
-            tabBarIcon: ({focused}) =>{
-              return(
-                focused ? (<Image 
-                  source={NewsSelected} 
-                  style={[styles.iconFocus,{marginTop: 10}]}
-                  />) : (
-                  <Image 
-                    source={NewsUnSelected} 
-                    style={styles.iconUnFocus} 
-                  />)
-                
-              )
-            }
-          }
-        }
-      />
-      <Tab.Screen 
-        component={MessageScreen} 
-        name="MessageScreen" 
-        options={
-          {
-            headerShown: false,
-            tabBarLabel: "",
-            tabBarStyle:{
-              backgroundColor: '#8940FF',
-              borderTopWidth: 0,
-            },
-            tabBarIcon: ({focused}) =>{
-              return(
-                focused ? (<Image 
-                  source={CallSelected} 
-                  style={[styles.iconFocus,{marginTop: 10, height:25, width: 25}]}
-                  />) : (
-                  <Image 
-                    source={CallUnselected} 
-                    style={styles.iconUnFocus} 
-                  />)
-                
-              )
-            }
-          }
-        }
-      />
-      <Tab.Screen 
-        component={ProfileScreen} 
-        name="ProfileScreen" 
-        options={
-          {
-            headerShown: false,
-            tabBarLabel: "",
-            tabBarStyle:{
-              backgroundColor: '#8940FF',
-              borderTopWidth: 0,
-            },
-            tabBarIcon: ({focused}) =>{
-              return(
-                focused ? (<Image 
-                  source={ProfileSelected} 
-                  style={[styles.iconFocus,{marginTop: 10}]}
-                  />) : (
-                  <Image 
-                    source={ProfileUnSelected} 
-                    style={styles.iconUnFocus} 
-                  />)
-                
-              )
-            }
-          }
-        }
-      />
-    </Tab.Navigator>
-  )
-}
-
-function USerCallLog(){
-  return(
-    <UserCall.Navigator initialRouteName='UserOnboarding' screenOptions={{headerShown: false}}>
-      <UserCall.Screen
-        component={UserOnboarding} name="UserOnboarding" 
-      />
-      <UserCall.Screen
-        component={CallLogScreen} name="UserCallLogScreen" 
-      />
-    </UserCall.Navigator>
-  )
-}
-
-function UserNewsFlow(){
-  return(
-    <UserNews.Navigator screenOptions={{headerShown: false}}>
-        <UserNews.Screen component={UserOnboarding} name="UserOnboarding"/>
-        <UserNews.Screen component={NewsScreen} name="NewsScreen" />
-    </UserNews.Navigator>
-  )
-}
 
 // Client App flow
 
@@ -312,11 +150,11 @@ function ClientTabNavigator  () {
               return(
                 focused ? (<Image 
                   source={CallSelected} 
-                  style={[styles.iconFocus,{marginTop: 10, height:20, width: 20}]}
+                  style={[styles.iconFocus,{marginTop: 10}]}
                   />) : (
                   <Image 
                     source={CallUnselected} 
-                    style={[styles.iconUnFocus,{height:21, width: 21}]} 
+                    style={styles.iconUnFocus} 
                   />)
                 
               )
@@ -371,12 +209,23 @@ function NewsNavigator () {
 function ProfileNavigator () {
 
   return(
-  <ProflieStack.Navigator screenOptions={{headerShown:false}}>
-    <ProflieStack.Screen component={ProfileScreen} name='ProfileScreen' />
-    <ProflieStack.Screen component={EditProfile} name='EditProfile' />
-  </ProflieStack.Navigator>
+  <ProfileStack.Navigator screenOptions={{headerShown:false}}>
+    <ProfileStack.Screen component={ProfileScreen} name='ProfileScreen' />
+    <ProfileStack.Screen component={EditProfile} name='EditProfile' />
+    <ProfileStack.Screen component={EditServices} name='EditServices' />
+  </ProfileStack.Navigator>
   )
   
+}
+
+function UpdateProfile () {
+
+  return (
+    <Stack.Navigator  screenOptions={{headerShown:false}}>
+      <Stack.Screen component={EditProfile} name='EditProfile' />
+      <Stack.Screen component={EditServices} name='EditServices' />
+    </Stack.Navigator>
+  )
 }
 
 function ClientFlow(){
@@ -387,7 +236,7 @@ function ClientFlow(){
         component={ClientTabNavigator} name="Home" options={{headerShown:false}}/>
         <Drawer.Screen component={LegalGPTScreen} name='Legal GPT' options={{headerShown:false}}/>
         <Drawer.Screen component={NewsScreen} name="News" options={{headerShown:false}}/>
-        <Drawer.Screen component={EditProfile} name='Account' options={{headerShown:false}} />
+        <Drawer.Screen component={UpdateProfile} name='Account' options={{headerShown:false}} />
         <Drawer.Screen component={AppFlow} name='AppFlow' />
     </Drawer.Navigator>
     
@@ -415,7 +264,8 @@ function SignupFlow  ()  {
 
     <Stack.Navigator screenOptions={{headerShown:false}}>
       <Stack.Screen component={AuthFlow} name="Auth" />      
-      <Stack.Screen component={SignupCilentScreen} name="SignupUser"/>
+      {/* <Stack.Screen component={SignupCilentScreen} name="SignupUser"/> */}
+      <Stack.Screen component={SignupLawyerScreen} name="SignupUser"/>
       <Stack.Screen component={SignupLawyer} name="SignupLawyer"/>
       {/* <Stack.Screen component={RegisterSplashScreen} name='RegisterSpashScreen' /> */}
       <Stack.Screen component={ClientFlow} name= "ClientFlow" />
@@ -442,7 +292,7 @@ function Base() {
 
  
     return (
-       <NavigationContainer>
+       <NavigationContainer screenOptions={{headerShown:false}}>
          <Root.Navigator screenOptions={{ headerShown: false }}>
          <Root.Screen component={AppFlow} name="AppFlow" />
         {/* <Root.Screen component={ExpandedNewsScreen} name="ExpandedNewsScreen" /> */}       

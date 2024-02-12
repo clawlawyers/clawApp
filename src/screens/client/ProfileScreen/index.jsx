@@ -1,5 +1,5 @@
 import { View, Text, Image, ImageBackground, TouchableOpacity, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from '../../../styles'
 import { cases } from '../../../data/cases'
 import { services } from '../../../data/services'
@@ -10,16 +10,18 @@ import PieChart from 'react-native-pie-chart'
 import NameEditIcon from '../../../assets/NameEditIcon.png';
 import SampleProfileImage from '../../../assets/SampleProfileImage.png';
 import ProfileMesssageIcon from '../../../assets/ProfileMesssageIcon.png';
-import ProfileCallIcon from '../../../assets/ProfileCallIcon.png';
 import CaseDetailComponent from '../../../components/CaseDetailComponent'
 import ServiceDetailComponent from '../../../components/ServiceDetailComponent'
 import RatingDetailComponent from '../../../components/RatingDetailComponent'
 import { ratings } from '../../../data/ratings'
 import { moderateScale } from '../../../styles/mixins'
 import {useNavigation} from '@react-navigation/native';
-
-const ProfileScreen = () => {
+import CallIcon from '../../../assets/CallSelected.png'
+import { getLawyerProfile } from '../../../actions/lawyerProfile'
+const ProfileScreen = (props) => {
   
+
+  console.log(props);
     const widthAndHeight = 200
   const series = [10,13,23,35,13,20];
    const sliceColor = [ '#497AF9', '#789DFB', '#E5E5E5','#497AF9','#789DFB','#E5E5E5'];
@@ -45,6 +47,12 @@ const ProfileScreen = () => {
   //     setPieChart();
 
   // },[])
+
+  useEffect(() => {
+
+    getLawyerProfile('abcd',navigation);
+  })
+
   return (
     <ScrollView style={{backgroundColor:'white'}}>
     <View style={[styles.container,{backgroundColor: 'white',}]}>
@@ -131,11 +139,11 @@ const ProfileScreen = () => {
                     <Text style={{color:'black'}}>Kristin Watson</Text>
                   </View>
                   <View style={{flexDirection:'row'}}>
-                    <Image source={YellowStar}></Image>
-                    <Image source={YellowStar}></Image>
-                    <Image source={YellowStar}></Image>
-                    <Image source={YellowStar}></Image>
-                    <Image source={YellowStar}></Image>
+                    <Image source={YellowStar} style={{height:20,width:20}}></Image>
+                    <Image source={YellowStar} style={{height:20,width:20}}></Image>
+                    <Image source={YellowStar} style={{height:20,width:20}}></Image>
+                    <Image source={YellowStar} style={{height:20,width:20}}></Image>
+                    <Image source={YellowStar} style={{height:20,width:20}}></Image>
                   </View>
                   
                 </View>
@@ -158,12 +166,12 @@ const ProfileScreen = () => {
               {/* Contact Button */}
               <View style={{flexDirection:'row',justifyContent:'space-between',width:'100%',marginBottom:20,marginTop:80}}>
                 <TouchableOpacity style={{backgroundColor:'#8940FF',borderRadius:15,paddingVertical:12,paddingHorizontal:22,flexDirection:'row',justifyContent:'center'}}>
-                  <Image source={ProfileMesssageIcon} style={{marginRight:5,marginVertical:2}}/>
+                  <Image source={ProfileMesssageIcon} style={{marginRight:5,marginVertical:2,height:moderateScale(26),width:moderateScale(26)}}/>
                   <Text style={{color:'white',fontSize:17,fontWeight:'400'}}>Message</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={{backgroundColor:'#8940FF',borderRadius:15,paddingVertical:12,paddingHorizontal:22,flexDirection:'row',justifyContent:'center'}}>
-                  <Image source={ProfileCallIcon} style={{marginRight:5,marginVertical:2}}/>
+                  <Image source={CallIcon} style={{marginRight:5,marginVertical:2,height:moderateScale(26),width:moderateScale(26)}}/>
                   <Text style={{color:'white',fontSize:17,fontWeight:'400'}}>Call lawyer</Text>
                 </TouchableOpacity>
               </View>

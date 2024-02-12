@@ -14,7 +14,8 @@ import {
 import { Image,View,Text } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { fetchData, removeData } from '../actions/async-storage';
-  
+import auth from '@react-native-firebase/auth';
+import {signOut} from'@react-native-firebase/app'
   function CustomDrawer(props) {
 
     const navigation = useNavigation();
@@ -22,6 +23,8 @@ import { fetchData, removeData } from '../actions/async-storage';
 
       console.log(fetchData('userId'));
       removeData('userId');
+
+      auth().signOut();
       navigation.navigate('InitialLandingScreen');
       console.log('logged out');
       console.log(fetchData('userId'));
@@ -59,7 +62,7 @@ import { fetchData, removeData } from '../actions/async-storage';
         />
         <DrawerItem 
             label='Account' 
-            onPress={() => navigation.navigate('ProfileScreen')}
+            onPress={() => navigation.navigate('Account')}
             icon={() => <Image source={MenuProfileIcon}/>}
             labelStyle={styles.labelStyle}
             style={styles.drawerItemStyle}

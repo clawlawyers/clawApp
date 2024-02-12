@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { View, Text, TouchableOpacity, Image, TextInput, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native'
 import React from 'react'
 import messageList from '../../../data/messageList'
 import Search from '../../../assets/search-icon.png'
@@ -39,7 +39,7 @@ const chatMembers = [
 
 const MessageScreen = () => {
   return (
-    <TouchableWithoutFeedback onPress={e=>Keyboard.dismiss()}>
+    <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
       <View style={[styles.container, styles.paddingH_20, styles.alignViewCenter, styles.alignItemsCenter]}>
         <View style={[styles.alignViewCenter, styles.alignItemsCenter]}>
           <Text style={[styles.textBlack, styles.font_35, styles.font_700]}>Chats</Text>
@@ -58,8 +58,15 @@ const MessageScreen = () => {
                     style={[ styles.font_20,styles.marginL_10, styles.textBlack, { width: '90%'}]}
               />
                   
-            </View>
+          </View>
+          <ScrollView>
+            {chatMembers.map((item) => {
 
+              return(
+                <View><Image source={item.imageUrl} style={{height:100,width:100}}/><Text>{item.name}</Text><Text>{item.lastActive}</Text></View>
+              )
+            })}
+          </ScrollView>
       </View>
     </TouchableWithoutFeedback>
   )

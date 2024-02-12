@@ -2,7 +2,7 @@ import { View, Text, Image,TextInput, TouchableOpacity, ToastAndroid } from 'rea
 import React, { useState,useEffect, useRef } from 'react'
 import styles from '../../styles'
 import BackIcon from '../../assets/back-button.png'
-import { verticalScale } from '../../styles/mixins'
+import { moderateScale, verticalScale } from '../../styles/mixins'
 import { BarIndicator} from 'react-native-indicators';
 import { validatePhoneNumber} from '../../actions/authentication'
 import { changeVariable } from '../../actions/variables'
@@ -13,13 +13,15 @@ import auth from '@react-native-firebase/auth';
 
 const SignupClientScreen = (props) => {
 
-    console.log(props);
+    //console.log(props);
     const [_phoneNumber, _setphoneNumber] = useState('');
     const [confirm, setConfirm] = useState('');
     const navigation = useNavigation()   
     const [_otp,_setotp] = useState('');
     //const [isDisabled, setIsDisabled] = (true);
     const [ isLoading, setIsLoading] = useState(false);
+    const [initializing, setInitializing] = useState(true);
+    const [_user, setUser] = useState();
     const pin1 = useRef();
     const pin2 = useRef();
     const pin3 = useRef();
@@ -33,6 +35,23 @@ const SignupClientScreen = (props) => {
     const [pinTxt4, setPintTxt4] = useState('');
     const [pinTxt5, setPintTxt5] = useState('');
     const [pinTxt6, setPintTxt6] = useState('');
+
+    function onAuthStateChanged(user) {
+
+        console.log('inside onauthchanged')
+        setUser(user);
+        if (initializing) setInitializing(false);
+        if (_user) {
+    
+          navigation.navigate('ClientFlow');
+        }
+      }
+    
+      useEffect(() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        console.log('subscriber',subscriber);
+        return subscriber; // unsubscribe on unmount
+      }, []);
 
     const validatePhone = async() =>{
 
@@ -97,14 +116,14 @@ const SignupClientScreen = (props) => {
     {
         
         return (
-            <View style={[styles.container, styles.alignItemsCenter,{paddingTop:50}]}>
-                <View style={[ {width: '80%'}]}>
-                    <TouchableOpacity style={[styles.alignItemsLeft, styles.alignViewCenter, {width: '80%'}]}
+            <View style={{backgroundColor:'white',flex:1,paddingHorizontal:moderateScale(30),paddingTop:moderateScale(20)}}>
+                <View style={[ ]}>
+                    <TouchableOpacity style={[styles.alignItemsLeft, styles.alignViewCenter, ]}
                         onPress={() => navigation.navigate('Auth')}
                     >
                         <Image 
                         source={BackIcon}
-                        styles={[styles.backButtonIcon,]}
+                        style={{height:moderateScale(50),width:moderateScale(50)}}
                         />
                     </TouchableOpacity>
                     
@@ -116,7 +135,7 @@ const SignupClientScreen = (props) => {
                         Hi!
                     </Text>
                     <Text style={[styles.font_22, styles.font_med, {color: '#5E5C5C'}]}>
-                        Create a new account!
+                        Create a new account to
                     </Text>
                     <Text style={[styles.font_22, styles.font_med, {color: '#8940FF'}]}>
                         Register a CA/Lawyer
@@ -124,12 +143,12 @@ const SignupClientScreen = (props) => {
                 </View>
         
             
-            <View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '80%', marginTop: verticalScale(65), marginBottom: verticalScale(5)}]}>
+            <View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '100%', marginTop: verticalScale(50), marginBottom: verticalScale(5)}]}>
                 <Text style={[styles.font_22, styles.font_med, {color: '#5E5C5C'}]}>
                     Number
                 </Text>
             </View>
-            <View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '80%',flexDirection:'row',justifyContent:'space-between'}]}>
+            <View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '100%',flexDirection:'row',justifyContent:'space-between'}]}>
                 <TextInput value='+91' style={{borderColor:'rgba(137, 64, 255, 0.3)',borderWidth:1,borderRadius:10,width:'20%',height:45,textAlign:'center',fontSize:15,color:'black'}}/>
         
                 <TextInput 
@@ -141,7 +160,7 @@ const SignupClientScreen = (props) => {
             </View>
            
             <TouchableOpacity 
-                style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter]}
+                style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter,{alignSelf:'center',marginTop:30}]}
                 onPress={validatePhone}
             >
                { !isLoading ?<Text style={[styles.font_25, styles.textWhite, styles.font_600]}>
@@ -156,21 +175,21 @@ const SignupClientScreen = (props) => {
 
     return (
 
-        <View style={[styles.container, styles.alignItemsCenter,{paddingTop:50}]}>
+        <View style={{backgroundColor:'white',flex:1,paddingHorizontal:moderateScale(30),paddingTop:moderateScale(20)}}>
         <View style={[ {width: '80%'}]}>
-            <TouchableOpacity style={[styles.alignItemsLeft, styles.alignViewCenter, {width: '80%'}]}
+            <TouchableOpacity style={[styles.alignItemsLeft, styles.alignViewCenter, {width: '100%'}]}
                 onPress={() => navigation.navigate('Auth')}
             >
                 <Image 
                 source={BackIcon}
-                styles={[styles.backButtonIcon,]}
+                style={{height:moderateScale(50),width:moderateScale(50)}}
                 />
             </TouchableOpacity>
             
         </View>
       
         
-        <View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '80%', marginTop: verticalScale(35)}]}>
+        <View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '100%', marginTop: verticalScale(35)}]}>
             <Text style={[styles.textBlack, styles.font_50, styles.font_700]}>
             Enter OTP
             </Text>
@@ -180,7 +199,7 @@ const SignupClientScreen = (props) => {
             
         </View>
 
-    <View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '80%',flexDirection:'row',marginTop: verticalScale(20),justifyContent:'space-between'}]}>
+    <View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '100%',flexDirection:'row',marginTop: verticalScale(40),justifyContent:'space-between'}]}>
 
         <TextInput 
             value={pinTxt1}
@@ -210,8 +229,9 @@ const SignupClientScreen = (props) => {
                     // _setotp(_otp+pinTxt2);
                     if(pinTxt2.length >=1){
                     pin3.current.focus();
-                    }else if(pinTxt2<1){
+                    }else if(pinTxt2.length<1){
                         pin1.current.focus();
+                        // setPintTxt1('')
                     }
                 }}
         />
@@ -228,8 +248,9 @@ const SignupClientScreen = (props) => {
                     // _setotp(_otp+pinTxt3);
                     if(pinTxt3.length >=1){
                     pin4.current.focus();
-                    }else if(pinTxt3<1){
+                    }else if(pinTxt3.length<1){
                         pin2.current.focus();
+                        // setPintTxt2('')
                     }
                 }}
         />
@@ -246,8 +267,9 @@ const SignupClientScreen = (props) => {
                     // _setotp(_otp+pinTxt4);
                     if(pinTxt4.length >=1){
                     pin5.current.focus();
-                    }else if(pinTxt4<1){
+                    }else if(pinTxt4.length<1){
                         pin3.current.focus();
+                        // setPintTxt3('')
                     }
                 }}
         />
@@ -264,8 +286,9 @@ const SignupClientScreen = (props) => {
                     // _setotp(_otp+pinTxt5);
                     if(pinTxt5.length >=1){
                     pin6.current.focus();
-                    }else if(pinTxt5<1){
+                    }else if(pinTxt5.length<1){
                         pin4.current.focus();
+                        // setPintTxt4('')
                     }
                 }}
         />
@@ -282,8 +305,9 @@ const SignupClientScreen = (props) => {
                     // _setotp(_otp+pinTxt6);
                     if(pinTxt6.length >=1){
                         pin6.current.focus();
-                    }else if(pinTxt6<1){
+                    }else if(pinTxt6.length<1){
                         pin5.current.focus();
+                        // setPintTxt5('')
                     }
                 }}
         />
@@ -292,14 +316,16 @@ const SignupClientScreen = (props) => {
     </View>
    
     <TouchableOpacity 
-        style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter]}
-        onPress={handleOTP}
-    >
-         { !isLoading ?<Text style={[styles.font_25, styles.textWhite, styles.font_600]}>
-                 Next
-                </Text>:
-               < BarIndicator color='white' size='20'/>}
-    </TouchableOpacity>
+            style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter,{alignSelf:'center',marginTop:30}]}
+            onPress={handleOTP}
+        >
+            { !isLoading ?<Text style={[styles.font_25, styles.textWhite, styles.font_600]}>
+                    Next
+                    </Text>:
+                < BarIndicator color='white' size='20'/>}
+        </TouchableOpacity>
+   
+    
     </View>
   
 
