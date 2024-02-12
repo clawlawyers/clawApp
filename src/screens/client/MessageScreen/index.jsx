@@ -3,7 +3,8 @@ import React from 'react'
 import messageList from '../../../data/messageList'
 import Search from '../../../assets/search-icon.png'
 import styles from '../../../styles'
-
+import { moderateScale } from '../../../styles/mixins'
+import ProfileIcon from '../../../assets/stock-photo.png';
 const chatMembers = [
   {
       id: 0,
@@ -40,12 +41,12 @@ const chatMembers = [
 const MessageScreen = () => {
   return (
     <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
-      <View style={[styles.container, styles.paddingH_20, styles.alignViewCenter, styles.alignItemsCenter]}>
+      <View style={[styles.container,{paddingHorizontal:moderateScale(20),alignItems:'center',paddingTop:moderateScale(20)}]}>
         <View style={[styles.alignViewCenter, styles.alignItemsCenter]}>
-          <Text style={[styles.textBlack, styles.font_35, styles.font_700]}>Chats</Text>
+          <Text style={[styles.textBlack, styles.font_700,{fontSize:moderateScale(40)}]}>Chats</Text>
         </View>
 
-        <View style={[styles.alignViaRow, styles.alignItemsCenter, styles.alignViewCenter, styles.searchBar]}>
+        <View style={[styles.alignViaRow, styles.alignItemsCenter, styles.alignViewCenter, styles.searchBar,{marginTop:moderateScale(17)}]}>
               <TouchableOpacity >
                 <Image 
                     source={Search}
@@ -55,15 +56,15 @@ const MessageScreen = () => {
               <TextInput
                     placeholder='Search'
                     placeholderTextColor='#999999'
-                    style={[ styles.font_20,styles.marginL_10, styles.textBlack, { width: '90%'}]}
+                    style={[ styles.font_20,styles.marginL_10, styles.textBlack, { width: '90%',marginBottom:-2}]}
               />
                   
           </View>
-          <ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false} style={{marginTop:moderateScale(10)}}>
             {chatMembers.map((item) => {
 
               return(
-                <View><Image source={item.imageUrl} style={{height:100,width:100}}/><Text>{item.name}</Text><Text>{item.lastActive}</Text></View>
+                <View><Image source={ProfileIcon} style={{height:70,width:70}}/><Text>{item.name}</Text><Text>{item.lastActive}</Text></View>
               )
             })}
           </ScrollView>

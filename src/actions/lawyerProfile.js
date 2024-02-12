@@ -1,10 +1,20 @@
 import { fetchData } from "./async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { changeVariable } from "./variables";
+import{useSelector, useDispatch} from 'react-redux'
+import { useContext } from "react";
 const getLawyerProfileHelper = async ({ data,  dispatch }) => {
 
-    const userToken = fetchData('userId');
+    // const {store} = useContext(ReactReduxContext);
+    // console.log(' storerrrrr',store);
+    // const state = useSelector(state =>state)
+    // console.log('state',state);
+    const userToken =await  AsyncStorage.getItem('userId');
     console.log(userToken);
+    const userProfileToken = "Bearer "+userToken;
+    console.log('first',userProfileToken)
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzhjNDdiNmM1MmRmZDMyMzhiMDIzMiIsImVtYWlsIjoic2FuZGVlcHNhbmR5QGdtYWlsLmNvbSIsImlhdCI6MTcwNzY1NjM4MywiZXhwIjoxNzA3NzQyNzgzfQ.xFigqBnmN5lHQwxQVGwNTjy4HC5mQFOxDsyQGdT-xRU");
+    myHeaders.append("Authorization", userProfileToken);
     
     var requestOptions = {
       method: 'GET',
@@ -12,10 +22,17 @@ const getLawyerProfileHelper = async ({ data,  dispatch }) => {
       redirect: 'follow'
     };
     
-    fetch("https://claw-backend.onrender.com/api/v1/user/auth/me", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
+    try{
+        const response = await fetch("https://claw-backend.onrender.com/api/v1/user/auth/me", requestOptions)
+        const responseJSON = await response.json();
+        const lawyerData = responseJSON.data;
+        console.log('lawyerData',lawyerData);
+        const name = lawyerData.firstName +' '+ lawyerData.lastName;
+        dispatch(changeVariable('name',name));
+    }catch(err){
+        console.log('error', err);
+    }
+     
 
 }
 

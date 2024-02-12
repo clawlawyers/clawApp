@@ -20,7 +20,7 @@ const SignupClientScreen = (props) => {
     const [_otp,_setotp] = useState('');
     const [_OTPvisibility, setOTPvisibility] = useState(true);
     const [ isLoading, setIsLoading] = useState(false);
-    const [initializing, setInitializing] = useState(true);
+    const [_timer, _setTimer] = useState(0);
     const [_user, setUser] = useState();
     const pin1 = useRef();
     const pin2 = useRef();
@@ -37,7 +37,7 @@ const SignupClientScreen = (props) => {
     const [pinTxt6, setPintTxt6] = useState('');
 
     function onAuthStateChanged(user) {
-
+      
         console.log('inside onauthchanged')
         //setUser(user);
         //if (initializing) setInitializing(false);
@@ -51,17 +51,27 @@ const SignupClientScreen = (props) => {
                 verified: true
             }
             props.validatePhoneNumber(data,navigation)
+            _setTimer(0);
             setIsLoading(false);
         }
       }
     
       useEffect(() => {
+
+       const interval= setInterval(() => {
+            if (_timer > 0) {
+              _setTimer(_timer - 1);
+            }
+        }, 1000)
         const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
         
         console.log('subscriber',subscriber);
-        return subscriber; // unsubscribe on unmount
-      }, [confirm]);
-
+        // return subscriber; // unsubscribe on unmount
+        return () => {
+            clearInterval(interval),subscriber
+          };
+      }, [confirm,_timer]);
+      console.log(_timer);
     const validatePhone = async() =>{
 
         if(_phoneNumber.length!==10){
@@ -72,6 +82,7 @@ const SignupClientScreen = (props) => {
 
         try{
 
+            _setTimer(60)
             setIsLoading(true);
             const pno = '+91'+_phoneNumber;
             console.log(pno);
@@ -185,6 +196,7 @@ const SignupClientScreen = (props) => {
     return (
 
         <View style={{backgroundColor:'white',flex:1,paddingHorizontal:moderateScale(30),paddingTop:moderateScale(20)}}>
+           
         <View style={[ {width: '80%'}]}>
             <TouchableOpacity style={[styles.alignItemsLeft, styles.alignViewCenter, {width: '100%'}]}
                 onPress={() => navigation.navigate('Auth')}
@@ -203,7 +215,7 @@ const SignupClientScreen = (props) => {
             Enter OTP
             </Text>
             <Text style={[styles.font_22, styles.font_med, {color: '#5E5C5C'}]}>
-            6 digit code has been send to +91 {_phoneNumber}
+            6 digit code has been send to +91 {_phoneNumber}. <Text style={{textDecorationLine:'underline',color: '#8940FF',fontSize:15,fontWeight:'normal'}} onPress={() => setConfirm('')}>Edit</Text>
             </Text>
             
         </View>
@@ -324,8 +336,9 @@ const SignupClientScreen = (props) => {
 
     </View>
    }
+   <Text style={_timer>0 ?{textDecorationLine:'underline',color: '#8940FF50',fontSize:15,alignSelf:'center',marginTop:10} :{textDecorationLine:'underline',color: '#8940FF',fontSize:15,alignSelf:'center',marginTop:10}} onPress={() => validatePhone()} disabled={_timer>0 ? true:false}>Resend OTP ({ _timer})</Text>
     <TouchableOpacity 
-            style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter,{alignSelf:'center',marginTop:30}]}
+            style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter,{alignSelf:'center',marginTop:15}]}
             onPress={handleOTP}
         >
             { !isLoading ?<Text style={[styles.font_25, styles.textWhite, styles.font_600]}>

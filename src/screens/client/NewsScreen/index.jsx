@@ -5,7 +5,10 @@ import { BarIndicator} from 'react-native-indicators';
 import styles from '../../../styles';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { verticalScale } from '../../../styles/mixins';
-
+import GavelIconLight from '../../../assets/GavelIconLight.png';
+import GavelIconDark from '../../../assets/GavelIconDark.png';
+import MoneyIconLight from '../../../assets/MoneyIconLight.png';
+import MoneyIconDark from '../../../assets/MoneyIconDark.png';
 const NewsScreen = ({isUser}) => {
     const [newsData,setNewsData] = useState([]);
     const [newsType, setNewType] = useState(0);
@@ -57,12 +60,19 @@ const NewsScreen = ({isUser}) => {
         <View style={[styles.alignViewCenter, styles.alignItemsLeft]}>
           <Text style={[styles.textBlack, styles.font_700, styles.font_25,{alignSelf:'flex-start'}]}> Latest News </Text>
         </View>
-        <View style={{flexDirection:'row',borderBottomWidth:1,borderColor:'#D9D9D9'}}>
+        <View style={{flexDirection:'row',borderColor:'#D9D9D9',justifyContent:'space-between',width:'80%',marginTop:10}}>
            <TouchableOpacity style={newsType==0 ? styles2.activeNewsTab: styles2.inactiveNewsTab} onPress={()=>setNewType(0)}>
-             <Text style={newsType==0 ? {color:'white'}: {color:'black'}}>Financial</Text>
+
+              <Image source={newsType == 0? MoneyIconLight:MoneyIconDark} style={{width:25,height:22,marginHorizontal:5}}/>
+             <Text style={newsType==0 ? {color:'white',fontSize:18}: {color:'black',fontSize:18}}>Financial</Text>
+
             </TouchableOpacity>
+
             <TouchableOpacity style={newsType==1 ? styles2.activeNewsTab: styles2.inactiveNewsTab} onPress={()=>setNewType(1)}>
-              <Text style={newsType==1 ? {color:'white'}: {color:'black'}}>Legal</Text>
+              
+              <Image source={newsType == 1? GavelIconLight:GavelIconDark} style={{width:25,height:22,marginHorizontal:5}}/>
+              <Text style={newsType==1 ? {color:'white',fontSize:18}: {color:'black',fontSize:18}}>Legal</Text>
+
             </TouchableOpacity>
         </View>
        
@@ -87,18 +97,24 @@ const styles2 = StyleSheet.create({
 
   activeNewsTab :{
     alignItems:'center',
-    width:'50%',
     backgroundColor:'#8940FF',
-     borderRightWidth:1,
      borderColor:'#D9D9D9', 
-     padding:10},
+     paddingHorizontal:15,
+     paddingVertical:5,
+     flexDirection:'row',
+    borderRadius:10
+    },
 
   inactiveNewsTab :{
     alignItems:'center',
-    width:'50%', 
+    
     borderRightWidth:1, 
     padding:10,
-    borderColor:'#D9D9D9'
+    borderColor:'#D9D9D9',
+    paddingHorizontal:15,
+    paddingVertical:5,
+     flexDirection:'row',
+    borderRadius:10
   }
 
 })

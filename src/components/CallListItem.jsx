@@ -2,12 +2,15 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import styles from '../styles'
 import CallLogoBlack from '../assets/call-icon-black.png'
-import DetailsLogo from '../assets/details-icon.png'
+import CallIcon from '../assets/CallIcon.png'
+import IncomingCall from '../assets/incoming-call.png';
+import OutgoingCall from '../assets/outgoing-call.png';
+import IncomingCallMissed from '../assets/incoming-call-missed.png';
 import { moderateScale, verticalScale } from '../styles/mixins'
 
 const CallListItem = ({index,data}) => {
   return (
-    <View style={[styles.alignViewSplit, {height: moderateScale(56), width: moderateScale(390), marginVertical: verticalScale(10)}]}>
+    <View style={[ {height: moderateScale(56),  marginVertical: verticalScale(10),borderBottomWidth:1,borderColor:'#0f0f0f10',paddingVertical:10,justifyContent:'space-between',flexDirection:'row',alignItems:'center'}]}>
       <View style={[styles.alignViaRow, styles.alignViewCenter, styles.alignItemsCenter]}>
         {/* here an image */}
         <Image
@@ -22,13 +25,30 @@ const CallListItem = ({index,data}) => {
                 )}
             <View style={[styles.alignViaRow, styles.alignItemsCenter, styles.alignViewCenter]}>
                 {/* here an image */}
-                <Image 
+                {/* <Image 
                     source={CallLogoBlack}
                     style={styles.miniCallIcon}
-                />
+                /> */}
                 {data.direction === 1 ? (
+                     <Image 
+                     source={OutgoingCall}
+                     style={styles.miniCallIcon}
+                 />
+                ) : (data.answered === 1?
+                    <Image 
+                    source={IncomingCall}
+                    style={styles.miniCallIcon}
+                    />
+                    : <Image 
+                        source={IncomingCallMissed}
+                        style={styles.miniCallIcon}
+                        />
+                    )
+                }
+                
+                {data.answered === 1 ? (
                     <Text style={styles.callDirection}>
-                        outgoing
+                        {data.date}, {data.time}
                     </Text>
                 ) : (
                     <Text style={styles.callDirection}>
@@ -42,14 +62,14 @@ const CallListItem = ({index,data}) => {
 
       <View style={[styles.alignViaRow, styles.alignItemsCenter, styles.alignViewCenter]}>
         {/* date */}
-        <Text style={styles.callDate}>
+        {/* <Text style={styles.callDate}>
          {data.date}
-        </Text>
+        </Text> */}
         {/* info button */}
         <TouchableOpacity>
             <Image  
-                source={DetailsLogo}
-                style={styles.detailsLogo}
+                source={CallIcon}
+                style={{height:moderateScale(30),width:moderateScale(30)}}
             />
         </TouchableOpacity>
       </View>

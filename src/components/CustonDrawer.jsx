@@ -11,11 +11,12 @@ import {
     DrawerContentScrollView,
     DrawerItem
   } from '@react-navigation/drawer';
-import { Image,View,Text } from 'react-native';
+import { Image,View,Text, TouchableOpacity } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { fetchData, removeData } from '../actions/async-storage';
 import auth from '@react-native-firebase/auth';
 import {signOut} from'@react-native-firebase/app'
+import { moderateScale } from '../styles/mixins';
   function CustomDrawer(props) {
 
     const navigation = useNavigation();
@@ -48,7 +49,7 @@ import {signOut} from'@react-native-firebase/app'
         <DrawerItem 
             label='News' 
             onPress={() => navigation.navigate('News')}
-            icon={() => <Image source={MenuNewIcon}/>}
+            icon={() => <Image source={MenuNewIcon} style={styles.drawerIcon}/>}
             labelStyle={styles.labelStyle}
             style={styles.drawerItemStyle}
             
@@ -56,14 +57,14 @@ import {signOut} from'@react-native-firebase/app'
         <DrawerItem 
             label='Calls' 
             onPress={() => navigation.navigate('ContactList')}
-            icon={() => <Image source={MenuCallIcon}/>}
+            icon={() => <Image source={MenuCallIcon} style={styles.drawerIcon}/>}
             labelStyle={styles.labelStyle}
             style={styles.drawerItemStyle}
         />
         <DrawerItem 
             label='Account' 
             onPress={() => navigation.navigate('Account')}
-            icon={() => <Image source={MenuProfileIcon}/>}
+            icon={() => <Image source={MenuProfileIcon} style={styles.drawerIcon}/>}
             labelStyle={styles.labelStyle}
             style={styles.drawerItemStyle}
             
@@ -71,12 +72,17 @@ import {signOut} from'@react-native-firebase/app'
         <DrawerItem 
             label='Log out' 
             onPress={logout}
-            icon={() => <Image source={MenuLogoutIcon}/>}
+            icon={() => <Image source={MenuLogoutIcon} style={styles.drawerIcon}/>}
             labelStyle={styles.labelStyle}
             style={styles.drawerItemStyle}
         />
+        {/* <TouchableOpacity>
+          <Image source={MenuLogoutIcon} />
+          <Text>Log out</Text>
+          <Image></Image>
+        </TouchableOpacity>*/}
       </DrawerContentScrollView>
-    );
+    ); 
   }
 
   export default CustomDrawer;
@@ -92,6 +98,13 @@ import {signOut} from'@react-native-firebase/app'
         borderBottomWidth:1,
         marginHorizontal:25,
         paddingVertical:5
+    },
+
+    drawerIcon:{
+      height:moderateScale(40),
+      width:moderateScale(40),
+      marginTop:moderateScale(5)
     }
+
 
   })

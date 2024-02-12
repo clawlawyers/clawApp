@@ -1,6 +1,7 @@
 import { View, Text, Image, ImageBackground, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useEffect } from 'react'
 import styles from '../../../styles'
+import { connect } from 'react-redux'
 import { cases } from '../../../data/cases'
 import { services } from '../../../data/services'
 import StockWP from '../../../assets/stock-wp.jpg'
@@ -21,7 +22,7 @@ import { getLawyerProfile } from '../../../actions/lawyerProfile'
 const ProfileScreen = (props) => {
   
 
-  console.log(props);
+  //console.log(props);
     const widthAndHeight = 200
   const series = [10,13,23,35,13,20];
    const sliceColor = [ '#497AF9', '#789DFB', '#E5E5E5','#497AF9','#789DFB','#E5E5E5'];
@@ -50,7 +51,7 @@ const ProfileScreen = (props) => {
 
   useEffect(() => {
 
-    getLawyerProfile('abcd',navigation);
+    props.getLawyerProfile('abcd',navigation);
   })
 
   return (
@@ -190,4 +191,7 @@ const ProfileScreen = (props) => {
   )
 }
 
-export default ProfileScreen
+export  default connect(null, {
+  // changeVariable,
+  getLawyerProfile
+})( ProfileScreen);

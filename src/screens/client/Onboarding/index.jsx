@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, TextInput,KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { View, Text, Image, TouchableOpacity, TextInput,BackHandler, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import React,{useEffect, useState} from 'react'
 import styles from '../../../styles'
 import Robot from '../../../assets/Robot.png';
@@ -10,12 +10,15 @@ import MessageIcon from '../../../assets/MessageIcon.png'
 import CustomerServiceIcon from '../../../assets/CustomerServiceIcon.png'
 import { BarIndicator } from 'react-native-indicators';
 import { moderateScale } from '../../../styles/mixins';
+import { useSelector, useDispatch } from 'react-redux'
 const Onboarding = () => {
 
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const [news, setNews] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const name = useSelector((state) => state.variables.name);
+  console.log('nn',name)
   const getNews = async() => {
 
       var myHeaders = new Headers();
@@ -51,8 +54,9 @@ const Onboarding = () => {
   }
 
   useEffect(() => {
-
     getNews();
+    
+  
   },[isFocused]);
  
   return (
@@ -93,7 +97,7 @@ const Onboarding = () => {
             <TextInput
                   placeholder='Search'
                   placeholderTextColor='#999999'
-                  style={[ styles.font_19, styles.textBlack, { width: '90%',marginLeft:4}]}
+                  style={[ styles.font_19, styles.textBlack, { width: '90%',marginLeft:4,marginBottom:-2}]}
             />
                 
           </View>
@@ -126,9 +130,9 @@ const Onboarding = () => {
           {/* News Button */}
           <TouchableOpacity
             onPress={(e)=> navigation.navigate('News')}
-            style={[{width:'100%',alignItems:'center'}]} 
+            style={[{width:'100%',justifyContent:'center'}]} 
           >
-                {isLoading?<View><BarIndicator color='#D9D9D9' size={40}/></View>:<NewsItem news={news} isOnboarding={true} />}
+                {isLoading?<View style={{marginTop:moderateScale(80)}}><BarIndicator color='#D9D9D9' size={40}/></View>:<NewsItem news={news} isOnboarding={true} />}
           </TouchableOpacity>
 
           <TouchableOpacity

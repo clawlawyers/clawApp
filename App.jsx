@@ -13,6 +13,7 @@ const App = () => {
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(thunk),
  });
+ console.log('store',store.getState())
  LogBox.ignoreAllLogs();
  return (
     <Provider store={store}>
