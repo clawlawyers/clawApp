@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { changeVariable } from "./variables";
 import{useSelector, useDispatch} from 'react-redux'
 import { useContext } from "react";
-const getLawyerProfileHelper = async ({ data,  dispatch }) => {
+const getLawyerProfileHelper = async ({   dispatch }) => {
 
     // const {store} = useContext(ReactReduxContext);
     // console.log(' storerrrrr',store);
@@ -23,12 +23,25 @@ const getLawyerProfileHelper = async ({ data,  dispatch }) => {
     };
     
     try{
+        console.log('insid try')
         const response = await fetch("https://claw-backend.onrender.com/api/v1/user/auth/me", requestOptions)
+        console.log(response)
         const responseJSON = await response.json();
         const lawyerData = responseJSON.data;
         console.log('lawyerData',lawyerData);
-        const name = lawyerData.firstName +' '+ lawyerData.lastName;
-        dispatch(changeVariable('name',name));
+        // const name = lawyerData.firstName +' '+ lawyerData.lastName;
+        dispatch(changeVariable('firstName',lawyerData.firstName));
+        dispatch(changeVariable('lastName',lawyerData.lastName));
+        dispatch(changeVariable('city',lawyerData.city));
+        dispatch(changeVariable('state',lawyerData.state));
+        dispatch(changeVariable('email',lawyerData.email));
+        dispatch(changeVariable('photo_url',lawyerData.id_url));
+        dispatch(changeVariable('state',lawyerData.state));
+        dispatch(changeVariable('gender',lawyerData.gender));
+        dispatch(changeVariable('phone_no',lawyerData.phoneNumber));
+        dispatch(changeVariable('uid',lawyerData._id));
+        dispatch(changeVariable('gender',lawyerData.gender));
+
     }catch(err){
         console.log('error', err);
     }
@@ -36,6 +49,6 @@ const getLawyerProfileHelper = async ({ data,  dispatch }) => {
 
 }
 
-export const getLawyerProfile = (data, navigation) => dispatch => {
-    getLawyerProfileHelper({ data,navigation, dispatch });
+export const getLawyerProfile = () => dispatch => {
+    getLawyerProfileHelper({  dispatch });
   };

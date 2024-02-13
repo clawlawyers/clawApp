@@ -5,24 +5,28 @@ import Search from '../../../assets/search-icon.png'
 import styles from '../../../styles'
 import { moderateScale } from '../../../styles/mixins'
 import ProfileIcon from '../../../assets/stock-photo.png';
+import {useNavigation} from '@react-navigation/native'
 const chatMembers = [
   {
       id: 0,
       imageUrl: "https://example.com/image3.jpg",
       name: "Alice Smith",
-      lastActive: "5 minutes ago"
+      lastActive: "5 minutes ago",
+      uid : 'temporaryUser1'
   },
   {
       id: 1,
       imageUrl: "https://example.com/image4.jpg",
       name: "Bob Johnson",
-      lastActive: "10 minutes ago"
+      lastActive: "10 minutes ago",
+      uid : 'temporaryUser2'
   },
   {
       id: 2,
       imageUrl: "https://example.com/image5.jpg",
       name: "Charlie Brown",
-      lastActive: "30 minutes ago"
+      lastActive: "30 minutes ago",
+      uid : 'temporaryUser3'
   },
   {
       id: 3,
@@ -38,7 +42,10 @@ const chatMembers = [
   }
 ]
 
+
 const MessageScreen = () => {
+
+  const navigation = useNavigation();
   return (
     <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
       <View style={[styles.container,{paddingHorizontal:moderateScale(20),alignItems:'center',paddingTop:moderateScale(20)}]}>
@@ -46,7 +53,7 @@ const MessageScreen = () => {
           <Text style={[styles.textBlack, styles.font_700,{fontSize:moderateScale(40)}]}>Chats</Text>
         </View>
 
-        <View style={[styles.alignViaRow, styles.alignItemsCenter, styles.alignViewCenter, styles.searchBar,{marginTop:moderateScale(17)}]}>
+        <View style={[styles.alignViaRow, styles.alignItemsCenter, styles.alignViewCenter, styles.searchBar,{marginTop:moderateScale(15)}]}>
               <TouchableOpacity >
                 <Image 
                     source={Search}
@@ -60,11 +67,26 @@ const MessageScreen = () => {
               />
                   
           </View>
-          <ScrollView showsVerticalScrollIndicator={false} style={{marginTop:moderateScale(10)}}>
+          <ScrollView showsVerticalScrollIndicator={false} style={{marginTop:moderateScale(15),width:'100%',paddingHorizontal:10}}>
             {chatMembers.map((item) => {
 
               return(
-                <View><Image source={ProfileIcon} style={{height:70,width:70}}/><Text>{item.name}</Text><Text>{item.lastActive}</Text></View>
+                <TouchableOpacity 
+                  style={{flexDirection:'row',justifyContent:'flex-start',marginBottom:10}} 
+                  onPress={()=> navigation.navigate('ChatWindow',{
+                      name: item.name,
+                      photo_url : ProfileIcon,
+                      uid : item.uid
+                  })}
+                >
+                  <Image source={ProfileIcon} style={{height:moderateScale(80),width:moderateScale(80)}}/>
+                  
+                  <View style={{justifyContent:'center',marginLeft:moderateScale(22)}}>
+                    <Text style={{fontSize:moderateScale(24),color:'black'}}>{item.name}</Text><Text>{item.lastActive}</Text>
+                  
+                  </View>
+                  
+                </TouchableOpacity>
               )
             })}
           </ScrollView>

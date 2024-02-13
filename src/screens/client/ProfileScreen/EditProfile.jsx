@@ -25,22 +25,22 @@ const EditProfile = () => {
       <ImageBackground 
         source={StockWP}
         resizeMode='cover'
-        style={{justifyContent: 'flex-end', alignItems: 'center', height: 200}}
+        style={{justifyContent: 'flex-end', alignItems: 'center', height: 200,borderBottomRightRadius:20,borderBottomLeftRadius:20}}
       >
-        <TouchableOpacity style={{flexDirection:'row',backgroundColor:'#8940FF',paddingHorizontal:12,paddingVertical:5,borderRadius:10,alignSelf:'flex-start',bottom:moderateScale(-40)}}>
+        <TouchableOpacity style={{flexDirection:'row',backgroundColor:'#8940FF',paddingHorizontal:12,paddingVertical:5,borderRadius:10,alignSelf:'flex-start',bottom:moderateScale(-45)}}>
             <Image source={require('../../../assets/EditBannerIcon.png')} style={{marginVertical:3,marginRight:5}} />
-            <Text style={{color:'white'}}>Edit Banner</Text>
+            <Text style={{color:'white',fontSize:moderateScale(15)}}>Edit Banner</Text>
         </TouchableOpacity>
-        <View style={{justifyContent: 'center', alignItems: 'center', height: 100, width: 100, borderRadius:50, backgroundColor: 'white',marginBottom: -50}}>
+        <View style={{justifyContent: 'center', alignItems: 'center', height: moderateScale(160), width:moderateScale(160), borderRadius:80, backgroundColor: 'white',marginBottom: -75}}>
           <Image 
               source={SampleProfileImage}
-              style={{height: 92, width: 92, borderRadius: 46}}
+              style={{height: moderateScale(150), width:moderateScale(150), borderRadius: 75}}
           />
         </View>
       </ImageBackground>
       
       {/* name */}
-      <View style={{paddingHorizontal:20,marginTop:10}}>
+      <View style={{paddingHorizontal:20,marginTop:35}}>
         <View style={[styles.alignViewCenter, styles.alignItemsCenter, {marginTop: 40, width: '100%', flexDirection:'row'}]}>
           <Text style={{fontSize:13,fontWeight:'500',color:'black'}}>Change Picture</Text>          
         </View>
@@ -48,7 +48,7 @@ const EditProfile = () => {
 
     </View>
 
-    <View style={{paddingHorizontal:20,marginTop:30}}>
+    <View style={{paddingHorizontal:20,marginTop:27}}>
         <Text style={{color:'black'}}>
             Username
         </Text>
@@ -56,21 +56,21 @@ const EditProfile = () => {
 
     </View>
 
-    <View style={{paddingHorizontal:20,marginTop:30}}>
+    <View style={{paddingHorizontal:20,marginTop:27}}>
         <Text style={{color:'black'}}>
             Email ID
         </Text>
         <TextInput placeholder='example@gmail.com' style={styles2.profileTextInput} />
 
     </View>
-    <View style={{paddingHorizontal:20,marginTop:30}}>
+    <View style={{paddingHorizontal:20,marginTop:27}}>
         <Text style={{color:'black'}}>
             Phone Number
         </Text>
         <TextInput placeholder='Enter phone number...' style={styles2.profileTextInput} />
 
     </View>
-    <View style={{paddingHorizontal:20,marginTop:30}}>
+    <View style={{paddingHorizontal:20,marginTop:27}}>
         <Text style={{color:'black'}}>
             ICAI No.
         </Text>
@@ -78,7 +78,7 @@ const EditProfile = () => {
 
     </View>
 
-    <View style={{paddingHorizontal:20,marginTop:30}}>
+    <View style={{paddingHorizontal:20,marginTop:27}}>
         <Text style={{color:'black'}}>
             Articalship letter
         </Text>
@@ -87,14 +87,14 @@ const EditProfile = () => {
     </View>
 
     <TouchableOpacity 
-        style={{backgroundColor:'#8940FF',borderRadius:10,alignItems:'center',paddingVertical:13,marginHorizontal:20,marginTop:15}}
+        style={{backgroundColor:'#8940FF',borderRadius:10,alignItems:'center',paddingVertical:11,marginHorizontal:20,marginTop:15}}
         onPress={() => navigation.navigate('EditServices')}
     >
         <Text style={{color:'white'}}>Edit your services</Text>
     </TouchableOpacity>
 
 
-    <View style={{paddingHorizontal:20,marginTop:30}}>
+    <View style={{paddingHorizontal:20,marginTop:27}}>
         <Text style={{color:'black'}}>
             About me:
         </Text>
@@ -120,6 +120,6 @@ const styles2 = StyleSheet.create({
         borderRadius:10,
         borderColor:'#0000001A',
         marginTop:5,
-        height:moderateScale(55)
+        height:moderateScale(50)
     }
 })

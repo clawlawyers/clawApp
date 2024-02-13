@@ -9,16 +9,18 @@ import MenuIcon from '../../../assets/MenuIcon.png'
 import MessageIcon from '../../../assets/MessageIcon.png'
 import CustomerServiceIcon from '../../../assets/CustomerServiceIcon.png'
 import { BarIndicator } from 'react-native-indicators';
+import {connect} from 'react-redux'
 import { moderateScale } from '../../../styles/mixins';
 import { useSelector, useDispatch } from 'react-redux'
-const Onboarding = () => {
+import { getLawyerProfile } from '../../../actions/lawyerProfile';
+const Onboarding = (props) => {
 
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const [news, setNews] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const name = useSelector((state) => state.variables.name);
-  console.log('nn',name)
+  const state = useSelector((state) => state.variables);
+  console.log('nn',state)
   const getNews = async() => {
 
       var myHeaders = new Headers();
@@ -54,8 +56,9 @@ const Onboarding = () => {
   }
 
   useEffect(() => {
+    props.getLawyerProfile();
     getNews();
-    
+   
   
   },[isFocused]);
  
@@ -160,4 +163,7 @@ const Onboarding = () => {
   )
 }
 
-export default Onboarding
+export default connect(null,{
+
+  getLawyerProfile
+})(Onboarding)

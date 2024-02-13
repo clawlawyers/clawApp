@@ -3,10 +3,13 @@ import { CHANGEVARIABLE } from '../actions/type';
 //store all redux variables here
 const INITIAL_STATE = {
   activity: false,
-  name:'Tejasvi S Jain',
+  firstName:'',
+  lastName :'',
   authenticated: false,
   dob: '',
   email: '',
+  gender:'',
+  photo_url:'',
   error: false,
   errorText: '',
   password: '',
@@ -14,6 +17,8 @@ const INITIAL_STATE = {
   roll_no: '',
   phone_no: '',
   role: '',
+  city:'',
+  state:''
 };
 const a = (state = INITIAL_STATE, action) => {
   switch (action.type) {

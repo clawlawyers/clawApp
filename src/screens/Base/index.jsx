@@ -23,7 +23,7 @@ import styles from '../../styles';
 import MessageScreen from '../client/MessageScreen';
 import ProfileScreen from '../client/ProfileScreen';
 import SignupCilentScreen from '../AuthFlow/SignupClientScreen';
-
+import ChatWindow from '../client/MessageScreen/ChatWindow';
 import ContactList from '../client/Onboarding/ContactList';
 import ExpandedNewsScreen from '../ExpandedNewsScreen';
 import SignupLawyer from '../AuthFlow/SignupLawyer';
@@ -231,12 +231,17 @@ function UpdateProfile () {
 function ClientFlow(){
   
   return(
-    <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props}/>}>
+    <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props}/> } screenOptions={{
+      drawerStyle: {
+        width: 250,
+      },
+    }}>
      <Drawer.Screen 
-        component={ClientTabNavigator} name="Home" options={{headerShown:false}}/>
+        component={ClientTabNavigator} name="Home" options={{headerShown:false}} />
         <Drawer.Screen component={LegalGPTScreen} name='Legal GPT' options={{headerShown:false}}/>
         <Drawer.Screen component={NewsScreen} name="News" options={{headerShown:false}}/>
         <Drawer.Screen component={UpdateProfile} name='Account' options={{headerShown:false}} />
+        <Drawer.Screen component={ChatWindow} name='ChatWindow' options={{headerShown:false}}/>
         <Drawer.Screen component={AppFlow} name='AppFlow' />
     </Drawer.Navigator>
     
@@ -253,6 +258,7 @@ function NewsFlow(){
       <News.Screen component={ContactList} name="ContactList" />
       <News.Screen component={MessageScreen}
       name='MessageScreen' />
+      
       <News.Screen component={NewsDetail} name='NewsDetail' />
     </News.Navigator>
 )}

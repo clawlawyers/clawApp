@@ -9,7 +9,7 @@ import YellowStar from '../../../assets/YellowStar.png';
 import PieChart from 'react-native-pie-chart'
 // import Back from '../../../assets/back-icon.png'
 import NameEditIcon from '../../../assets/NameEditIcon.png';
-import SampleProfileImage from '../../../assets/SampleProfileImage.png';
+import userIcon from '../../../assets/userIcon.png';
 import ProfileMesssageIcon from '../../../assets/ProfileMesssageIcon.png';
 import CaseDetailComponent from '../../../components/CaseDetailComponent'
 import ServiceDetailComponent from '../../../components/ServiceDetailComponent'
@@ -18,7 +18,7 @@ import { ratings } from '../../../data/ratings'
 import { moderateScale } from '../../../styles/mixins'
 import {useNavigation} from '@react-navigation/native';
 import CallIcon from '../../../assets/CallSelected.png'
-import { getLawyerProfile } from '../../../actions/lawyerProfile'
+import {useSelector} from'react-redux';
 const ProfileScreen = (props) => {
   
 
@@ -27,7 +27,8 @@ const ProfileScreen = (props) => {
   const series = [10,13,23,35,13,20];
    const sliceColor = [ '#497AF9', '#789DFB', '#E5E5E5','#497AF9','#789DFB','#E5E5E5'];
    const navigation = useNavigation();
-
+    const state = useSelector(state => state.variables);
+    console.log('profile',state);
   // const setPieChart = () => {
 
   //   let tempSeries = [];
@@ -49,10 +50,10 @@ const ProfileScreen = (props) => {
 
   // },[])
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    props.getLawyerProfile('abcd',navigation);
-  })
+    
+  // },[])
 
   return (
     <ScrollView style={{backgroundColor:'white'}}>
@@ -63,9 +64,13 @@ const ProfileScreen = (props) => {
         style={{justifyContent: 'flex-end', alignItems: 'center', height: 200}}
       >
         <View style={{justifyContent: 'center', alignItems: 'center', height: 100, width: 100, borderRadius:50, backgroundColor: 'white',marginBottom: -50}}>
+        <Image 
+              source={userIcon}
+              style={{height: 92, width: 92, borderRadius: 46,zIndex:1,position:'absolute'}}
+          />
           <Image 
-              source={SampleProfileImage}
-              style={{height: 92, width: 92, borderRadius: 46}}
+              source={userIcon}
+              style={{height: 92, width: 92, borderRadius: 46,zIndex:2,borderWidth:1}}
           />
         </View>
       </ImageBackground>
@@ -73,7 +78,7 @@ const ProfileScreen = (props) => {
       {/* name */}
       <View style={{paddingHorizontal:20,marginTop:10}}>
         <View style={[styles.alignViewCenter, styles.alignItemsCenter, {marginTop: 50, width: '100%', flexDirection:'row',marginLeft:10}]}>
-          <Text style={{fontSize:20,fontWeight:'400',color:'black'}}>Emily Smith</Text>
+          <Text style={{fontSize:20,fontWeight:'400',color:'black'}}>{state.firstName} {state.lastName}</Text>
           <TouchableOpacity style={{marginLeft:6}} onPress={() => navigation.navigate('EditProfile')}>
             <Image source={NameEditIcon} style={{height:20,width:20}} />
           </TouchableOpacity>
@@ -193,5 +198,5 @@ const ProfileScreen = (props) => {
 
 export  default connect(null, {
   // changeVariable,
-  getLawyerProfile
+  // getLawyerProfile
 })( ProfileScreen);

@@ -5,7 +5,8 @@ import MenuNewIcon from '../assets/MenuNewsIcon.png';
 import MenuCallIcon from '../assets/MenuCallIcon.png';
 import MenuProfileIcon from '../assets/MenuProfileIcon.png';
 import MenuLogoutIcon from '../assets/MenuLogoutIcon.png';
-import SampleProfileImage from '../assets/SampleProfileImage.png'
+import userIcon from '../assets/userIcon.png';
+
 import MenuArrow from '../assets/MenuArrow.png';
 import {
     DrawerContentScrollView,
@@ -17,9 +18,14 @@ import { fetchData, removeData } from '../actions/async-storage';
 import auth from '@react-native-firebase/auth';
 import {signOut} from'@react-native-firebase/app'
 import { moderateScale } from '../styles/mixins';
+import {useSelector} from 'react-redux';
   function CustomDrawer(props) {
 
     const navigation = useNavigation();
+    const firstName = useSelector(state => state.variables.firstName);
+    const lastName = useSelector(state => state.variables.lastName);
+    const imageUrl = useSelector(state => state.variables.photo_url);
+    console.log(imageUrl);
     const logout = () => {
 
       console.log(fetchData('userId'));
@@ -33,11 +39,12 @@ import { moderateScale } from '../styles/mixins';
 
     return (
       <DrawerContentScrollView {...props} 
-        style={{backgroundColor:'#bb91ff'}}
+        style={{backgroundColor:'#bb91ff', }}
       >
-        <View style={{backgroundColor:'#8940ff',marginTop:-4,paddingVertical:30,paddingHorizontal:40}}>
-            <Image source={SampleProfileImage}/>
-            <Text style={{color:'white', fontWeight:'bold',fontSize:22}}>Emily Smith</Text>
+        <View style={{backgroundColor:'#8940ff',marginTop:-4,paddingVertical:20,paddingHorizontal:30}}>
+            <Image source={userIcon} style={{height:moderateScale(70),width:moderateScale(70),zIndex:1,position:'absolute',marginTop:moderateScale(50),marginLeft:moderateScale(30)}}/>
+            <Image source={userIcon} style={{height:moderateScale(70),width:moderateScale(70),zIndex:2,position:'absolute',marginTop:moderateScale(50),marginLeft:moderateScale(30)}}/>
+            <Text style={{color:'white', fontWeight:'bold',fontSize:19,marginTop:moderateScale(100)}}>{firstName} {lastName}</Text>
         </View>
         <DrawerItem 
             label='Legal GPT' 
@@ -97,7 +104,8 @@ import { moderateScale } from '../styles/mixins';
     drawerItemStyle:{
         borderBottomWidth:1,
         marginHorizontal:25,
-        paddingVertical:5
+        paddingVertical:5,
+       
     },
 
     drawerIcon:{
