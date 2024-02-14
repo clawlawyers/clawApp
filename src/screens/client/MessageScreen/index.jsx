@@ -12,14 +12,14 @@ const chatMembers = [
       imageUrl: "https://example.com/image3.jpg",
       name: "Alice Smith",
       lastActive: "5 minutes ago",
-      uid : 'temporaryUser1'
+      uid : '65cbd5153ca35f1f69e2611b'
   },
   {
       id: 1,
       imageUrl: "https://example.com/image4.jpg",
       name: "Bob Johnson",
       lastActive: "10 minutes ago",
-      uid : 'temporaryUser2'
+      uid : '65c659c3b9090a6548f3d3fd'
   },
   {
       id: 2,

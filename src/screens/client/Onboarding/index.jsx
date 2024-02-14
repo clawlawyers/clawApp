@@ -20,7 +20,7 @@ const Onboarding = (props) => {
   const [news, setNews] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const state = useSelector((state) => state.variables);
-  console.log('nn',state)
+  //console.log('nn',state)
   const getNews = async() => {
 
       var myHeaders = new Headers();
@@ -48,7 +48,7 @@ const Onboarding = (props) => {
         newsData.push(item);
       })
 
-      console.log('News data @@', newsData[0]);
+      //console.log('News data @@', newsData[0]);
       setNews(newsData[0]);
       console.log(news);
       setIsLoading(false);

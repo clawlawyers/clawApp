@@ -10,15 +10,67 @@ import { verticalScale } from '../../../styles/mixins';
 import firestore from '@react-native-firebase/firestore';
 import GPTSendIcon from '../../../assets/GPTSendIcon.png';
 import { moderateScale } from '../../../styles/mixins';
+import {useSelector } from 'react-redux';
 
 const ChatWindow = ({route})=> {
 
     const {name,uid,photo_url} = route.params;
-    console.log(name)
+    //console.log(name)
     const navigation = useNavigation();
+    const current_uid = useSelector(state => state.variables.uid);
+
+    const [messageList, setMessageList] =useState([]);
+    const [messageText, setMessageText] = useState('');
+    //console.log(current_uid, uid);
+
+    const sendNewMessage = async() => {
+        
+        const messageContent = {
+
+        text : messageText,
+        sender : current_uid,
+        receiver : uid,
+        timeStamp: firestore.FieldValue.serverTimestamp(new Date()) 
+    }
+
+    console.log(messageContent);
+    const res = await firestore().collection('chats').doc(current_uid+uid).collection('messages').add(messageContent);
+    //console.log(res);
+    await firestore().collection('chats').doc(uid+current_uid).collection('messages').add(messageContent);
+
+    setMessageText('');
+    }
+
+    const retreiveMessages = () => {
+
+        const messages = firestore().collection('chats').doc(current_uid+uid).collection('messages').orderBy('timeStamp');
+        messages.onSnapshot(querysnapshot => {
+
+            const allmessages = querysnapshot.docs.map(item => {
+                return {...item, timeStamp: Date.parse(new Date())}
+            })
+            setMessageList(allmessages);
+            //console.log('messageList',messageList);
+        })
+
+    }
+
+    const convertTime = (time) => {
+
+        const newTime = new Date(time);
+        console.log('newTime',newTime)
+        return newTime;
+    }
+    useEffect(() =>{
+
+        const subscriber = retreiveMessages();
+
+        return subscriber;
+    },[]);
+
     return (
-        <View style={[styles.alignItemsCenter, styles.alignViewCenter,{paddingHorizontal:20,paddingTop:20,backgroundColor:'white',flex:1}]}>
-         <View style={[ {width: '100%', flexDirection:'row'},]}>
+        <View style={[styles.alignItemsCenter, styles.alignViewCenter,{backgroundColor:'white',flex:1}]}>
+         <View style={[ {width: '100%', flexDirection:'row',backgroundColor:'#F6F6F6',paddingVertical:15},]}>
                 <TouchableOpacity 
                   style={[styles.alignItemsLeft, styles.alignViewCenter, {}]}
                   onPress={() => navigation.navigate('MessageScreen')}
@@ -31,18 +83,38 @@ const ChatWindow = ({route})=> {
                 <Image source={photo_url} style={{height:moderateScale(40),width:moderateScale(40),marginHorizontal:moderateScale(10)}}/>  
                 <Text style={{fontWeight:'bold',color:'black',fontSize:15}}>{name}</Text>      
             </View>
-            <View style={{alignItems:'center'}}>
-              <Text style={{fontSize:25,color:'black',fontWeight:'500'}} >
-              
-              </Text>
-              <Text style={{fontSize:12}}>
-             </Text><Text style={{fontSize:12}}> 
-              </Text>
-            </View>
-            <FlatList />
+            <FlatList 
+                
+                style={{paddingHorizontal:20,width:'100%',marginTop:20}}
+                data={messageList}
+                renderItem={({item}) => (
+
+                    <View style={item._data.sender==current_uid ?
+                    {backgroundColor:'#8940FF',borderRadius:5,paddingVertical:7,alignSelf:'flex-end',marginVertical:2,paddingHorizontal:10,flexDirection:'row'}:
+                    {backgroundColor: 'white',borderRadius:6,paddingHorizontal:10,alignSelf:'flex-start',marginVertical:2,borderBottomWidth:1,borderRightWidth:1,borderColor:'#0f0f0f30',paddingVertical:7,flexDirection:'row'}}>
+
+                        <Text style={item._data.sender==current_uid ?
+                        {color:'white'}:
+                        {color: 'black'}}>
+                            {item._data.text}
+
+                        </Text>
+                        <Text style={item._data.sender==current_uid ?
+                        {color:'white',fontSize:10,alignSelf:'flex-end',marginLeft:6}:
+                        {color:'black',fontSize:10,alignSelf:'flex-end',marginLeft:6}}>
+                       {item._data.timeStamp? (item._data.timeStamp.toDate().getHours()):null}: 
+                       {item._data.timeStamp? (item._data.timeStamp.toDate().getMinutes()):(null)}
+                        </Text>
+                    </View>
+                    
+                )}
+            />
             <View style={{borderWidth:1,borderColor:'#8940FF60',borderRadius:10,width:'100%',flexDirection:'row',height:moderateScale(52)}}>
-              <TextInput placeholder='' style={{width:'85%'}} />
-              <TouchableOpacity style={{backgroundColor:'#8940FF',width:'12%',justifyContent:'center',alignItems:'center',borderRadius:10,margin:moderateScale(5)}}>
+              <TextInput placeholder='' style={{width:'85%'}} value={messageText} onChangeText={(message) => setMessageText(message)}/>
+              <TouchableOpacity 
+                style={{backgroundColor:'#8940FF',width:'12%',justifyContent:'center',alignItems:'center',borderRadius:10,margin:moderateScale(5)}}
+                onPress={sendNewMessage}
+                >
                 <Image source={GPTSendIcon} style={{width:moderateScale(15),height:moderateScale(20)}}/>
               </TouchableOpacity>
             </View>
