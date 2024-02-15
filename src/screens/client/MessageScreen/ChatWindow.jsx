@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Touchable, TouchableOpacity,Image, FlatList, TextInput } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity,Image, FlatList, TextInput } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import NewsItem from '../../../components/NewsItem';
 import data from '../../../data/dummy'
@@ -90,8 +90,8 @@ const ChatWindow = ({route})=> {
                 renderItem={({item}) => (
 
                     <View style={item._data.sender==current_uid ?
-                    {backgroundColor:'#8940FF',borderRadius:5,paddingVertical:7,alignSelf:'flex-end',marginVertical:2,paddingHorizontal:10,flexDirection:'row'}:
-                    {backgroundColor: 'white',borderRadius:6,paddingHorizontal:10,alignSelf:'flex-start',marginVertical:2,borderBottomWidth:1,borderRightWidth:1,borderColor:'#0f0f0f30',paddingVertical:7,flexDirection:'row'}}>
+                   [localStyles.messageContainerStyle, {alignSelf:'flex-end',backgroundColor:'#8940FF',}]:
+                   [localStyles.messageContainerStyle, {alignSelf:'flex-start',backgroundColor:'white',}]}>
 
                         <Text style={item._data.sender==current_uid ?
                         {color:'white'}:
@@ -100,8 +100,8 @@ const ChatWindow = ({route})=> {
 
                         </Text>
                         <Text style={item._data.sender==current_uid ?
-                        {color:'white',fontSize:10,alignSelf:'flex-end',marginLeft:6}:
-                        {color:'black',fontSize:10,alignSelf:'flex-end',marginLeft:6}}>
+                        [localStyles.textTimeStyle,{color:'white',}]:
+                        [localStyles.textTimeStyle,{color:'black',}]}>
                        {item._data.timeStamp? (item._data.timeStamp.toDate().getHours()):null}: 
                        {item._data.timeStamp? (item._data.timeStamp.toDate().getMinutes()):(null)}
                         </Text>
@@ -122,5 +122,22 @@ const ChatWindow = ({route})=> {
           </View>
       )
 }
+
+const localStyles = StyleSheet.create({
+
+    textTimeStyle : {
+        fontSize:10,
+        alignSelf:'flex-end',
+        marginLeft:6
+    },
+    messageContainerStyle : {
+        borderRadius:5,
+        paddingVertical:7,
+        
+        marginVertical:2,
+        paddingHorizontal:10,
+        flexDirection:'row'
+    }
+})
 
 export default ChatWindow;

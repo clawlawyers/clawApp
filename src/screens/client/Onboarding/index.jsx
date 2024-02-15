@@ -56,9 +56,19 @@ const Onboarding = (props) => {
   }
 
   useEffect(() => {
+
     props.getLawyerProfile();
     getNews();
-   
+    const backAction = () => {
+      //Alert.alert('Hold on!', 'Are you sure you want to go back?', [
+        
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+    return () => backHandler.remove();
   
   },[isFocused]);
  
