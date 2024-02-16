@@ -37,7 +37,8 @@ const getLawyerProfileHelper = async ({   dispatch }) => {
         dispatch(changeVariable('state',lawyerData.state));
         dispatch(changeVariable('email',lawyerData.email));
 
-       // const imageUrl = getProfileImage(lawyerData.id_url)
+    //    const imageUrl = getProfileImage(lawyerData.id_url)
+    //    console.log('image fetched',imageUrl)
         dispatch(changeVariable('photo_url',lawyerData.id_url));
         dispatch(changeVariable('state',lawyerData.state));
         dispatch(changeVariable('gender',lawyerData.gender));

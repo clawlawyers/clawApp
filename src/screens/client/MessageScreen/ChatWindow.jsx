@@ -4,7 +4,7 @@ import NewsItem from '../../../components/NewsItem';
 import data from '../../../data/dummy'
 import styles from '../../../styles';
 import Back from '../../../assets/back-icon.png'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import leftArrow from '../../../assets/leftArrow.png'
 import { verticalScale } from '../../../styles/mixins';
 import firestore from '@react-native-firebase/firestore';
@@ -14,14 +14,14 @@ import {useSelector } from 'react-redux';
 
 const ChatWindow = ({route})=> {
 
-    const {name,uid,photo_url} = route.params;
+    const {firstName,lastName,uid,photo_url} = route.params;
     //console.log(name)
     const navigation = useNavigation();
     const current_uid = useSelector(state => state.variables.uid);
-
+    const isFocused = useIsFocused();
     const [messageList, setMessageList] =useState([]);
     const [messageText, setMessageText] = useState('');
-    //console.log(current_uid, uid);
+    console.log(current_uid, uid);
 
     const sendNewMessage = async() => {
         
@@ -35,7 +35,7 @@ const ChatWindow = ({route})=> {
 
     console.log(messageContent);
     const res = await firestore().collection('chats').doc(current_uid+uid).collection('messages').add(messageContent);
-    //console.log(res);
+    console.log(res);
     await firestore().collection('chats').doc(uid+current_uid).collection('messages').add(messageContent);
 
     setMessageText('');
@@ -43,14 +43,14 @@ const ChatWindow = ({route})=> {
 
     const retreiveMessages = () => {
 
-        const messages = firestore().collection('chats').doc(current_uid+uid).collection('messages').orderBy('timeStamp');
+        const messages =  firestore().collection('chats').doc(current_uid+uid).collection('messages').orderBy('timeStamp');
         messages.onSnapshot(querysnapshot => {
 
             const allmessages = querysnapshot.docs.map(item => {
                 return {...item, timeStamp: Date.parse(new Date())}
             })
             setMessageList(allmessages);
-            //console.log('messageList',messageList);
+            console.log('messageList',messageList);
         })
 
     }
@@ -66,7 +66,7 @@ const ChatWindow = ({route})=> {
         const subscriber = retreiveMessages();
 
         return subscriber;
-    },[]);
+    },[isFocused]);
 
     return (
         <View style={[styles.alignItemsCenter, styles.alignViewCenter,{backgroundColor:'white',flex:1}]}>
@@ -81,7 +81,7 @@ const ChatWindow = ({route})=> {
                     />
                 </TouchableOpacity>    
                 <Image source={photo_url} style={{height:moderateScale(40),width:moderateScale(40),marginHorizontal:moderateScale(10)}}/>  
-                <Text style={{fontWeight:'bold',color:'black',fontSize:15}}>{name}</Text>      
+                <Text style={{fontWeight:'bold',color:'black',fontSize:15}}>{firstName} {lastName}</Text>      
             </View>
             <FlatList 
                 

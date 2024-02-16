@@ -42,6 +42,8 @@ const SignupClientScreen = (props) => {
         //setUser(user);
         //if (initializing) setInitializing(false);
         if (user) {
+            _setTimer(0);
+            
             setOTPvisibility(false);
 
             console.log('inside user');
@@ -51,11 +53,20 @@ const SignupClientScreen = (props) => {
                 verified: true
             }
             props.validatePhoneNumber(data,navigation)
-            _setTimer(0);
+            
             setIsLoading(false);
         }
       }
     
+      useEffect (() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        
+        console.log('subscriber',subscriber);
+
+        return subscriber;
+
+      },[])
+
       useEffect(() => {
 
        const interval= setInterval(() => {
@@ -63,14 +74,14 @@ const SignupClientScreen = (props) => {
               _setTimer(_timer - 1);
             }
         }, 1000)
-        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        // const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
         
-        console.log('subscriber',subscriber);
+        // console.log('subscriber',subscriber);
         // return subscriber; // unsubscribe on unmount
         return () => {
-            clearInterval(interval),subscriber
+            clearInterval(interval)
           };
-      }, [confirm,_timer]);
+      }, [_timer]);
       console.log(_timer);
     const validatePhone = async() =>{
 
@@ -336,7 +347,7 @@ const SignupClientScreen = (props) => {
 
     </View>
    }
-   <Text style={_timer>0 ?{textDecorationLine:'underline',color: '#8940FF50',fontSize:15,alignSelf:'center',marginTop:10} :{textDecorationLine:'underline',color: '#8940FF',fontSize:15,alignSelf:'center',marginTop:10}} onPress={() => validatePhone()} disabled={_timer>0 ? true:false}>Resend OTP ({ _timer})</Text>
+   <Text style={_timer>0 ?{textDecorationLine:'underline',color: '#8940FF50',fontSize:15,alignSelf:'center',marginTop:10} :{textDecorationLine:'underline',color: '#8940FF',fontSize:15,alignSelf:'center',marginTop:10}} onPress={() => validatePhone()} disabled={_timer>0 || _OTPvisibility==false ? true:false}>Resend OTP { _timer?(_timer):null}</Text>
     <TouchableOpacity 
             style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter,{alignSelf:'center',marginTop:15}]}
             onPress={handleOTP}

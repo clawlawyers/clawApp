@@ -258,7 +258,7 @@ const  SignupLawyer = (props) => {
                     Bar council Id certificate or ID card <Text style={{color:'red'}}>*</Text>
                     </Text>
                     <View height={163} style={{backgroundColor:'#D9D9D9',alignItems:'center',borderRadius:10,flex:1,justifyContent:'center'}}>
-                        <Image source={{uri : _photoPath}} alt='' height={163} width='100%'  style={{zIndex:1,position:'absolute',borderWidth:1}}/>
+                        <Image source={{uri : _photoPath}} alt='' height={163}  style={{zIndex:1,position:'absolute',borderWidth:1}}/>
                     
                         <TouchableOpacity onPress={handleChoosePhoto} style={{zIndex:2,position:'absolute',alignItems:'center'}}>
                             <Image source={require('../../assets/CameraIcon.png')} height={60} width={60}/>
