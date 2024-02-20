@@ -1,4 +1,4 @@
-import { baseUrl,verifyUrl } from './variables';
+import { baseUrl,changeVariable,verifyUrl } from './variables';
 import { CHANGEVARIABLE } from './type';
 import { fetchData, storeData } from './async-storage';
 import { Alert } from 'react-native';
@@ -48,6 +48,7 @@ import { Alert } from 'react-native';
 
       //storeData()
       storeData('userId',response.data.jwt);
+      dispatch('jwtToken',response.data.jwt);
       navigation.navigate('ClientFlow');
     }else{
       Alert.alert('Something went wrong!');
@@ -77,7 +78,7 @@ import { Alert } from 'react-native';
           if (responseJson.success) {
             // storeData('userStatus', 'details_complete');
             storeData('userId',responseJson.data.jwt);
-            
+            dispatch('jwtToken',responseJson.data.jwt);
             console.log('api res', responseJson);
             console.log("Registration successful");
             if(responseJson.data.registered){
@@ -100,13 +101,14 @@ import { Alert } from 'react-native';
     
 }
 
-const localSigninHelper = async({navigation}) =>{
+const localSigninHelper = async({data,navigation,dispatch}) =>{
 
   console.log('first')
-  const userId = fetchData('userId');
+  const userId = data;
+  console.log('LocalSignin',userId);
 
   if(userId){
-
+    dispatch(changeVariable('jwtToken',userId));
     navigation.navigate('ClientFlow');
   }else{
 
@@ -124,7 +126,7 @@ const localSigninHelper = async({navigation}) =>{
     phoneVerificationHelper({data,navigation,dispatch});
   }
 
-  export const localSignIn = (navigation) => dispatch => {
+  export const LocalSignIn = (data,navigation) => dispatch => {
 
-    localSigninHelper({ navigation, dispatch});
+    localSigninHelper({data, navigation, dispatch});
   }

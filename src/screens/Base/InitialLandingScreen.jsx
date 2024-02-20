@@ -2,9 +2,9 @@ import { View, Text, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import {useNavigation, useIsFocused} from '@react-navigation/native'
 import { fetchData } from '../../actions/async-storage'
-import {registerUser, LocalSignIn } from '../../actions/authentication'
+import { LocalSignIn } from '../../actions/authentication'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { Connect, connect } from 'react-redux'
 const InitialLandingScreen =(props) => {
 
 //     const [Activeuser, setUser] = useState(null);
@@ -17,9 +17,11 @@ const InitialLandingScreen =(props) => {
     //     console.log(LocalSignIn)
     //   LocalSignIn(navigation);
         const userId = await AsyncStorage.getItem('userId');
+        console.log(userId);
         if(userId){
 
-            navigation.navigate('ClientFlow');
+            props.LocalSignIn(userId,navigation);
+            
         }else{
 
             navigation.navigate('SignupFlow')
@@ -37,4 +39,6 @@ const InitialLandingScreen =(props) => {
   )
 }
 
-export default InitialLandingScreen;
+export default connect(null,{
+  LocalSignIn
+})(InitialLandingScreen);

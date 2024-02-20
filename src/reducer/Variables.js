@@ -18,7 +18,8 @@ const INITIAL_STATE = {
   phone_no: '',
   role: '',
   city:'',
-  state:''
+  state:'',
+  jwtToken :''
 };
 const a = (state = INITIAL_STATE, action) => {
   switch (action.type) {

@@ -43,7 +43,7 @@ import {useSelector} from 'react-redux';
       >
         <View style={{backgroundColor:'#8940ff',marginTop:-4,paddingVertical:20,paddingHorizontal:30}}>
             <Image source={userIcon} style={{height:moderateScale(70),width:moderateScale(70),zIndex:1,position:'absolute',marginTop:moderateScale(50),marginLeft:moderateScale(30)}}/>
-            <Image source={userIcon} style={{height:moderateScale(70),width:moderateScale(70),zIndex:2,position:'absolute',marginTop:moderateScale(50),marginLeft:moderateScale(30)}}/>
+            <Image source={{uri : imageUrl}} style={{height:moderateScale(70),width:moderateScale(70),zIndex:2,position:'absolute',marginTop:moderateScale(50),marginLeft:moderateScale(30)}}/>
             <Text style={{color:'white', fontWeight:'bold',fontSize:19,marginTop:moderateScale(100)}}>{firstName} {lastName}</Text>
         </View>
         <DrawerItem 

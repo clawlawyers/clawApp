@@ -4,7 +4,7 @@ import styles from '../../../styles'
 import { connect } from 'react-redux'
 import { cases } from '../../../data/cases'
 import { services } from '../../../data/services'
-import StockWP from '../../../assets/stock-wp.jpg'
+import background from '../../../assets/background.jpg'
 import YellowStar from '../../../assets/YellowStar.png';
 import PieChart from 'react-native-pie-chart'
 // import Back from '../../../assets/back-icon.png'
@@ -28,7 +28,7 @@ const ProfileScreen = (props) => {
    const sliceColor = [ '#497AF9', '#789DFB', '#E5E5E5','#497AF9','#789DFB','#E5E5E5'];
    const navigation = useNavigation();
     const state = useSelector(state => state.variables);
-    console.log('profile',state);
+   // console.log('profile',state);
   // const setPieChart = () => {
 
   //   let tempSeries = [];
@@ -59,7 +59,7 @@ const ProfileScreen = (props) => {
     <ScrollView style={{backgroundColor:'white'}}>
     <View style={[styles.container,{backgroundColor: 'white',}]}>
       <ImageBackground 
-        source={StockWP}
+        source={background}
         resizeMode='cover'
         style={{justifyContent: 'flex-end', alignItems: 'center', height: 200}}
       >
@@ -69,7 +69,7 @@ const ProfileScreen = (props) => {
               style={{height: 92, width: 92, borderRadius: 46,zIndex:1,position:'absolute'}}
           />
           <Image 
-              source={userIcon}
+              source={{uri : data.photo_url}}
               style={{height: 92, width: 92, borderRadius: 46,zIndex:2,borderWidth:1}}
           />
         </View>
