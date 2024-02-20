@@ -5,13 +5,11 @@ import Robot from '../../../assets/Robot.png';
 import NewsItem from '../../../components/NewsItem'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import Search from '../../../assets/search-icon.png'
-import MenuIcon from '../../../assets/MenuIcon.png'
 import MessageIcon from '../../../assets/MessageIcon.png'
 import CustomerServiceIcon from '../../../assets/CustomerServiceIcon.png'
 import { BarIndicator } from 'react-native-indicators';
-import {connect} from 'react-redux'
 import { moderateScale } from '../../../styles/mixins';
-import { useSelector, useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import { getLawyerProfile } from '../../../actions/lawyerProfile';
 const Onboarding = (props) => {
 
@@ -19,8 +17,8 @@ const Onboarding = (props) => {
   const isFocused = useIsFocused();
   const [news, setNews] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const state = useSelector((state) => state.variables);
-  //console.log('nn',state)
+  const [_searchString, _setSearchString] = useState('');
+
   const getNews = async() => {
 
       var myHeaders = new Headers();
@@ -108,9 +106,12 @@ const Onboarding = (props) => {
               />
             </TouchableOpacity>
             <TextInput
-                  placeholder='Search'
-                  placeholderTextColor='#999999'
-                  style={[ styles.font_19, styles.textBlack, { width: '90%',marginLeft:4,marginBottom:-2}]}
+              placeholder='Search'
+              placeholderTextColor='#999999'
+              style={[ styles.font_19, styles.textBlack, { width: '90%',marginLeft:4,marginBottom:moderateScale(-2)}]}
+              value={_searchString}
+              onChangeText={(search) => _setSearchString(search)}
+              onEndEditing={() => navigation.navigate('SearchResultScreen',{ searchString : _searchString})}
             />
                 
           </View>
@@ -175,5 +176,5 @@ const Onboarding = (props) => {
 
 export default connect(null,{
 
-  getLawyerProfile
+  getLawyerProfile,
 })(Onboarding)

@@ -3,7 +3,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { changeVariable } from "./variables";
 import{useSelector, useDispatch} from 'react-redux'
 import { useContext } from "react";
-import { format } from "prettier";
 import { ToastAndroid } from "react-native";
 // import { S3 } from 'aws-sdk/dist/aws-sdk-react-native';
 const getLawyerProfileHelper = async ({   dispatch }) => {
@@ -47,7 +46,7 @@ const getLawyerProfileHelper = async ({   dispatch }) => {
         // Convert the blob to a data URL
         const reader = new FileReader();
         reader.onload = () => {
-          console.log(reader.result);
+         // console.log(reader.result);
           dispatch(changeVariable('photo_url',reader.result));
         };
         reader.readAsDataURL(blob);
@@ -146,7 +145,7 @@ const updateLawyerHelper = ({data, navigation, dispatch}) => {
     fetch("https://claw-backend.onrender.com/api/v1/user/", requestOptions)
     .then((response) => response.json())
     .then((result) => {
-        console.log('result ::::',result)
+        //console.log('result ::::',result)
         ToastAndroid.show('Profile updated succesfully!',ToastAndroid.SHORT);
         navigation.navigate('ProfileScreen');
     })

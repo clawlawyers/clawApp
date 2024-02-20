@@ -32,18 +32,14 @@ import NewsDetail from '../client/NewsScreen/NewsDetail';
 import EditProfile from '../client/ProfileScreen/EditProfile';
 import InitialLandingScreen from './InitialLandingScreen';
 import EditServices from '../client/ProfileScreen/EditServices';
+import SearchResultScreen from '../client/SearchScreen';
 
-
-
-const UserCall = createNativeStackNavigator();
 const Root = createNativeStackNavigator();
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-const Tab2 = createBottomTabNavigator();
 const News = createNativeStackNavigator();
 const NewsStack = createNativeStackNavigator();
 const ProfileStack = createNativeStackNavigator();
-const UserNews = createNativeStackNavigator();
 const AppStack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -242,6 +238,7 @@ function ClientFlow(){
         <Drawer.Screen component={NewsScreen} name="News" options={{headerShown:false}}/>
         <Drawer.Screen component={UpdateProfile} name='Account' options={{headerShown:false}} />
         <Drawer.Screen component={ChatWindow} name='ChatWindow' options={{headerShown:false}}/>
+        <Drawer.Screen component={SearchResultScreen} name='SearchResultScreen' options={{headerShown: false}} />
         <Drawer.Screen component={AppFlow} name='AppFlow' />
     </Drawer.Navigator>
     
