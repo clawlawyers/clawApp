@@ -16,7 +16,7 @@ const  SignupLawyer = (props) => {
     const data = states;
     const {phoneNumber} = props.route.params;
    // const phoneNumber='7880982076'
-    console.log(phoneNumber);
+  //  console.log(phoneNumber);
     const [cityData, setCityData] = useState([]);
     const navigation = useNavigation()   
     const radioButtons = useMemo(() => ([
@@ -55,14 +55,14 @@ const  SignupLawyer = (props) => {
     const [isFocusCity, setisFocusCity] = useState(false);
 
     const [selectedId, setSelectedId] = useState();
-    console.log(_state,_stateId);
-    console.log(_city)
-    console.log(selectedId)
+    // console.log(_state,_stateId);
+    // console.log(_city)
+    // console.log(selectedId)
 
     const fetchCities = () =>{
 
         const citiesData = cities.filter(city => city.stateId == _stateId);
-        console.log(citiesData);
+       // console.log(citiesData);
         setCityData(citiesData);
     }
     handleChoosePhoto = async() =>{
@@ -77,24 +77,19 @@ const  SignupLawyer = (props) => {
             },
         }
 
-        console.log(Platform.OS);
         const res = await launchImageLibrary(options);
         console.log(res);
         const uriParts = res.assets[0].uri.split('.');
         const fileType = uriParts[uriParts.length - 1];
         const newImageUri = "file:///" + res.assets[0].uri.split("file:/").join("");
-        photodet = {
-            type: mime.getType(newImageUri),
-            name: newImageUri.split("/").pop(),
-            uri: newImageUri,
-        }
+        
         _setPhoto({
             type: mime.getType(newImageUri),
             name: newImageUri.split("/").pop(),
             uri: newImageUri,
         })
         console.log('_photo',_photo);
-        console.log(photodet);
+       
         _setPhotoPath(res.assets[0].uri);
     }
 
@@ -118,7 +113,6 @@ const  SignupLawyer = (props) => {
         }
         else{
 
-            console.log('photoooooo',_photo);
             const data = {
             
                 firstName : _fname,
@@ -135,9 +129,8 @@ const  SignupLawyer = (props) => {
                 uploaded_id : _photoPath,
                 phoneNumber : phoneNumber
             }
-            console.log('data',data);
            props.registerUser(data,navigation);
-           console.log('first')
+           
         }
       
         

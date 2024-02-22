@@ -7,14 +7,10 @@ import { ToastAndroid } from "react-native";
 // import { S3 } from 'aws-sdk/dist/aws-sdk-react-native';
 const getLawyerProfileHelper = async ({   dispatch }) => {
 
-    // const {store} = useContext(ReactReduxContext);
-    // console.log(' storerrrrr',store);
-    // const state = useSelector(state =>state)
-    // console.log('state',state);
     const userToken =await  AsyncStorage.getItem('userId');
-    console.log(userToken);
+    //console.log(userToken);
     const userProfileToken = "Bearer "+userToken;
-    console.log('first',userProfileToken)
+   // console.log('first',userProfileToken)
     var myHeaders = new Headers();
     myHeaders.append("Authorization", userProfileToken);
     
@@ -30,16 +26,12 @@ const getLawyerProfileHelper = async ({   dispatch }) => {
         //console.log(response)
         const responseJSON = await response.json();
         const lawyerData = responseJSON.data;
-        //console.log('lawyerData',lawyerData);
-        // const name = lawyerData.firstName +' '+ lawyerData.lastName;
         dispatch(changeVariable('firstName',lawyerData.firstName));
         dispatch(changeVariable('lastName',lawyerData.lastName));
         dispatch(changeVariable('city',lawyerData.city));
         dispatch(changeVariable('state',lawyerData.state));
         dispatch(changeVariable('email',lawyerData.email));
 
-    //    const imageUrl = getProfileImage(lawyerData.id_url)
-    //    console.log('image fetched',imageUrl)
     fetch(lawyerData.profilePicture)
       .then(response => response.blob())
       .then(blob => {

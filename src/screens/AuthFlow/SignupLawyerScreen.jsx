@@ -38,15 +38,13 @@ const SignupClientScreen = (props) => {
 
     function onAuthStateChanged(user) {
       
-        console.log('inside onauthchanged')
+       
         //setUser(user);
         //if (initializing) setInitializing(false);
         if (user) {
             _setTimer(0);
             
             setOTPvisibility(false);
-
-            console.log('inside user');
             //setOTPvisibility(false);
             const data = {
                 phoneNumber: _phoneNumber,
@@ -99,8 +97,6 @@ const SignupClientScreen = (props) => {
             console.log(pno);
             const res = await auth().signInWithPhoneNumber(pno);
             setConfirm(res);
-            
-            console.log(res)
             setIsLoading(false);
             //alert('otp sent');
             //navigation.navigate('AppFlow',{screen:'OTPScreen'})

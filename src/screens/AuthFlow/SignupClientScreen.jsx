@@ -38,7 +38,6 @@ const SignupClientScreen = (props) => {
 
     function onAuthStateChanged(user) {
 
-        console.log('inside onauthchanged')
         setUser(user);
         if (initializing) setInitializing(false);
         if (_user) {
@@ -49,7 +48,7 @@ const SignupClientScreen = (props) => {
     
       useEffect(() => {
         const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-        console.log('subscriber',subscriber);
+        
         return subscriber; // unsubscribe on unmount
       }, []);
 
@@ -65,7 +64,7 @@ const SignupClientScreen = (props) => {
 
             setIsLoading(true);
             const pno = '+91'+_phoneNumber;
-            console.log(pno);
+            (pno);
             const res = await auth().signInWithPhoneNumber(pno);
             setConfirm(res);
             

@@ -18,11 +18,11 @@ const getNewsHelper = async() => {
   const res = await fetch("https://claw-backend.onrender.com/api/v1/news", requestOptions);
 
   const response = await res.json();
-  console.log('RESPONSE DATA :::::',response.data);
+  // console.log('RESPONSE DATA :::::',response.data);
   const response2 = response.data;
 
   let newsData = [];
-  console.log('RESPONSE DATA ######',response2);
+
     response2.map((item) =>{
 
       newsData.push(item);

@@ -9,17 +9,17 @@ import { Alert } from 'react-native';
 // const [confirm, setConfirm] = useState('');
  const registerUserHelper = async ({ data, navigation, dispatch }) => {
 
-  console.log('inside register');
+  //console.log('inside register');
     const body = {
       username: data.username,
       email: data.email,
       password: data.password
     };
-    console.log(body)
+   // console.log(body)
     // console.log('data'  , data);
 
     //console.log('data.cno',typeofdata.barCouncilNo);
-    console.log('helper data',data);
+    //console.log('helper data',data);
     var formdata = new FormData();
     formdata.append("firstName", data.firstName); 
     formdata.append("lastName", data.lastName); 
@@ -43,7 +43,7 @@ import { Alert } from 'react-native';
     
     try{const res = await fetch("https://claw-backend.onrender.com/api/v1/user/signup", requestOptions);
     const response = await res.json();
-    console.log('res',response);
+   // console.log('res',response);
     if(response.success){
 
       //storeData()
@@ -61,12 +61,12 @@ import { Alert } from 'react-native';
   
   const phoneVerificationHelper = async({data, navigation, dispatch}) =>{
 
-    console.log('inside phoneverifcation')
+   // console.log('inside phoneverifcation')
     const body = {
      phoneNumber: data.phoneNumber,
       verified: data.verified
     };
-    console.log(body)
+   // console.log(body)
     const headers = { 'Content-Type': 'application/json'};
     const config = { method: 'POST', body: JSON.stringify(body), headers };
     const url = `${verifyUrl}`;
@@ -79,7 +79,7 @@ import { Alert } from 'react-native';
             // storeData('userStatus', 'details_complete');
             storeData('userId',responseJson.data.jwt);
             dispatch(changeVariable('jwtToken',responseJson.data.jwt));
-            console.log('api res', responseJson);
+           // console.log('api res', responseJson);
             console.log("Registration successful");
             if(responseJson.data.registered){
               navigation.navigate('ClientFlow')
@@ -103,9 +103,8 @@ import { Alert } from 'react-native';
 
 const localSigninHelper = async({data,navigation,dispatch}) =>{
 
-  console.log('first')
   const userId = data;
-  console.log('LocalSignin',userId);
+  //console.log('LocalSignin',userId);
 
   if(userId){
     dispatch(changeVariable('jwtToken',userId));

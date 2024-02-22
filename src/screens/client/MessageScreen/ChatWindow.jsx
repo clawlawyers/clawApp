@@ -1,12 +1,8 @@
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity,Image, FlatList, TextInput } from 'react-native'
 import React, {useState, useEffect} from 'react'
-import NewsItem from '../../../components/NewsItem';
-import data from '../../../data/dummy'
 import styles from '../../../styles';
-import Back from '../../../assets/back-icon.png'
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import leftArrow from '../../../assets/leftArrow.png'
-import { verticalScale } from '../../../styles/mixins';
 import firestore from '@react-native-firebase/firestore';
 import GPTSendIcon from '../../../assets/GPTSendIcon.png';
 import { moderateScale } from '../../../styles/mixins';
@@ -55,12 +51,6 @@ const ChatWindow = ({route})=> {
 
     }
 
-    const convertTime = (time) => {
-
-        const newTime = new Date(time);
-        console.log('newTime',newTime)
-        return newTime;
-    }
     useEffect(() =>{
 
         const subscriber = retreiveMessages();

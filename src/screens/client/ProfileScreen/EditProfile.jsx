@@ -43,18 +43,14 @@ const EditProfile = (props) => {
         const uriParts = res.assets[0].uri.split('.');
         const fileType = uriParts[uriParts.length - 1];
         const newImageUri = "file:///" + res.assets[0].uri.split("file:/").join("");
-        // photodet = {
-        //     type: mime.getType(newImageUri),
-        //     name: newImageUri.split("/").pop(),
-        //     uri: newImageUri,
-        // }
+      
         _setPhoto({
             type: mime.getType(newImageUri),
             name: newImageUri.split("/").pop(),
             uri: newImageUri,
         })
         console.log('_photo',_photo);
-        //console.log(photodet);
+      
         _setPhotoPath(res.assets[0].uri);
     }
 

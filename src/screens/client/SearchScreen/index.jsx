@@ -37,7 +37,7 @@ const SearchResultScreen = (props) => {
   {  
     const res = await fetch("https://gpt.clawlaw.in/api/v1/search", requestOptions)
     const responseJson = await res.json();
-    console.log(' response fetchedddd',responseJson);
+    //console.log(' response fetchedddd',responseJson);
 
     let responseList = []
     responseJson.map((item) => {
@@ -61,7 +61,7 @@ const SearchResultScreen = (props) => {
        return subscriber;;
     },[])
 
-    console.log('result lists : ',typeof _ResultList)
+    //console.log('result lists : ',typeof _ResultList)
   return (
     <View style={{paddingHorizontal:moderateScale(20),paddingTop:moderateScale(20)}}>
       <View style={{flexDirection:'row',}}>
