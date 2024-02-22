@@ -35,7 +35,7 @@ const ChatWindow = ({route})=> {
 
     console.log(messageContent);
     const res = await firestore().collection('chats').doc(current_uid+uid).collection('messages').add(messageContent);
-    console.log(res);
+    //console.log(res);
     await firestore().collection('chats').doc(uid+current_uid).collection('messages').add(messageContent);
 
     setMessageText('');
@@ -109,10 +109,10 @@ const ChatWindow = ({route})=> {
                     
                 )}
             />
-            <View style={{borderWidth:1,borderColor:'#8940FF60',borderRadius:10,width:'100%',flexDirection:'row',height:moderateScale(52)}}>
-              <TextInput placeholder='' style={{width:'85%'}} value={messageText} onChangeText={(message) => setMessageText(message)}/>
+            <View style={{borderWidth:1,borderColor:'#8940FF60',borderRadius:10,flexDirection:'row',height:moderateScale(52),marginHorizontal:moderateScale(10)}}>
+              <TextInput placeholder='' style={{width:'83%'}} value={messageText} onChangeText={(message) => setMessageText(message)}/>
               <TouchableOpacity 
-                style={{backgroundColor:'#8940FF',width:'12%',justifyContent:'center',alignItems:'center',borderRadius:10,margin:moderateScale(5)}}
+                style={{backgroundColor:'#8940FF',width:'10%',justifyContent:'center',alignItems:'center',borderRadius:10,margin:moderateScale(5)}}
                 onPress={sendNewMessage}
                 >
                 <Image source={GPTSendIcon} style={{width:moderateScale(15),height:moderateScale(20)}}/>

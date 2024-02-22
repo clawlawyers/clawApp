@@ -27,10 +27,10 @@ const getLawyerProfileHelper = async ({   dispatch }) => {
     try{
         console.log('insid try')
         const response = await fetch("https://claw-backend.onrender.com/api/v1/user/auth/me", requestOptions)
-        console.log(response)
+        //console.log(response)
         const responseJSON = await response.json();
         const lawyerData = responseJSON.data;
-        console.log('lawyerData',lawyerData);
+        //console.log('lawyerData',lawyerData);
         // const name = lawyerData.firstName +' '+ lawyerData.lastName;
         dispatch(changeVariable('firstName',lawyerData.firstName));
         dispatch(changeVariable('lastName',lawyerData.lastName));
@@ -132,7 +132,7 @@ const updateLawyerHelper = ({data, navigation, dispatch}) => {
 
     const myHeaders = new Headers();
     const userToken = 'Bearer ' + data.jwtToken;
-    console.log(formdata,userToken)
+    //console.log(formdata,userToken)
     myHeaders.append("Authorization", userToken);
 
     const requestOptions = {

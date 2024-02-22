@@ -59,7 +59,7 @@ import { Alert } from 'react-native';
      
   };
   
-  const phoneVerificationHelper = async({data, navigation}) =>{
+  const phoneVerificationHelper = async({data, navigation, dispatch}) =>{
 
     console.log('inside phoneverifcation')
     const body = {
@@ -78,7 +78,7 @@ import { Alert } from 'react-native';
           if (responseJson.success) {
             // storeData('userStatus', 'details_complete');
             storeData('userId',responseJson.data.jwt);
-            dispatch('jwtToken',responseJson.data.jwt);
+            dispatch(changeVariable('jwtToken',responseJson.data.jwt));
             console.log('api res', responseJson);
             console.log("Registration successful");
             if(responseJson.data.registered){

@@ -22,7 +22,8 @@ const SearchResultScreen = (props) => {
     myHeaders.append("Content-Type", "application/json");
     
     const raw = JSON.stringify({
-      "search_line": _searchString
+      // "search_line": "i got allergy from a product which was labeled safe"
+      "search_line": searchString
     });
     
     const requestOptions = {
@@ -32,61 +33,75 @@ const SearchResultScreen = (props) => {
       redirect: "follow"
     };
     
-    await fetch("https://gpt.clawlaw.in/api/v1/search", requestOptions)
-      .then((response) => response.text())
-      .then((result) => {
-    
-        console.log('search result : ',result)
-        
-      _setResultList(result);
+  try
+  {  
+    const res = await fetch("https://gpt.clawlaw.in/api/v1/search", requestOptions)
+    const responseJson = await res.json();
+    console.log(' response fetchedddd',responseJson);
+
+    let responseList = []
+    responseJson.map((item) => {
+
+      responseList.push(item);
+
     })
-      .catch((error) => console.error(error));
+
+    _setResultList(responseList);
+   }catch(err){
+
+    console.log('error ouccured during fetching results',err)
+   }
     
     }
 
     useEffect(()=>{
 
-       getSearchResults(searchString);
+       const subscriber = getSearchResults(searchString);
+
+       return subscriber;;
     },[])
 
-    console.log('result lists : ', _ResultList)
+    console.log('result lists : ',typeof _ResultList)
   return (
-    <View style={{flexDirection:'row',paddingHorizontal:moderateScale(20),paddingTop:moderateScale(20)}}>
-      <TouchableOpacity 
-        style={[styles.alignItemsLeft, styles.alignViewCenter,]}
-        onPress={() => navigation.navigate('OnboardingSnippet')}
-      >
-        <Image 
-          source={BackIcon}
-          style={{height:moderateScale(50),width:moderateScale(50)}}
-        />
-      </TouchableOpacity>
-      <View style={[localStyles.searchBar,{flexDirection:'row'}]}>
-        <TouchableOpacity >
+    <View style={{paddingHorizontal:moderateScale(20),paddingTop:moderateScale(20)}}>
+      <View style={{flexDirection:'row',}}>
+        <TouchableOpacity 
+          style={[styles.alignItemsLeft, styles.alignViewCenter,]}
+          onPress={() => navigation.navigate('OnboardingSnippet')}
+        >
           <Image 
-            source={Search}
-            style={styles.searchIcon}
+            source={BackIcon}
+            style={{height:moderateScale(50),width:moderateScale(50)}}
           />
-          </TouchableOpacity>
-            <TextInput
-              placeholder='Search'
-              placeholderTextColor='#999999'
-              style={[ styles.font_19, styles.textBlack, {marginLeft:4,marginBottom:moderateScale(-2),width:'80%'}]}
-              value={_searchString}
-              onChangeText={(search) => _setSearchString(search)}
-              onEndEditing={(_searchString) => getSearchResults(_searchString)}
+        </TouchableOpacity>
+        {/* <View style={[localStyles.searchBar,{flexDirection:'row'}]}>
+          <TouchableOpacity >
+            <Image 
+              source={Search}
+              style={styles.searchIcon}
             />
-                
+            </TouchableOpacity>
+              <TextInput
+                placeholder='Search'
+                placeholderTextColor='#999999'
+                style={[ styles.font_19, styles.textBlack, {marginLeft:4,marginBottom:moderateScale(-2),width:'80%'}]}
+                value={_searchString}
+                onChangeText={(search) => _setSearchString(search)}
+                onEndEditing={(_searchString) => getSearchResults(_searchString)}
+              />
+                  
+        </View> */}
       </View>
-      <ScrollView>
-       {_ResultList.length>0? <View>{_ResultList.map((item) => {
-          return(
-
-            <View key={item._id}>
-              <Text>{item.firstName}</Text>
-            </View>
-          )
-        })}</View>: null}
+      
+      <ScrollView style={{marginTop:moderateScale(10)}}>
+       {_ResultList.length>0? <View>{_ResultList.map((item) =>{
+        return(
+          <View style={{borderWidth:1, paddingVertical:moderateScale(10),paddingHorizontal:moderateScale(15),borderRadius:10,marginVertical:moderateScale(8)}}>
+          <View><Text style={{color:'black'}}>{item.firstName} {item.lastName}</Text></View>
+          <Text style={{color:'grey'}}>{item.state} </Text>
+          </View>
+        )
+       })}</View>: null}
       </ScrollView>
     </View>
   )

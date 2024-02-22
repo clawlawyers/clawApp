@@ -48,7 +48,7 @@ const Onboarding = (props) => {
 
       //console.log('News data @@', newsData[0]);
       setNews(newsData[0]);
-      console.log(news);
+      //console.log(news);
       setIsLoading(false);
     
   }
@@ -57,6 +57,7 @@ const Onboarding = (props) => {
 
     props.getLawyerProfile();
     getNews();
+    _setSearchString('')
     const backAction = () => {
       //Alert.alert('Hold on!', 'Are you sure you want to go back?', [
         

@@ -4,7 +4,7 @@ import messageList from '../../../data/messageList'
 import Search from '../../../assets/search-icon.png'
 import styles from '../../../styles'
 import { moderateScale } from '../../../styles/mixins'
-import ProfileIcon from '../../../assets/stock-photo.png';
+import ProfileIcon from '../../../assets/userIcon.png';
 import {useNavigation, useIsFocused} from '@react-navigation/native'
 import {useSelector} from 'react-redux'
 // const chatMembers = [
@@ -62,7 +62,7 @@ const MessageScreen = () => {
       };
     
     let userList = [];  
-    const response = await fetch("https://claw-backend.onrender.com/api/v1/lawyers", requestOptions)
+    const response = await fetch("https://claw-backend.onrender.com/api/v1/user/list", requestOptions)
     const responseJson = await response.json();
     
     responseJson.data.map((item) => {

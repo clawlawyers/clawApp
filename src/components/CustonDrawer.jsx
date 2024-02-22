@@ -25,10 +25,10 @@ import {useSelector} from 'react-redux';
     const firstName = useSelector(state => state.variables.firstName);
     const lastName = useSelector(state => state.variables.lastName);
     const imageUrl = useSelector(state => state.variables.photo_url);
-    console.log(imageUrl);
+    //console.log(imageUrl);
     const logout = () => {
 
-      console.log(fetchData('userId'));
+      //console.log(fetchData('userId'));
       removeData('userId');
 
       auth().signOut();
