@@ -19,6 +19,9 @@ import auth from '@react-native-firebase/auth';
 import {signOut} from'@react-native-firebase/app'
 import { moderateScale } from '../styles/mixins';
 import {useSelector} from 'react-redux';
+import * as ZIM from 'zego-zim-react-native';
+import * as ZPNs from 'zego-zpns-react-native';
+
   function CustomDrawer(props) {
 
     const navigation = useNavigation();
@@ -26,12 +29,17 @@ import {useSelector} from 'react-redux';
     const lastName = useSelector(state => state.variables.lastName);
     const imageUrl = useSelector(state => state.variables.photo_url);
     //console.log(imageUrl);
+    const onUserLogout = async () => {
+      return ZegoUIKitPrebuiltCallService.uninit()
+    }
     const logout = () => {
 
+      
       //console.log(fetchData('userId'));
       removeData('userId');
-
+      onUserLogout()
       auth().signOut();
+
       navigation.navigate('InitialLandingScreen');
       console.log('logged out');
       console.log(fetchData('userId'));
@@ -43,7 +51,7 @@ import {useSelector} from 'react-redux';
       >
         <View style={{backgroundColor:'#8940ff',marginTop:-4,paddingVertical:20,paddingHorizontal:30}}>
             <Image source={userIcon} style={{height:moderateScale(70),width:moderateScale(70),zIndex:1,position:'absolute',marginTop:moderateScale(50),marginLeft:moderateScale(30)}}/>
-            <Image source={{uri : imageUrl}} style={{height:moderateScale(70),width:moderateScale(70),zIndex:2,position:'absolute',marginTop:moderateScale(50),marginLeft:moderateScale(30)}}/>
+            {/* <Image source={{uri : imageUrl}} style={{height:moderateScale(70),width:moderateScale(70),zIndex:2,position:'absolute',marginTop:moderateScale(50),marginLeft:moderateScale(30)}}/> */}
             <Text style={{color:'white', fontWeight:'bold',fontSize:19,marginTop:moderateScale(100)}}>{firstName} {lastName}</Text>
         </View>
         <DrawerItem 

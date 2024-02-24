@@ -86,10 +86,10 @@ const ProfileScreen = (props) => {
         </View>
         <Text style={{alignSelf:'center',fontSize:12}}>Lawyer</Text>
         {/* Consultation charge */}
-        <View style={{backgroundColor:'#8940FF',padding:6,borderRadius:10,marginTop:20,width:220}}>
-          <Text style={{color:'white'}}>Consultation Charge: Rs.200/hr</Text>
+        <View style={{backgroundColor:'#8940FF',padding:moderateScale(6),borderRadius:10,marginTop:20,width:moderateScale(300)}}>
+          <Text style={{color:'white',fontSize:moderateScale(17)}}>Consultation Charge: Rs.200/hr</Text>
         </View>
-        <View style={{backgroundColor:'#8940FF',padding:6,borderRadius:10,marginTop:5,width:130}}>
+        <View style={{backgroundColor:'#8940FF',padding:6,borderRadius:10,marginTop:5,width:moderateScale(180)}}>
           <Text style={{color:'white'}}>20 Cases solved</Text>
         </View>
 

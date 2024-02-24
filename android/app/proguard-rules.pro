@@ -21,3 +21,6 @@
   **[] $VALUES;
   public *;
 }
+
+-keep class **.zego.**  { *; }
+-keep class **.**.zego_zpns.** { *; }

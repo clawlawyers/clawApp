@@ -1,6 +1,7 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
 import RatingStar from '../assets/RatingStar.png'
+import { moderateScale } from '../styles/mixins'
 
 export default function RatingDetailComponent({ratings}) {
   return (
@@ -23,7 +24,7 @@ export default function RatingDetailComponent({ratings}) {
                 })}
             
             </View>
-            <View style={{justifyContent:'space-between',paddingVertical:5}}>
+            <View style={{justifyContent:'space-between',paddingVertical:5,marginLeft:moderateScale(25)}}>
                 <View style={{alignItems:'flex-start'}}>
                     <View style={{flexDirection:'row',flex:1,justifyContent:'center',marginBottom:5}}>
                         <Text style={{color:'black',fontSize:25}}>4.5 </Text>

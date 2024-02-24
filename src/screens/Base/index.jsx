@@ -22,7 +22,7 @@ import AuthFlow from '../AuthFlow/AuthFlow';
 import styles from '../../styles';
 import MessageScreen from '../client/MessageScreen';
 import ProfileScreen from '../client/ProfileScreen';
-import SignupCilentScreen from '../AuthFlow/SignupClientScreen';
+import { ZegoCallInvitationDialog } from '@zegocloud/zego-uikit-prebuilt-call-rn';
 import ChatWindow from '../client/MessageScreen/ChatWindow';
 import ContactList from '../client/Onboarding/ContactList';
 import ExpandedNewsScreen from '../ExpandedNewsScreen';
@@ -33,7 +33,9 @@ import EditProfile from '../client/ProfileScreen/EditProfile';
 import InitialLandingScreen from './InitialLandingScreen';
 import EditServices from '../client/ProfileScreen/EditServices';
 import SearchResultScreen from '../client/SearchScreen';
-
+import CallScreen from '../client/CallScreen';
+import {ZegoUIKitPrebuiltCallWaitingScreen,
+  ZegoUIKitPrebuiltCallInCallScreen,} from '@zegocloud/zego-uikit-prebuilt-call-rn';
 const Root = createNativeStackNavigator();
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -224,6 +226,26 @@ function UpdateProfile () {
   )
 }
 
+function CallStack () {
+
+  return(
+    <Stack.Navigator>
+      <Stack.Screen
+      options={{ headerShown: false }}
+      // DO NOT change the name 
+      name="ZegoUIKitPrebuiltCallWaitingScreen"
+      component={ZegoUIKitPrebuiltCallWaitingScreen}
+      />
+      <Stack.Screen
+          options={{ headerShown: false }}
+          // DO NOT change the name
+          name="ZegoUIKitPrebuiltCallInCallScreen"
+          component={ZegoUIKitPrebuiltCallInCallScreen}
+      />
+    </Stack.Navigator>
+  )
+}
+
 function ClientFlow(){
   
   return(
@@ -240,6 +262,8 @@ function ClientFlow(){
         <Drawer.Screen component={ChatWindow} name='ChatWindow' options={{headerShown:false}}/>
         <Drawer.Screen component={SearchResultScreen} name='SearchResultScreen' options={{headerShown: false}} />
         <Drawer.Screen component={AppFlow} name='AppFlow' />
+        <Drawer.Screen component={CallScreen} name='CallScreen' options={{headerShown: false}}/>
+        {/* <Drawer.Screen component={CallStack} name='CallStack' /> */}
     </Drawer.Navigator>
     
   )
@@ -251,8 +275,21 @@ function NewsFlow(){
   return(
     <News.Navigator initialRouteName='OnboardingSnippet' screenOptions={{headerShown: false}}>
       <News.Screen component={Onboarding} name="OnboardingSnippet" />
+      
       <News.Screen component={NewsScreen} name="NewsScreen" />
       <News.Screen component={ContactList} name="ContactList" />
+      <News.Screen
+      options={{ headerShown: false }}
+      // DO NOT change the name 
+      name="ZegoUIKitPrebuiltCallWaitingScreen"
+      component={ZegoUIKitPrebuiltCallWaitingScreen}
+      />
+      <News.Screen
+          options={{ headerShown: false }}
+          // DO NOT change the name
+          name="ZegoUIKitPrebuiltCallInCallScreen"
+          component={ZegoUIKitPrebuiltCallInCallScreen}
+      />  
       <News.Screen component={MessageScreen}
       name='MessageScreen' />
       
@@ -296,10 +333,22 @@ function Base() {
  
     return (
        <NavigationContainer screenOptions={{headerShown:false}}>
+        <ZegoCallInvitationDialog />
          <Root.Navigator screenOptions={{ headerShown: false }}>
          <Root.Screen component={AppFlow} name="AppFlow" />
         {/* <Root.Screen component={ExpandedNewsScreen} name="ExpandedNewsScreen" /> */}       
-                 
+        <Root.Screen
+      options={{ headerShown: false }}
+      // DO NOT change the name 
+      name="ZegoUIKitPrebuiltCallWaitingScreen"
+      component={ZegoUIKitPrebuiltCallWaitingScreen}
+      />
+      <Root.Screen
+          options={{ headerShown: false }}
+          // DO NOT change the name
+          name="ZegoUIKitPrebuiltCallInCallScreen"
+          component={ZegoUIKitPrebuiltCallInCallScreen}
+      />       
          </Root.Navigator>
        </NavigationContainer>
     );

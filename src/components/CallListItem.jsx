@@ -7,8 +7,11 @@ import IncomingCall from '../assets/incoming-call.png';
 import OutgoingCall from '../assets/outgoing-call.png';
 import IncomingCallMissed from '../assets/incoming-call-missed.png';
 import { moderateScale, verticalScale } from '../styles/mixins'
-
+import {useNavigation} from '@react-navigation/native'
 const CallListItem = ({index,data}) => {
+
+    const navigation = useNavigation()
+
   return (
     <View style={[ {height: moderateScale(56),  marginVertical: verticalScale(10),borderBottomWidth:1,borderColor:'#0f0f0f10',paddingVertical:10,justifyContent:'space-between',flexDirection:'row',alignItems:'center'}]}>
       <View style={[styles.alignViaRow, styles.alignViewCenter, styles.alignItemsCenter]}>
@@ -66,7 +69,7 @@ const CallListItem = ({index,data}) => {
          {data.date}
         </Text> */}
         {/* info button */}
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('CallScreen')}>
             <Image  
                 source={CallIcon}
                 style={{height:moderateScale(30),width:moderateScale(30)}}

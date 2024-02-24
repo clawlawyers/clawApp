@@ -17,7 +17,7 @@ const ChatWindow = ({route})=> {
     const isFocused = useIsFocused();
     const [messageList, setMessageList] =useState([]);
     const [messageText, setMessageText] = useState('');
-    console.log(current_uid, uid);
+    //console.log(current_uid, uid);
 
     const sendNewMessage = async() => {
         

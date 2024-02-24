@@ -9,8 +9,9 @@ import MessageIcon from '../../../assets/MessageIcon.png'
 import CustomerServiceIcon from '../../../assets/CustomerServiceIcon.png'
 import { BarIndicator } from 'react-native-indicators';
 import { moderateScale } from '../../../styles/mixins';
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 import { getLawyerProfile } from '../../../actions/lawyerProfile';
+import ZegoUIKitPrebuiltCallService from '@zegocloud/zego-uikit-prebuilt-call-rn'
 const Onboarding = (props) => {
 
   const navigation = useNavigation();
@@ -18,7 +19,7 @@ const Onboarding = (props) => {
   const [news, setNews] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [_searchString, _setSearchString] = useState('');
-
+  const state = useSelector(state => state.variables)
   const getNews = async() => {
 
       var myHeaders = new Headers();
@@ -53,10 +54,47 @@ const Onboarding = (props) => {
     
   }
 
+  const onUserLogin = async (userID,fname, lname) => {
+
+    console.log('inside onuserLogin')
+    
+    const name = fname+lname;
+    return ZegoUIKitPrebuiltCallService.init(
+      170557473, // You can get it from ZEGOCLOUD's console
+      'd7a3523f4b160a91a35cc6c8064f689880face4cc34c1270a3812ba1046f5825', // You can get it from ZEGOCLOUD's console
+      userID, // It can be any valid characters, but we recommend using a phone number.
+      fname,
+      [ZIM, ZPNs],
+      {
+          ringtoneConfig: {
+              incomingCallFileName: 'ringtone.mp3',
+              outgoingCallFileName: 'outgoing_ringtone.mp3',
+          },
+          notifyWhenAppRunningInBackgroundOrQuit : true,
+         
+          androidNotificationConfig: {
+              channelID: "voice_call",
+              channelName: "voice_call",
+          },
+  
+          requireConfig : (data) => {
+            return {
+  
+              onHangUp : duration =>{
+                console.log(duration);
+                navigation.navigate('ContactList')
+              }
+            }
+          }
+          
+      });
+  }
+
   useEffect(() => {
 
     props.getLawyerProfile();
     getNews();
+    onUserLogin(state.uid,state.firstName, state.lastName);
     _setSearchString('')
     const backAction = () => {
       //Alert.alert('Hold on!', 'Are you sure you want to go back?', [

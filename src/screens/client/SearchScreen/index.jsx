@@ -58,12 +58,12 @@ const SearchResultScreen = (props) => {
 
        const subscriber = getSearchResults(searchString);
 
-       return subscriber;;
+      //  return subscriber;
     },[])
 
     //console.log('result lists : ',typeof _ResultList)
   return (
-    <View style={{paddingHorizontal:moderateScale(20),paddingTop:moderateScale(20)}}>
+    <View style={{paddingHorizontal:moderateScale(20),paddingTop:moderateScale(20),paddingBottom:moderateScale(60)}}>
       <View style={{flexDirection:'row',}}>
         <TouchableOpacity 
           style={[styles.alignItemsLeft, styles.alignViewCenter,]}

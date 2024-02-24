@@ -7,43 +7,6 @@ import { moderateScale } from '../../../styles/mixins'
 import ProfileIcon from '../../../assets/userIcon.png';
 import {useNavigation, useIsFocused} from '@react-navigation/native'
 import {useSelector} from 'react-redux'
-// const chatMembers = [
-//   {
-//       id: 0,
-//       imageUrl: "https://example.com/image3.jpg",
-//       name: "Alice Smith",
-//       lastActive: "5 minutes ago",
-//       uid : '65cbd5153ca35f1f69e2611b'
-//   },
-//   {
-//       id: 1,
-//       imageUrl: "https://example.com/image4.jpg",
-//       name: "Bob Johnson",
-//       lastActive: "10 minutes ago",
-//       uid : '65c659c3b9090a6548f3d3fd'
-//   },
-//   {
-//       id: 2,
-//       imageUrl: "https://example.com/image5.jpg",
-//       name: "Charlie Brown",
-//       lastActive: "30 minutes ago",
-//       uid : 'temporaryUser3'
-//   },
-//   {
-//       id: 3,
-//       imageUrl: "https://example.com/image6.jpg",
-//       name: "David Williams",
-//       lastActive: "1 hour ago"
-//   },
-//   {
-//       id: 4,
-//       imageUrl: "https://example.com/image7.jpg",
-//       name: "Eve Davis",
-//       lastActive: "2 hours ago"
-//   }
-// ]
-
- 
 
 const MessageScreen = () => {
 
