@@ -11,7 +11,10 @@ const App = () => {
  const store = configureStore({
     reducer: reducers,
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(thunk),
+      getDefaultMiddleware({
+         immutableCheck: false,
+         serializableCheck: false,
+       }).concat(thunk),
  });
  console.log('store',store.getState())
  LogBox.ignoreAllLogs();

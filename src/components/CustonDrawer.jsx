@@ -1,29 +1,27 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native'
+import DrawerItem from './DrawerItem';
 import Robot from '../assets/Robot.png';
-import MenuNewIcon from '../assets/MenuNewsIcon.png';
-import MenuCallIcon from '../assets/MenuCallIcon.png';
-import MenuProfileIcon from '../assets/MenuProfileIcon.png';
-import MenuLogoutIcon from '../assets/MenuLogoutIcon.png';
+import MenuArrowWhite from '../assets/MenuArrowWhite.png';
+import MenuNewsIcon from '../assets/news-icon-unselected.png';
+import MenuCallIcon from '../assets/CallUnselected.png';
+import MenuProfileIcon from '../assets/profile-icon-unselected.png';
+import MenuLogoutIcon from '../assets/MenuLogoutIcon-white.png';
 import userIcon from '../assets/userIcon.png';
-
-import MenuArrow from '../assets/MenuArrow.png';
 import {
     DrawerContentScrollView,
-    DrawerItem
   } from '@react-navigation/drawer';
-import { Image,View,Text, TouchableOpacity } from 'react-native';
+import { Image,View,Text, TouchableOpacity, Dimensions } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { fetchData, removeData } from '../actions/async-storage';
 import auth from '@react-native-firebase/auth';
-import {signOut} from'@react-native-firebase/app'
+import LinearGradient from 'react-native-linear-gradient';
 import { moderateScale } from '../styles/mixins';
 import {useSelector} from 'react-redux';
-import * as ZIM from 'zego-zim-react-native';
-import * as ZPNs from 'zego-zpns-react-native';
-
+import ZegoUIKitPrebuiltCallService from '@zegocloud/zego-uikit-prebuilt-call-rn'
   function CustomDrawer(props) {
 
+    const windowHeight = Dimensions.get('window').height;
     const navigation = useNavigation();
     const firstName = useSelector(state => state.variables.firstName);
     const lastName = useSelector(state => state.variables.lastName);
@@ -47,55 +45,40 @@ import * as ZPNs from 'zego-zpns-react-native';
 
     return (
       <DrawerContentScrollView {...props} 
-        style={{backgroundColor:'#bb91ff', }}
+        style={{  }}
       >
-        <View style={{backgroundColor:'#8940ff',marginTop:-4,paddingVertical:20,paddingHorizontal:30}}>
+         <LinearGradient
+        colors={['#8940FF', '#3C0D89']}
+        start={{x: 0, y: 0}}
+        end={{x: 1, y: 1}}
+        style={{flex: 1,height:windowHeight,marginTop:moderateScale(-5)}}
+      > 
+      <View style={{height:'100%'}}>
+        <View style={{marginTop:-4,paddingVertical:20,paddingHorizontal:30}}>
             <Image source={userIcon} style={{height:moderateScale(70),width:moderateScale(70),zIndex:1,position:'absolute',marginTop:moderateScale(50),marginLeft:moderateScale(30)}}/>
             {/* <Image source={{uri : imageUrl}} style={{height:moderateScale(70),width:moderateScale(70),zIndex:2,position:'absolute',marginTop:moderateScale(50),marginLeft:moderateScale(30)}}/> */}
             <Text style={{color:'white', fontWeight:'bold',fontSize:19,marginTop:moderateScale(100)}}>{firstName} {lastName}</Text>
         </View>
-        <DrawerItem 
-            label='Legal GPT' 
-            onPress={() => navigation.navigate('Legal GPT')}
-            icon={() => <Image source={Robot}/>}
-            labelStyle={styles.labelStyle}
-            style={styles.drawerItemStyle}
-        />
-        <DrawerItem 
-            label='News' 
-            onPress={() => navigation.navigate('News')}
-            icon={() => <Image source={MenuNewIcon} style={styles.drawerIcon}/>}
-            labelStyle={styles.labelStyle}
-            style={styles.drawerItemStyle}
-            
-        />
-        <DrawerItem 
-            label='Calls' 
-            onPress={() => navigation.navigate('ContactList')}
-            icon={() => <Image source={MenuCallIcon} style={styles.drawerIcon}/>}
-            labelStyle={styles.labelStyle}
-            style={styles.drawerItemStyle}
-        />
-        <DrawerItem 
-            label='Account' 
-            onPress={() => navigation.navigate('Account')}
-            icon={() => <Image source={MenuProfileIcon} style={styles.drawerIcon}/>}
-            labelStyle={styles.labelStyle}
-            style={styles.drawerItemStyle}
-            
-        />
-        <DrawerItem 
-            label='Log out' 
-            onPress={logout}
-            icon={() => <Image source={MenuLogoutIcon} style={styles.drawerIcon}/>}
-            labelStyle={styles.labelStyle}
-            style={styles.drawerItemStyle}
-        />
-        {/* <TouchableOpacity>
-          <Image source={MenuLogoutIcon} />
-          <Text>Log out</Text>
-          <Image></Image>
-        </TouchableOpacity>*/}
+       
+        <DrawerItem title='Legal GPT' icon={Robot} screen='Legal GPT'/>
+
+        <DrawerItem title='News' icon={MenuNewsIcon} screen='News'/>
+        
+        <DrawerItem title='Calls' icon={MenuCallIcon} screen='ContactList'/>
+
+        <DrawerItem title='Account' icon={MenuProfileIcon} screen='Account'/>
+
+        <TouchableOpacity 
+        style={styles.drawerItemStyle}
+        onPress={logout}
+        >
+          <Image source={MenuLogoutIcon} style={styles.drawerIcon}/>
+          <Text style={styles.labelStyle}>Log out</Text>
+          <Image source={MenuArrowWhite} style={styles.rightMenuIcon}/>
+        </TouchableOpacity>
+
+        </View>
+        </LinearGradient>
       </DrawerContentScrollView>
     ); 
   }
@@ -105,21 +88,29 @@ import * as ZPNs from 'zego-zpns-react-native';
   const styles = StyleSheet.create({
 
     labelStyle :{
-        fontWeight:'bold',
-        color:'black',
-        fontSize:17
+        fontWeight:'500',
+        color:'white',
+        fontSize:15
     },
     drawerItemStyle:{
         borderBottomWidth:1,
         marginHorizontal:25,
-        paddingVertical:5,
+        borderColor:'#00000045',
+        flexDirection:'row',
+        paddingVertical:moderateScale(13),
+        alignItems:'center',
+        justifyContent:'space-between'
        
     },
 
     drawerIcon:{
-      height:moderateScale(40),
-      width:moderateScale(40),
+      height:moderateScale(30),
+      width:moderateScale(30),
       marginTop:moderateScale(5)
+    },
+
+    rightMenuIcon :{
+      height:moderateScale(18),
     }
 
 

@@ -49,7 +49,7 @@ import { Alert } from 'react-native';
       //storeData()
       storeData('userId',response.data.jwt);
       dispatch('jwtToken',response.data.jwt);
-      navigation.navigate('ClientFlow');
+      navigation.replace('ClientFlow');
     }else{
       Alert.alert('Something went wrong!');
     }
@@ -68,6 +68,7 @@ import { Alert } from 'react-native';
     };
    // console.log(body)
     const headers = { 'Content-Type': 'application/json'};
+
     const config = { method: 'POST', body: JSON.stringify(body), headers };
     const url = `${verifyUrl}`;
 
@@ -108,7 +109,7 @@ const localSigninHelper = async({data,navigation,dispatch}) =>{
 
   if(userId){
     dispatch(changeVariable('jwtToken',userId));
-    navigation.navigate('ClientFlow');
+    navigation.replace('ClientFlow');
   }else{
 
     navigation.navigate('SignupFlow');

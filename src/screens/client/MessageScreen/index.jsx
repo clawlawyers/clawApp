@@ -4,10 +4,10 @@ import messageList from '../../../data/messageList'
 import Search from '../../../assets/search-icon.png'
 import styles from '../../../styles'
 import { moderateScale } from '../../../styles/mixins'
-import ProfileIcon from '../../../assets/userIcon.png';
+import userIcon from '../../../assets/userIcon.png';
 import {useNavigation, useIsFocused} from '@react-navigation/native'
 import {useSelector} from 'react-redux'
-
+import firestore from '@react-native-firebase/firestore'
 const MessageScreen = () => {
 
     const navigation = useNavigation();
@@ -40,11 +40,32 @@ const MessageScreen = () => {
       setChatMembers(userList);
       console.log('chat members', chatMembers);
     }
-  
+
+    const getFirebaseChats = async() => {
+   
+ 
+      const chats = await firestore().collection("chats")
+      .orderBy("latestTimeStamp", "desc").get()
+      .then(querySnapshot => {
+        console.log('Total users: ', querySnapshot.size);
+        const members = []
+        querySnapshot.forEach(documentSnapshot => {
+          console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+          if(documentSnapshot.data().senderID == uid)
+          {
+            members.push(documentSnapshot.data());
+          }
+        });
+        console.log('memberssss',members)
+        setChatMembers(members);
+      });
+    
+      }
+
     useEffect(() => {
 
-      getUsers();
-
+      //getUsers();
+      getFirebaseChats();
     },[isFocused]);
 
   return (
@@ -76,16 +97,16 @@ const MessageScreen = () => {
                   key={item._id}
                   style={{flexDirection:'row',justifyContent:'flex-start',marginBottom:10}} 
                   onPress={()=> navigation.navigate('ChatWindow',{
-                      firstName: item.firstName,
-                      lastName : item.lastName,
-                      photo_url : ProfileIcon,
-                      uid : item._id
+                    receiverName: item.receiverName,
+                    // lastName : item.lastName,
+                    photo_url : userIcon,
+                    uid : item.receiverID
                   })}
                 >
-                  <Image source={ProfileIcon} style={{height:moderateScale(80),width:moderateScale(80)}}/>
+                  <Image source={userIcon} style={{height:moderateScale(80),width:moderateScale(80)}}/>
                   
                   <View style={{justifyContent:'center',marginLeft:moderateScale(22)}}>
-                    <Text style={{fontSize:moderateScale(23),color:'black'}}>{item.firstName} {item.lastName}</Text><Text>{item.lastActive}</Text>
+                    <Text style={{fontSize:moderateScale(23),color:'black'}}>{item.receiverName}</Text><Text>{item.lastActive}</Text>
                   
                   </View>
                   

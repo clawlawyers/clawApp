@@ -2,6 +2,7 @@ import { View, Text, Image,TextInput, TouchableOpacity, ToastAndroid } from 'rea
 import React, { useState,useEffect, useRef } from 'react'
 import styles from '../../styles'
 import BackIcon from '../../assets/back-button.png'
+import OTPGraphic from '../../assets/OTP-security.png';
 import { moderateScale, verticalScale } from '../../styles/mixins'
 import { BarIndicator} from 'react-native-indicators';
 import { validatePhoneNumber} from '../../actions/authentication'
@@ -51,7 +52,6 @@ const SignupClientScreen = (props) => {
                 verified: true
             }
             props.validatePhoneNumber(data,navigation)
-            
             setIsLoading(false);
         }
       }
@@ -144,7 +144,7 @@ const SignupClientScreen = (props) => {
         
         return (
             <View style={{backgroundColor:'white',flex:1,paddingHorizontal:moderateScale(30),paddingTop:moderateScale(20)}}>
-                <View style={[ ]}>
+                {/* <View style={[ ]}>
                     <TouchableOpacity style={[styles.alignItemsLeft, styles.alignViewCenter, ]}
                         onPress={() => navigation.navigate('Auth')}
                     >
@@ -154,25 +154,25 @@ const SignupClientScreen = (props) => {
                         />
                     </TouchableOpacity>
                     
-                </View>
+                </View> */}
               
                 
-                <View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '80%', marginTop: verticalScale(35)}]}>
-                    <Text style={[styles.textBlack, styles.font_50, styles.font_700]}>
-                        Hi!
+                <View style={[styles.alignViewCenter, styles.alignItemsLeft, { marginTop: verticalScale(35),alignItems:'center'}]}>
+                    <Text style={[{color:'#8940FF',fontSize:moderateScale(32),fontWeight:'500',letterSpacing:moderateScale(0)}]}>
+                        Login/Create Account
                     </Text>
-                    <Text style={[styles.font_22, styles.font_med, {color: '#5E5C5C'}]}>
+                    {/* <Text style={[styles.font_22, styles.font_med, {color: '#5E5C5C'}]}>
                         Create a new account to
                     </Text>
                     <Text style={[styles.font_22, styles.font_med, {color: '#8940FF'}]}>
                         Register a CA/Lawyer
-                    </Text>
+                    </Text> */}
                 </View>
         
             
-            <View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '100%', marginTop: verticalScale(50), marginBottom: verticalScale(5)}]}>
-                <Text style={[styles.font_22, styles.font_med, {color: '#5E5C5C'}]}>
-                    Number
+            <View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '100%', marginTop: verticalScale(56), marginBottom: verticalScale(15)}]}>
+                <Text style={[ styles.font_med, {color: '#5E5C5C',fontSize:moderateScale(22)}]}>
+                   Enter your phone number
                 </Text>
             </View>
             <View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '100%',flexDirection:'row',justifyContent:'space-between'}]}>
@@ -187,10 +187,10 @@ const SignupClientScreen = (props) => {
             </View>
            
             <TouchableOpacity 
-                style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter,{alignSelf:'center',marginTop:30}]}
+                style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter,{alignSelf:'center',marginTop:moderateScale(20)}]}
                 onPress={validatePhone}
             >
-               { !isLoading ?<Text style={[styles.font_25, styles.textWhite, styles.font_600]}>
+               { !isLoading ?<Text style={[styles.font_25, styles.textWhite, styles.font_600,{fontWeight:'400'}]}>
                  SIGN UP
                 </Text>:
                 < BarIndicator color='white' size={20}/>}
@@ -204,30 +204,24 @@ const SignupClientScreen = (props) => {
 
         <View style={{backgroundColor:'white',flex:1,paddingHorizontal:moderateScale(30),paddingTop:moderateScale(20)}}>
            
-        <View style={[ {width: '80%'}]}>
-            <TouchableOpacity style={[styles.alignItemsLeft, styles.alignViewCenter, {width: '100%'}]}
-                onPress={() => navigation.navigate('Auth')}
-            >
-                <Image 
-                source={BackIcon}
-                style={{height:moderateScale(50),width:moderateScale(50)}}
-                />
-            </TouchableOpacity>
+        <View style={[ {alignItems:'center',paddingTop:moderateScale(24)}]}>
+            
+            <Image source={OTPGraphic} style={{height:moderateScale(140),width:moderateScale(200)}} />
             
         </View>
       
         
-        <View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '100%', marginTop: verticalScale(35)}]}>
-            <Text style={[styles.textBlack, styles.font_50, styles.font_700]}>
-            Enter OTP
+        <View style={[  {width: '100%', marginTop: verticalScale(15),alignItems:'center',flexDirection:'column'}]}>
+            <Text style={[styles.textBlack, {fontWeight:'bold',fontSize:moderateScale(21)}]}>
+                Enter Verification Code
             </Text>
-            <Text style={[styles.font_22, styles.font_med, {color: '#5E5C5C'}]}>
+            <Text style={[styles.font_22, styles.font_med, {color: '#5E5C5C',textAlign:'center'}]}>
             6 digit code has been send to +91 {_phoneNumber}. <Text style={{textDecorationLine:'underline',color: '#8940FF',fontSize:15,fontWeight:'normal'}} onPress={() => setConfirm('')}>Edit</Text>
             </Text>
             
         </View>
 
-    {!_OTPvisibility ?<View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '100%',flexDirection:'row',marginTop: verticalScale(40),justifyContent:'space-between'}]}>< BarIndicator color='#D9D9D9' size={50}/></View>:<View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '100%',flexDirection:'row',marginTop: verticalScale(40),justifyContent:'space-between'}]}>
+    {!_OTPvisibility ?<View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '100%',flexDirection:'row',marginTop: verticalScale(30),justifyContent:'space-between'}]}>< BarIndicator color='#D9D9D9' size={50}/></View>:<View style={[styles.alignViewCenter, styles.alignItemsLeft, {width: '100%',flexDirection:'row',marginTop: verticalScale(30),justifyContent:'space-between'}]}>
 
         <TextInput 
             value={pinTxt1}
@@ -343,12 +337,12 @@ const SignupClientScreen = (props) => {
 
     </View>
    }
-   <Text style={_timer>0 ?{textDecorationLine:'underline',color: '#8940FF50',fontSize:15,alignSelf:'center',marginTop:10} :{textDecorationLine:'underline',color: '#8940FF',fontSize:15,alignSelf:'center',marginTop:10}} onPress={() => validatePhone()} disabled={_timer>0 || _OTPvisibility==false ? true:false}>Resend OTP { _timer?(_timer):null}</Text>
+   <Text style={_timer>0 ?{textDecorationLine:'underline',color: '#8940FF50',fontSize:15,alignSelf:'center',marginTop:10} :{textDecorationLine:'underline',color: '#8940FF',fontSize:13,alignSelf:'center',marginTop:10}} onPress={() => validatePhone()} disabled={_timer>0 || _OTPvisibility==false ? true:false}>Resend OTP { _timer?(_timer):null}</Text>
     <TouchableOpacity 
             style={[styles.loginButton, styles.alignViewCenter, styles.alignItemsCenter,{alignSelf:'center',marginTop:15}]}
             onPress={handleOTP}
         >
-            { !isLoading ?<Text style={[styles.font_25, styles.textWhite, styles.font_600]}>
+            { !isLoading ?<Text style={[styles.font_25, styles.textWhite,]}>
                     Next
                     </Text>:
                 < BarIndicator color='white' size={20}/>}

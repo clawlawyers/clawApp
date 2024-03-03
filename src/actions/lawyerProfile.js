@@ -1,8 +1,9 @@
 import { fetchData } from "./async-storage";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { changeVariable } from "./variables";
-import{useSelector, useDispatch} from 'react-redux'
-import { useContext } from "react";
+import * as ZIM from 'zego-zim-react-native';
+import * as ZPNs from 'zego-zpns-react-native';
+import ZegoUIKitPrebuiltCallService from '@zegocloud/zego-uikit-prebuilt-call-rn'
 import { ToastAndroid } from "react-native";
 // import { S3 } from 'aws-sdk/dist/aws-sdk-react-native';
 const getLawyerProfileHelper = async ({   dispatch }) => {
@@ -11,7 +12,7 @@ const getLawyerProfileHelper = async ({   dispatch }) => {
     //console.log(userToken);
     const userProfileToken = "Bearer "+userToken;
    // console.log('first',userProfileToken)
-    var myHeaders = new Headers();
+    var myHeaders = new Headers();  
     myHeaders.append("Authorization", userProfileToken);
     
     var requestOptions = {
@@ -32,33 +33,33 @@ const getLawyerProfileHelper = async ({   dispatch }) => {
         dispatch(changeVariable('state',lawyerData.state));
         dispatch(changeVariable('email',lawyerData.email));
 
-    fetch(lawyerData.profilePicture)
-      .then(response => response.blob())
-      .then(blob => {
-        // Convert the blob to a data URL
-        const reader = new FileReader();
-        reader.onload = () => {
-         // console.log(reader.result);
-          dispatch(changeVariable('photo_url',reader.result));
-        };
-        reader.readAsDataURL(blob);
-      })
-      .catch(error => {
-        console.error('Error fetching image:', error);
-      });
+    // fetch(lawyerData.profilePicture)
+    //   .then(response => response.blob())
+    //   .then(blob => {
+    //     // Convert the blob to a data URL
+    //     const reader = new FileReader();
+    //     reader.onload = () => {
+    //      // console.log(reader.result);
+    //       dispatch(changeVariable('photo_url',reader.result));
+    //     };
+    //     reader.readAsDataURL(blob);
+    //   })
+    //   .catch(error => {
+    //     console.error('image:', error);
+    //   });
        
         dispatch(changeVariable('state',lawyerData.state));
         dispatch(changeVariable('gender',lawyerData.gender));
         dispatch(changeVariable('phone_no',lawyerData.phoneNumber));
         dispatch(changeVariable('uid',lawyerData._id));
         dispatch(changeVariable('gender',lawyerData.gender));
-
     }catch(err){
         console.log('error',err);
     }
      
 
 }
+
 
 // const getProfileImage = async(imagePath) =>{
 
@@ -98,6 +99,11 @@ const updateLawyerHelper = ({data, navigation, dispatch}) => {
     }else{
         formdata.append('lastName',data.lastName);
     }
+    if(data.about==''){
+        formdata.append('about','')
+    }else{
+        formdata.append('about',data.about);
+    }
     if(data.email==''){
         formdata.append('email','')
     }else{
@@ -120,11 +126,11 @@ const updateLawyerHelper = ({data, navigation, dispatch}) => {
     formdata.append("barCouncilYear", "2012");
     formdata.append("state", "gujarat");
     formdata.append("city", "ahmedabad");
-    formdata.append("pincode", "12121");
+    formdata.append("pincode", "121212");
 
     const myHeaders = new Headers();
     const userToken = 'Bearer ' + data.jwtToken;
-    //console.log(formdata,userToken)
+    console.log(formdata,userToken)
     myHeaders.append("Authorization", userToken);
 
     const requestOptions = {
@@ -137,7 +143,7 @@ const updateLawyerHelper = ({data, navigation, dispatch}) => {
     fetch("https://claw-backend.onrender.com/api/v1/user/", requestOptions)
     .then((response) => response.json())
     .then((result) => {
-        //console.log('result ::::',result)
+        console.log('result ::::',result)
         ToastAndroid.show('Profile updated succesfully!',ToastAndroid.SHORT);
         navigation.navigate('ProfileScreen');
     })

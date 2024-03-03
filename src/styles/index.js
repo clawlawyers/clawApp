@@ -306,10 +306,9 @@ searchIcon:{
   width: moderateScale(24)
 ,},
 adviceBox:{
-  height: moderateScale(110),
+  height: moderateScale(85),
   width: moderateScale(350),
   borderRadius: moderateScale(15),
-  backgroundColor: colors.primaryColor,
   marginVertical: verticalScale(10),
   padding: moderateScale(10)
 },
@@ -322,8 +321,8 @@ newsBox:{
   marginTop: verticalScale(15)
 },
 caOnboardingImage:{
-  height: moderateScale(115),
-  width: moderateScale(140)
+  height: moderateScale(95),
+  width: moderateScale(120)
 },
 lawyerOnboardingImage:{
   height: moderateScale(110),
@@ -360,7 +359,7 @@ searchBar: {
   width: moderateScale(380),
   backgroundColor: '#E4E3E3',
   borderRadius: moderateScale(10),
-  height: moderateScale(45),
+  height: moderateScale(42),
   marginBottom: moderateScale(10)
 },
 
@@ -384,10 +383,10 @@ callDirection:{
   color: '#8E8E93'
 },
 miniCallIcon:{
-  height: moderateScale(13.65),
-  width: moderateScale(14.2),
+  height: moderateScale(20),
+  width: moderateScale(20),
   resizeMode: 'contain',
-  marginRight: horizontalScale(10),
+  marginRight: horizontalScale(5),
 },
 detailsLogo:{
   height: moderateScale(22),

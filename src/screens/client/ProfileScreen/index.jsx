@@ -171,7 +171,7 @@ const ProfileScreen = (props) => {
 
               {/* Contact Button */}
               <View style={{flexDirection:'row',justifyContent:'space-between',width:'100%',marginBottom:20,marginTop:80}}>
-                <TouchableOpacity style={{backgroundColor:'#8940FF',borderRadius:15,paddingVertical:12,paddingHorizontal:22,flexDirection:'row',justifyContent:'center'}}>
+                {/* <TouchableOpacity style={{backgroundColor:'#8940FF',borderRadius:15,paddingVertical:12,paddingHorizontal:22,flexDirection:'row',justifyContent:'center'}}>
                   <Image source={ProfileMesssageIcon} style={{marginRight:5,marginVertical:2,height:moderateScale(26),width:moderateScale(26)}}/>
                   <Text style={{color:'white',fontSize:17,fontWeight:'400'}}>Message</Text>
                 </TouchableOpacity>
@@ -179,7 +179,7 @@ const ProfileScreen = (props) => {
                 <TouchableOpacity style={{backgroundColor:'#8940FF',borderRadius:15,paddingVertical:12,paddingHorizontal:22,flexDirection:'row',justifyContent:'center'}}>
                   <Image source={CallIcon} style={{marginRight:5,marginVertical:2,height:moderateScale(26),width:moderateScale(26)}}/>
                   <Text style={{color:'white',fontSize:17,fontWeight:'400'}}>Call lawyer</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </View>
               
               

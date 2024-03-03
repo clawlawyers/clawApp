@@ -10,36 +10,52 @@ import {useSelector } from 'react-redux';
 
 const ChatWindow = ({route})=> {
 
-    const {firstName,lastName,uid,photo_url} = route.params;
+    
+    const {receiverName,uid,photo_url} = route.params;
     //console.log(name)
     const navigation = useNavigation();
-    const current_uid = useSelector(state => state.variables.uid);
+    const state = useSelector(state => state.variables);
     const isFocused = useIsFocused();
     const [messageList, setMessageList] =useState([]);
     const [messageText, setMessageText] = useState('');
-    //console.log(current_uid, uid);
+    //console.log(state.uid, uid);
 
     const sendNewMessage = async() => {
         
         const messageContent = {
 
         text : messageText,
-        sender : current_uid,
+        sender : state.uid,
         receiver : uid,
         timeStamp: firestore.FieldValue.serverTimestamp(new Date()) 
     }
 
     console.log(messageContent);
-    const res = await firestore().collection('chats').doc(current_uid+uid).collection('messages').add(messageContent);
-    //console.log(res);
-    await firestore().collection('chats').doc(uid+current_uid).collection('messages').add(messageContent);
+    const res = await firestore().collection('chats').doc(state.uid+uid).collection('messages').add(messageContent);
+    await firestore().collection('chats').doc(state.uid+uid).set({
 
+        senderName : state.firstName+' '+state.lastName,
+        receiverName : receiverName,
+        senderID : state.uid,
+        receiverID : uid,
+        latestTimeStamp : firestore.FieldValue.serverTimestamp(new Date()) 
+    });
+
+    await firestore().collection('chats').doc(uid+state.uid).collection('messages').add(messageContent);
+    await firestore().collection('chats').doc(uid+state.uid).set({
+
+        receiverName : state.firstName+' '+state.lastName,
+        senderName :receiverName,
+        receiverID : state.uid,
+        senderID : uid,
+        latestTimeStamp : firestore.FieldValue.serverTimestamp(new Date()) 
+    });
     setMessageText('');
     }
 
     const retreiveMessages = () => {
 
-        const messages =  firestore().collection('chats').doc(current_uid+uid).collection('messages').orderBy('timeStamp');
+        const messages =  firestore().collection('chats').doc(state.uid+uid).collection('messages').orderBy('timeStamp');
         messages.onSnapshot(querysnapshot => {
 
             const allmessages = querysnapshot.docs.map(item => {
@@ -71,7 +87,7 @@ const ChatWindow = ({route})=> {
                     />
                 </TouchableOpacity>    
                 <Image source={photo_url} style={{height:moderateScale(40),width:moderateScale(40),marginHorizontal:moderateScale(10)}}/>  
-                <Text style={{fontWeight:'bold',color:'black',fontSize:15}}>{firstName} {lastName}</Text>      
+                <Text style={{fontWeight:'bold',color:'black',fontSize:15}}>{receiverName}</Text>      
             </View>
             <FlatList 
                 
@@ -79,17 +95,17 @@ const ChatWindow = ({route})=> {
                 data={messageList}
                 renderItem={({item}) => (
 
-                    <View style={item._data.sender==current_uid ?
+                    <View style={item._data.sender==state.uid ?
                    [localStyles.messageContainerStyle, {alignSelf:'flex-end',backgroundColor:'#8940FF',}]:
-                   [localStyles.messageContainerStyle, {alignSelf:'flex-start',backgroundColor:'white',}]}>
+                   [localStyles.messageContainerStyle, {alignSelf:'flex-start',backgroundColor:'white',borderRightWidth:1,borderBottomWidth:1,borderColor:'#00000015'}]}>
 
-                        <Text style={item._data.sender==current_uid ?
+                        <Text style={item._data.sender==state.uid ?
                         {color:'white'}:
                         {color: 'black'}}>
                             {item._data.text}
 
                         </Text>
-                        <Text style={item._data.sender==current_uid ?
+                        <Text style={item._data.sender==state.uid ?
                         [localStyles.textTimeStyle,{color:'white',}]:
                         [localStyles.textTimeStyle,{color:'black',}]}>
                        {item._data.timeStamp? (item._data.timeStamp.toDate().getHours()):null}: 

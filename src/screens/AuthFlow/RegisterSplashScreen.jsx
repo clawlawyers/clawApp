@@ -9,7 +9,7 @@ export default function RegisterSplashScreen() {
 
   const redirect = () => {
     
-    navigation.navigate('ClientFlow');
+    navigation.replace('ClientFlow');
   }
 
   useEffect(() => {

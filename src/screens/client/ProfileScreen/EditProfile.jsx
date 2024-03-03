@@ -6,8 +6,7 @@ import { services } from '../../../data/services'
 import background from '../../../assets/background.jpg'
 import YellowStar from '../../../assets/YellowStar.png';
 import PieChart from 'react-native-pie-chart'
-// import Back from '../../../assets/back-icon.png'
-import NameEditIcon from '../../../assets/NameEditIcon.png';
+import BackIcon from '../../../assets/back-button.png'
 import SampleProfileImage from '../../../assets/userIcon.png';
 import {useNavigation} from '@react-navigation/native'
 import { moderateScale } from '../../../styles/mixins'
@@ -22,6 +21,7 @@ const EditProfile = (props) => {
     const [_firstName, _setFirstName] = useState('')
     const [_lastName, _setLastName] = useState('');
     const [_email, _setEmail] = useState('');
+    const [_about, _setAbout] = useState('');
     const [_photo, _setPhoto] = useState({});
     const  [_photoPath, _setPhotoPath] = useState('');
 
@@ -60,6 +60,7 @@ const EditProfile = (props) => {
             firstName: _firstName,
             lastName : _lastName,
             email : _email,
+            about : _about,
             photo : _photo,
             jwtToken : jwtToken 
         }
@@ -76,6 +77,16 @@ const EditProfile = (props) => {
         resizeMode='cover'
         style={{justifyContent: 'flex-end', alignItems: 'center', height: 200,borderBottomRightRadius:20,borderBottomLeftRadius:20}}
       >
+        <TouchableOpacity 
+        style={{alignSelf:'flex-start',top:moderateScale(-90),marginLeft:moderateScale(15)}}
+        onPress={() => navigation.navigate('ProfileScreen')}
+        >
+            <Image 
+            source={BackIcon}
+            style={{height:moderateScale(50),width:moderateScale(50)}}
+            />
+        </TouchableOpacity> 
+    
         {/* <TouchableOpacity style={{flexDirection:'row',backgroundColor:'#8940FF',paddingHorizontal:12,paddingVertical:5,borderRadius:10,alignSelf:'flex-start',bottom:moderateScale(-45)}}>
             <Image source={require('../../../assets/EditBannerIcon.png')} style={{marginVertical:3,marginRight:5}} />
             <Text style={{color:'white',fontSize:moderateScale(15)}}>Edit Banner</Text>
@@ -155,6 +166,8 @@ const EditProfile = (props) => {
         <TextInput 
             placeholder='...' 
             style={[styles2.profileTextInput,{height:150}]} 
+            value={_about}
+            onChangeText={(_about) => _setAbout(_about)}
         />
 
     </View>

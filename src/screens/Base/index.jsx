@@ -16,6 +16,7 @@ import CallUnselected from '../../assets/CallUnselected.png'
 import CallSelected from '../../assets/CallSelected.png'
 import ProfileUnSelected from '../../assets/profile-icon-unselected.png'
 import ProfileSelected from '../../assets/profile-icon-selected.png'
+import LinearGradient from 'react-native-linear-gradient'
 import RegisterSplashScreen from '../AuthFlow/RegisterSplashScreen';
 import SignupLawyerScreen from '../AuthFlow/SignupLawyerScreen';
 import AuthFlow from '../AuthFlow/AuthFlow';
@@ -58,10 +59,20 @@ function ClientTabNavigator  () {
           tabBarLabel: "",
           tabBarHideOnKeyboard: true,
           tabBarStyle:{
-            backgroundColor: '#8940FF',
+            // backgroundColor: '#8940FF',
             borderTopWidth: 0,
+            position:'absolute'
           },
-          
+          tabBarBackground: () => (
+            <View style={{ flex: 1 }}>
+              <LinearGradient
+                // start={{ x: 0, y: 0 }}
+                // end={{ x: 1, y: 0 }}
+                colors={['#8940FF', '#5B10D6']}
+                style={{ flex:1 }}
+              />
+            </View>
+          ),
           tabBarIcon: ({focused}) =>{
             return(
               focused ? (<Image 
@@ -86,7 +97,7 @@ function ClientTabNavigator  () {
             headerShown: false,
             tabBarLabel: "",
             tabBarStyle:{
-              backgroundColor: '#8940FF',
+              // backgroundColor: '#8940FF',
               borderTopWidth: 0,
             },
             tabBarIcon: ({focused}) =>{
@@ -114,7 +125,7 @@ function ClientTabNavigator  () {
             headerShown: false,
             tabBarLabel: "",
             tabBarStyle:{
-              backgroundColor: '#8940FF',
+              // backgroundColor: '#8940FF',
               borderTopWidth: 0,
             },
             tabBarIcon: ({focused}) =>{
@@ -141,7 +152,7 @@ function ClientTabNavigator  () {
             headerShown: false,
             tabBarLabel: "",
             tabBarStyle:{
-              backgroundColor: '#8940FF',
+              // backgroundColor: '#8940FF',
               borderTopWidth: 0,
             },
             tabBarIcon: ({focused}) =>{
@@ -168,7 +179,7 @@ function ClientTabNavigator  () {
             headerShown: false,
             tabBarLabel: "",
             tabBarStyle:{
-              backgroundColor: '#8940FF',
+              // backgroundColor: '#8940FF',
               borderTopWidth: 0,
             },
             tabBarIcon: ({focused}) =>{
@@ -323,7 +334,18 @@ function AppFlow () {
       <AppStack.Screen  component={InitialLandingScreen} name='InitialLandingScreen'/>
       <AppStack.Screen component={SignupFlow} name='SignupFlow' />
       <AppStack.Screen component={ClientFlow} name='ClientFlow' />
-
+      {/* <AppStack.Screen
+      options={{ headerShown: false }}
+      // DO NOT change the name 
+      name="ZegoUIKitPrebuiltCallWaitingScreen"
+      component={ZegoUIKitPrebuiltCallWaitingScreen}
+      />
+      <AppStack.Screen
+          options={{ headerShown: false }}
+          // DO NOT change the name
+          name="ZegoUIKitPrebuiltCallInCallScreen"
+          component={ZegoUIKitPrebuiltCallInCallScreen}
+      />        */}
     </AppStack.Navigator>
   )
 }
@@ -337,7 +359,7 @@ function Base() {
          <Root.Navigator screenOptions={{ headerShown: false }}>
          <Root.Screen component={AppFlow} name="AppFlow" />
         {/* <Root.Screen component={ExpandedNewsScreen} name="ExpandedNewsScreen" /> */}       
-        <Root.Screen
+        {/* <Root.Screen
       options={{ headerShown: false }}
       // DO NOT change the name 
       name="ZegoUIKitPrebuiltCallWaitingScreen"
@@ -348,7 +370,7 @@ function Base() {
           // DO NOT change the name
           name="ZegoUIKitPrebuiltCallInCallScreen"
           component={ZegoUIKitPrebuiltCallInCallScreen}
-      />       
+      />        */}
          </Root.Navigator>
        </NavigationContainer>
     );
